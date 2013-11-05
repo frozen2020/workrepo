@@ -1,0 +1,245 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AC	.\STC_NEW_8051.H	/^sbit AC  = PSW^6;$/;"	v
+ACC	.\STC_NEW_8051.H	/^sfr ACC  = 0xE0; \/\/Accumulator                                                              0000,0000$/;"	v
+ADC_CONTR	.\STC_NEW_8051.H	/^sfr ADC_CONTR = 0xBC; \/\/A\/D 转换控制寄存器 ADC_POWER SPEED1 SPEED0 ADC_FLAG ADC_START CHS2 CHS1 CHS0 0000,0000$/;"	v
+ADC_FLAG	.\STC_NEW_8051.H	298;"	d
+ADC_POWER	.\STC_NEW_8051.H	297;"	d
+ADC_RES	.\STC_NEW_8051.H	/^sfr ADC_RES  = 0xBD;  \/\/A\/D 转换结果高8位 ADCV.9 ADCV.8 ADCV.7 ADCV.6 ADCV.5 ADCV.4 ADCV.3 ADCV.2	 0000,0000$/;"	v
+ADC_RESL	.\STC_NEW_8051.H	/^sfr ADC_RESL = 0xBE;  \/\/A\/D 转换结果低2位                                           ADCV.1 ADCV.0	 0000,0000$/;"	v
+ADC_SPEEDH	.\STC_NEW_8051.H	302;"	d
+ADC_SPEEDHH	.\STC_NEW_8051.H	303;"	d
+ADC_SPEEDL	.\STC_NEW_8051.H	301;"	d
+ADC_SPEEDLL	.\STC_NEW_8051.H	300;"	d
+ADC_START	.\STC_NEW_8051.H	299;"	d
+ADIN	.\dualdriver.C	/^sbit ADIN=P1^5;                      \/\/AD串行数据输入$/;"	v
+AD_Convert	.\dualdriver.C	/^uint AD_Convert(uchar Channel)$/;"	f
+AD_code	.\dualdriver.C	/^uint   idata AD_code;$/;"	v
+AD_inbuf	.\dualdriver.C	/^uint   idata AD_inbuf[10];           \/\/AD采集数据$/;"	v
+AUXR	.\STC_NEW_8051.H	/^sfr AUXR  = 0x8E; \/\/Auxiliary Register  T0x12 T1x12 UART_M0x6 BRTR S2SMOD BRTx12 EXTRAM S1BRS  0000,0000$/;"	v
+AUXR1	.\STC_NEW_8051.H	/^sfr AUXR1 = 0xA2; \/\/Auxiliary Register 1  -  PCA_P4  SPI_P4  S2_P4  GF2    ADRJ   -    DPS  0000,0000$/;"	v
+B	.\STC_NEW_8051.H	/^sfr B    = 0xF0; \/\/B Register                                                               0000,0000$/;"	v
+BRT	.\STC_NEW_8051.H	/^sfr BRT = 0x9C; \/\/S2 Baud-Rate Timer                                                    0000,0000$/;"	v
+BUS_SPEED	.\STC_NEW_8051.H	/^sfr BUS_SPEED = 0xA1; \/\/Stretch register      -     -    ALES1   ALES0   -   RWS2  RWS1  RWS0 xx10,x011$/;"	v
+BYTE	.\dualdriver.C	/^typedef unsigned char BYTE;$/;"	t	file:
+CCAP0H	.\STC_NEW_8051.H	/^sfr CCAP0H = 0xFA; \/\/PCA 模块 0 的捕捉\/比较寄存器高 8 位。                                    0000,0000$/;"	v
+CCAP0L	.\STC_NEW_8051.H	/^sfr CCAP0L = 0xEA; \/\/PCA 模块 0 的捕捉\/比较寄存器低 8 位。                                    0000,0000$/;"	v
+CCAP1H	.\STC_NEW_8051.H	/^sfr CCAP1H = 0xFB; \/\/PCA 模块 1 的捕捉\/比较寄存器高 8 位。                                    0000,0000$/;"	v
+CCAP1L	.\STC_NEW_8051.H	/^sfr CCAP1L = 0xEB; \/\/PCA 模块 1 的捕捉\/比较寄存器低 8 位。                                    0000,0000$/;"	v
+CCAPM0	.\STC_NEW_8051.H	/^sfr CCAPM0 = 0xDA; \/\/PCA 模块0 PWM 寄存器  -   ECOM0  CAPP0  CAPN0  MAT0  TOG0  PWM0  ECCF0   x000,0000$/;"	v
+CCAPM1	.\STC_NEW_8051.H	/^sfr CCAPM1 = 0xDB; \/\/PCA 模块1 PWM 寄存器  -   ECOM1  CAPP1  CAPN1  MAT1  TOG1  PWM1  ECCF1   x000,0000$/;"	v
+CCF0	.\STC_NEW_8051.H	/^sbit CCF0   = CCON^0; \/\/PCA 模块0 中断标志, 由硬件置位, 必须由软件清0。$/;"	v
+CCF1	.\STC_NEW_8051.H	/^sbit CCF1   = CCON^1; \/\/PCA 模块1 中断标志, 由硬件置位, 必须由软件清0。$/;"	v
+CCON	.\STC_NEW_8051.H	/^sfr CCON   = 0xD8;   \/\/PCA 控制寄存器。    CF    CR    -     -     -     -    CCF1  CCF0   00xx,xx00$/;"	v
+CF	.\STC_NEW_8051.H	/^sbit CF     = CCON^7; \/\/PCA计数器溢出标志,由硬件或软件置位,必须由软件清0。$/;"	v
+CH	.\STC_NEW_8051.H	/^sfr CH     = 0xF9; \/\/PCA 计数器高位                                                        0000,0000$/;"	v
+CL	.\STC_NEW_8051.H	/^sfr CL     = 0xE9; \/\/PCA 计数器低位                                                        0000,0000$/;"	v
+CLK_DIV	.\STC_NEW_8051.H	/^sfr CLK_DIV = 0x97; \/\/Clock Divder          -     -      -       -     -  CLKS2 CLKS1 CLKS0 xxxx,x000$/;"	v
+CMOD	.\STC_NEW_8051.H	/^sfr CMOD  = 0xD9; \/\/PCA 工作模式寄存器。   CIDL   -     -     -   CPS2   CPS1  CPS0  ECF   0xxx,x000$/;"	v
+CONT_MOD	.\dualdriver.C	/^sbit CONT_MOD=P4^3;                  \/\/控制模式识别，1为APC，0为ACC$/;"	v
+CR	.\STC_NEW_8051.H	/^sbit CR     = CCON^6; \/\/1:允许 PCA 计数器计数, 必须由软件清0。$/;"	v
+CSAD	.\dualdriver.C	/^sbit CSAD=P2^4;                      \/\/AD选通信号，L－选通$/;"	v
+CSDA	.\dualdriver.C	/^sbit CSDA=P4^0;                      \/\/DA选通信号$/;"	v
+CY	.\STC_NEW_8051.H	/^sbit CY  = PSW^7;$/;"	v
+DA_Convert	.\dualdriver.C	/^void DA_Convert(uchar Channel, uint Dcode)$/;"	f
+DCLK	.\dualdriver.C	/^sbit DCLK=P1^7;                      \/\/AD时钟信号$/;"	v
+DINDA	.\dualdriver.C	/^sbit DINDA=P2^1;                     \/\/DA串行数据输入$/;"	v
+DOUT	.\dualdriver.C	/^sbit DOUT=P1^6;                      \/\/AD串行输出$/;"	v
+DPH	.\STC_NEW_8051.H	/^sfr DPH  = 0x83; \/\/Data Pointer High Byte                                                   0000,0000$/;"	v
+DPL	.\STC_NEW_8051.H	/^sfr DPL  = 0x82; \/\/Data Pointer Low Byte                                                    0000,0000$/;"	v
+Diode_curent_Check	.\dualdriver.C	/^void Diode_curent_Check()$/;"	f
+Diode_parameter1	.\dualdriver.C	/^uchar idata  Diode_parameter1[6];$/;"	v
+Diode_parameter2	.\dualdriver.C	/^uchar idata  Diode_parameter2[6];$/;"	v
+EA	.\STC_NEW_8051.H	/^sbit EA       = IE^7;$/;"	v
+EADC	.\STC_NEW_8051.H	/^sbit EADC     = IE^5; \/\/ADC 中断允许位$/;"	v
+ELVD	.\STC_NEW_8051.H	/^sbit ELVD     = IE^6; \/\/低压监测中断允许位$/;"	v
+ENAB	.\dualdriver.C	/^sbit ENAB=P4^4;                      \/\/LCD使能信号，下降沿$/;"	v
+ES	.\STC_NEW_8051.H	/^sbit ES       = IE^4;$/;"	v
+ET0	.\STC_NEW_8051.H	/^sbit ET0      = IE^1;$/;"	v
+ET1	.\STC_NEW_8051.H	/^sbit ET1      = IE^3;$/;"	v
+EX0	.\STC_NEW_8051.H	/^sbit EX0      = IE^0;$/;"	v
+EX1	.\STC_NEW_8051.H	/^sbit EX1      = IE^2;$/;"	v
+Error_Process	.\dualdriver.C	/^void Error_Process()$/;"	f
+F0	.\STC_NEW_8051.H	/^sbit F0  = PSW^5;$/;"	v
+FS	.\dualdriver.C	/^sbit FS=P3^7;                        \/\/DA帧信号$/;"	v
+IAP_ADDRH	.\STC_NEW_8051.H	/^sfr IAP_ADDRH   = 0xC3;$/;"	v
+IAP_ADDRL	.\STC_NEW_8051.H	/^sfr IAP_ADDRL   = 0xC4;$/;"	v
+IAP_CMD	.\STC_NEW_8051.H	/^sfr IAP_CMD     = 0xC5; \/\/IAP Mode Table          0    -    -      -    -    -   MS1   MS0   0xxx,xx00$/;"	v
+IAP_CONTR	.\STC_NEW_8051.H	/^sfr IAP_CONTR   = 0xC7; \/\/IAP Control Register  IAPEN SWBS SWRST CFAIL  -   WT2  WT1   WT0   0000,x000$/;"	v
+IAP_DATA	.\STC_NEW_8051.H	/^sfr IAP_DATA    = 0xC2;$/;"	v
+IAP_TRIG	.\STC_NEW_8051.H	/^sfr IAP_TRIG    = 0xC6;$/;"	v
+IE	.\STC_NEW_8051.H	/^sfr IE      = 0xA8;  \/\/中断控制寄存器        EA  ELVD  EADC   ES   ET1  EX1  ET0  EX0  0x00,0000$/;"	v
+IE0	.\STC_NEW_8051.H	/^sbit IE0 = TCON^1;$/;"	v
+IE1	.\STC_NEW_8051.H	/^sbit IE1 = TCON^3;$/;"	v
+IE2	.\STC_NEW_8051.H	/^sfr IE2       = 0xAF;  \/\/Auxiliary Interrupt   -     -     -    -     -    -  ESPI  ES2  0000,0000B$/;"	v
+INBUF_LEN	.\dualdriver.C	14;"	d	file:
+IP	.\STC_NEW_8051.H	/^sfr IP      = 0xB8; \/\/中断优先级低位      PPCA  PLVD  PADC  PS   PT1  PX1  PT0  PX0   0000,0000$/;"	v
+IP2	.\STC_NEW_8051.H	/^sfr IP2   = 0xB5; \/\/                       -      -      -     -     -     -   PSPI   PS2   xxxx,xx00$/;"	v
+IPH	.\STC_NEW_8051.H	/^sfr IPH   = 0xB7; \/\/中断优先级高位       PPCAH  PLVDH  PADCH  PSH  PT1H  PX1H  PT0H  PX0H   0000,0000$/;"	v
+IPH2	.\STC_NEW_8051.H	/^sfr IPH2  = 0xB6; \/\/                       -      -      -     -     -     -   PSPIH  PS2H  xxxx,xx00$/;"	v
+IT0	.\STC_NEW_8051.H	/^sbit IT0 = TCON^0;$/;"	v
+IT1	.\STC_NEW_8051.H	/^sbit IT1 = TCON^2;$/;"	v
+KEYB	.\dualdriver.C	/^sbit KEYB=P1^0;                      \/\/3键盘输入（模拟量）$/;"	v
+Key_Button	.\dualdriver.C	/^void Key_Button()$/;"	f
+Key_V	.\dualdriver.C	/^uint   idata Key_V;                         \/\/按键电压$/;"	v
+LCD_BUSY	.\dualdriver.C	/^sbit LCD_BUSY=P0^7;$/;"	v
+LDAC	.\dualdriver.C	/^sbit LDAC=P2^2;                      \/\/DA装载信号$/;"	v
+LIM1	.\dualdriver.C	/^sbit LIM1=P3^5;                      \/\/激光二极管过流中断信号$/;"	v
+LIM2	.\dualdriver.C	/^sbit LIM2=P2^5;                      \/\/激光二极管过流中断信号$/;"	v
+Laser_Fed_curent1	.\dualdriver.C	/^uint   idata Laser_Fed_curent1;             \/\/实际种子源激光二极管电流值$/;"	v
+Laser_Fed_curent2	.\dualdriver.C	/^uint   idata Laser_Fed_curent2;             \/\/实际放大级激光二极管电流值$/;"	v
+Laser_Fed_power1	.\dualdriver.C	/^uint   idata Laser_Fed_power1;             \/\/种子源实际激光功率$/;"	v
+Laser_Fed_power2	.\dualdriver.C	/^uint   idata Laser_Fed_power2;             \/\/放大级实际激光功率$/;"	v
+Laser_Set_curent1	.\dualdriver.C	/^uint   idata Laser_Set_curent1;             \/\/设定种子源激光二极管电流值$/;"	v
+Laser_Set_curent2	.\dualdriver.C	/^uint   idata Laser_Set_curent2;             \/\/设定放大级激光二极管电流值$/;"	v
+Laser_Set_power1	.\dualdriver.C	/^uint   idata Laser_Set_power1;             \/\/设定种子源激光功率$/;"	v
+Laser_Set_power2	.\dualdriver.C	/^uint   idata Laser_Set_power2;             \/\/设定放大级激光功率$/;"	v
+Laser_meds_curent1	.\dualdriver.C	/^uint   idata Laser_meds_curent1;            \/\/种子源中间设定电流$/;"	v
+Laser_meds_curent2	.\dualdriver.C	/^uint   idata Laser_meds_curent2;            \/\/放大级中间设定电流$/;"	v
+Laser_meds_power1	.\dualdriver.C	/^uint   idata Laser_meds_power1;            \/\/种子源中间设定功率$/;"	v
+Laser_meds_power2	.\dualdriver.C	/^uint   idata Laser_meds_power2;            \/\/放大级中间设定功率$/;"	v
+Laser_power_Check	.\dualdriver.C	/^void Laser_power_Check()$/;"	f
+Lcd_disp	.\dualdriver.C	/^void Lcd_disp()$/;"	f
+MCU_ADC	.\dualdriver.C	/^ void MCU_ADC(BYTE CHN)$/;"	f
+MCU_AD_code	.\dualdriver.C	/^uint   idata MCU_AD_code;$/;"	v
+OV	.\STC_NEW_8051.H	/^sbit OV  = PSW^2;$/;"	v
+P	.\STC_NEW_8051.H	/^sbit P   = PSW^0;$/;"	v
+P0	.\STC_NEW_8051.H	/^sfr P0   = 0x80; \/\/8 bitPort0          P0.7  P0.6  P0.5  P0.4  P0.3  P0.2  P0.1  P0.0       1111,1111$/;"	v
+P0M0	.\STC_NEW_8051.H	/^sfr P0M0 = 0x94; \/\/                                                                         0000,0000$/;"	v
+P0M1	.\STC_NEW_8051.H	/^sfr P0M1 = 0x93; \/\/                                                                         0000,0000$/;"	v
+P1	.\STC_NEW_8051.H	/^sfr P1   = 0x90; \/\/8 bitPort1          P1.7  P1.6  P1.5  P1.4  P1.3  P1.2  P1.1  P1.0       1111,1111$/;"	v
+P1ASF	.\STC_NEW_8051.H	/^sfr P1ASF = 0x9D; \/\/P1 analog special function$/;"	v
+P1M0	.\STC_NEW_8051.H	/^sfr P1M0 = 0x92; \/\/                                                                         0000,0000$/;"	v
+P1M1	.\STC_NEW_8051.H	/^sfr P1M1 = 0x91; \/\/                                                                         0000,0000$/;"	v
+P2	.\STC_NEW_8051.H	/^sfr P2   = 0xA0; \/\/8 bitPort2          P2.7  P2.6  P2.5  P2.4  P2.3  P2.2  P2.1  P2.0       1111,1111$/;"	v
+P2M0	.\STC_NEW_8051.H	/^sfr P2M0 = 0x96; \/\/                                                                         0000,0000$/;"	v
+P2M1	.\STC_NEW_8051.H	/^sfr P2M1 = 0x95; \/\/                                                                         0000,0000$/;"	v
+P3	.\STC_NEW_8051.H	/^sfr P3   = 0xB0; \/\/8 bitPort3          P3.7  P3.6  P3.5  P3.4  P3.3  P3.2  P3.1  P3.0       1111,1111$/;"	v
+P3M0	.\STC_NEW_8051.H	/^sfr P3M0 = 0xB2; \/\/                                                                         0000,0000$/;"	v
+P3M1	.\STC_NEW_8051.H	/^sfr P3M1 = 0xB1; \/\/                                                                         0000,0000$/;"	v
+P4	.\STC_NEW_8051.H	/^sfr P4   = 0xC0; \/\/8 bitPort4          P4.7  P4.6  P4.5  P4.4  P4.3  P4.2  P4.1  P4.0       1111,1111$/;"	v
+P4M0	.\STC_NEW_8051.H	/^sfr P4M0 = 0xB4; \/\/                                                                         0000,0000$/;"	v
+P4M1	.\STC_NEW_8051.H	/^sfr P4M1 = 0xB3; \/\/                                                                         0000,0000$/;"	v
+P4SW	.\STC_NEW_8051.H	/^sfr P4SW = 0xBB; \/\/Port-4 switch	    -   LVD_P4.6  ALE_P4.5  NA_P4.4   -     -     -     -	    x000,xxxx$/;"	v
+P5	.\STC_NEW_8051.H	/^sfr P5   = 0xC8; \/\/8 bitPort5           -     -       -      -    P5.3  P5.2  P5.1  P5.0    xxxx,1111$/;"	v
+P5M0	.\STC_NEW_8051.H	/^sfr P5M0 = 0xCA; \/\/                                                                         0000,0000$/;"	v
+P5M1	.\STC_NEW_8051.H	/^sfr P5M1 = 0xC9; \/\/                                                                         0000,0000$/;"	v
+PADC	.\STC_NEW_8051.H	/^sbit PADC     = IP^5;  \/\/ADC 中断优先级$/;"	v
+PCA_PWM0	.\STC_NEW_8051.H	/^sfr PCA_PWM0 = 0xF2; \/\/PCA 模块0 PWM 寄存器。            -   -   -   -   -   -  EPC0H EPC0L   xxxx,xx00$/;"	v
+PCA_PWM1	.\STC_NEW_8051.H	/^sfr PCA_PWM1 = 0xF3; \/\/PCA 模块1 PWM 寄存器。            -   -   -   -   -   -  EPC1H EPC1L   xxxx,xx00$/;"	v
+PCON	.\STC_NEW_8051.H	/^sfr PCON   = 0x87; \/\/Power Control        SMOD  SMOD0  LVDF  POF   GF1    GF0   PD   IDL    0001,0000$/;"	v
+PDiode_V1	.\dualdriver.C	/^uint   idata PDiode_V1;                     \/\/监测种子源电流二极管反馈电压$/;"	v
+PDiode_V2	.\dualdriver.C	/^uint   idata PDiode_V2;                     \/\/监测放大级电流二极管反馈电压$/;"	v
+PLVD	.\STC_NEW_8051.H	/^sbit PLVD     = IP^6;  \/\/低压监测中断优先级$/;"	v
+PPCA	.\STC_NEW_8051.H	/^sbit PPCA     = IP^7;  \/\/PCA 模块中断优先级$/;"	v
+PS	.\STC_NEW_8051.H	/^sbit PS       = IP^4;$/;"	v
+PSW	.\STC_NEW_8051.H	/^sfr PSW  = 0xD0; \/\/Program Status Word      CY    AC    F0    RS1   RS0    OV    F1    P    0000,0000$/;"	v
+PT0	.\STC_NEW_8051.H	/^sbit PT0      = IP^1;$/;"	v
+PT1	.\STC_NEW_8051.H	/^sbit PT1      = IP^3;$/;"	v
+PX0	.\STC_NEW_8051.H	/^sbit PX0      = IP^0;$/;"	v
+PX1	.\STC_NEW_8051.H	/^sbit PX1      = IP^2;$/;"	v
+Pdiod_V_Check	.\dualdriver.C	/^void Pdiod_V_Check()$/;"	f
+Power_parameter1	.\dualdriver.C	/^uchar idata  Power_parameter1[6];$/;"	v
+Power_parameter2	.\dualdriver.C	/^uchar idata  Power_parameter2[6];$/;"	v
+Pwm_Set	.\dualdriver.C	/^void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)$/;"	f
+RB8	.\STC_NEW_8051.H	/^sbit RB8 = SCON^2;$/;"	v
+REN	.\STC_NEW_8051.H	/^sbit REN = SCON^4;$/;"	v
+RI	.\STC_NEW_8051.H	/^sbit RI  = SCON^0;$/;"	v
+RS	.\dualdriver.C	/^sbit RS=P4^1;                        \/\/LCD选通信号 ，H－date，L－instruction$/;"	v
+RS0	.\STC_NEW_8051.H	/^sbit RS0 = PSW^3;$/;"	v
+RS1	.\STC_NEW_8051.H	/^sbit RS1 = PSW^4;$/;"	v
+RW	.\dualdriver.C	/^sbit RW=P4^5;                        \/\/LCD读写信号，H－read，L－write$/;"	v
+S2BUF	.\STC_NEW_8051.H	/^sfr S2BUF = 0x9B; \/\/S2 Serial Buffer                                                      xxxx,xxxx$/;"	v
+S2CON	.\STC_NEW_8051.H	/^sfr S2CON = 0x9A; \/\/S2 Control  S2SM0  S2SM1  S2SM2  S2REN  S2TB8  S2RB8  S2TI  S2RI      00000000B$/;"	v
+SADDR	.\STC_NEW_8051.H	/^sfr SADDR = 0xA9; \/\/Slave Address                                                         0000,0000$/;"	v
+SADEN	.\STC_NEW_8051.H	/^sfr SADEN = 0xB9; \/\/Slave Address Mask                                                    0000,0000$/;"	v
+SBUF	.\STC_NEW_8051.H	/^sfr SBUF = 0x99; \/\/Serial Data Buffer                                                     xxxx,xxxx$/;"	v
+SCLK	.\dualdriver.C	/^sbit SCLK=P2^0;                      \/\/DA时钟输入$/;"	v
+SCON	.\STC_NEW_8051.H	/^sfr SCON = 0x98; \/\/Serial Control         SM0\/FE SM1   SM2   REN   TB8   RB8    TI    RI    0000,0000$/;"	v
+SHDN1	.\dualdriver.C	/^sbit SHDN1=P3^6;                     \/\/关闭TEC温控，L－关闭$/;"	v
+SHDN2	.\dualdriver.C	/^sbit SHDN2=P2^6;                     \/\/关闭TEC温控，L－关闭$/;"	v
+SM0	.\STC_NEW_8051.H	/^sbit SM0 = SCON^7;  \/\/SM0\/FE$/;"	v
+SM1	.\STC_NEW_8051.H	/^sbit SM1 = SCON^6;$/;"	v
+SM2	.\STC_NEW_8051.H	/^sbit SM2 = SCON^5;$/;"	v
+SP	.\STC_NEW_8051.H	/^sfr SP   = 0x81; \/\/Stack Pointer                                                            0000,0111$/;"	v
+SPCTL	.\STC_NEW_8051.H	/^sfr SPCTL  = 0xCE; \/\/SPI Control Register  SSIG  SPEN  DORD  MSTR  CPOL  CPHA  SPR1  SPR0  0000,0100$/;"	v
+SPDAT	.\STC_NEW_8051.H	/^sfr SPDAT  = 0xCF; \/\/SPI Data Register                                                     0000,0000$/;"	v
+SPSTAT	.\STC_NEW_8051.H	/^sfr SPSTAT = 0xCD; \/\/SPI Status Register   SPIF  WCOL   -     -     -     -     -     -    00xx,xxxx$/;"	v
+Set_laser_current	.\dualdriver.C	/^void Set_laser_current(uchar Channel,uint current)$/;"	f
+Set_laser_power	.\dualdriver.C	/^void Set_laser_power(uchar Channel,uint power)$/;"	f
+Sys_mod	.\dualdriver.C	/^bit     Sys_mod;                            \/\/系统工作模式  1:主动模式，0：系统采集模式$/;"	v
+TB8	.\STC_NEW_8051.H	/^sbit TB8 = SCON^3;$/;"	v
+TCON	.\STC_NEW_8051.H	/^sfr TCON = 0x88; \/\/T0\/T1 Control           TF1   TR1   TF0   TR0   IE1   IT1   IE0   IT0    0000,0000$/;"	v
+TEC_Fed_Tempture1	.\dualdriver.C	/^float  idata TEC_Fed_Tempture1;             \/\/种子源当前冷却温度$/;"	v
+TEC_Fed_Tempture2	.\dualdriver.C	/^float  idata TEC_Fed_Tempture2;             \/\/放大级当前冷却温度$/;"	v
+TEC_Set_Tempture1	.\dualdriver.C	/^float  idata TEC_Set_Tempture1;             \/\/种子源设定冷却温度$/;"	v
+TEC_Set_Tempture2	.\dualdriver.C	/^float  idata TEC_Set_Tempture2;             \/\/放大级设定冷却温度$/;"	v
+TEC_Temp	.\dualdriver.C	/^void TEC_Temp()$/;"	f
+TEC_VO1	.\dualdriver.C	/^uint   idata TEC_VO1;                       \/\/种子源TEC两端电压值$/;"	v
+TEC_VO2	.\dualdriver.C	/^uint   idata TEC_VO2;                       \/\/放大级TEC两端电压值$/;"	v
+TEC_V_Check	.\dualdriver.C	/^void TEC_V_Check()                                                 \/\/???????????????????????$/;"	f
+TEC_meds_tempture1	.\dualdriver.C	/^uint   idata TEC_meds_tempture1;            \/\/种子源中间设定温度$/;"	v
+TEC_meds_tempture2	.\dualdriver.C	/^uint   idata TEC_meds_tempture2;            \/\/放大级中间设定温度$/;"	v
+TEC_parameter1	.\dualdriver.C	/^uchar idata  TEC_parameter1[6];$/;"	v
+TEC_parameter2	.\dualdriver.C	/^uchar idata  TEC_parameter2[6];$/;"	v
+TF0	.\STC_NEW_8051.H	/^sbit TF0 = TCON^5;$/;"	v
+TF1	.\STC_NEW_8051.H	/^sbit TF1 = TCON^7;$/;"	v
+TH0	.\STC_NEW_8051.H	/^sfr TH0  = 0x8C; \/\/T0 High Byte                                                             0000,0000$/;"	v
+TH1	.\STC_NEW_8051.H	/^sfr TH1  = 0x8D; \/\/T1 High Byte                                                             0000,0000$/;"	v
+TI	.\STC_NEW_8051.H	/^sbit TI  = SCON^1;$/;"	v
+TL0	.\STC_NEW_8051.H	/^sfr TL0  = 0x8A; \/\/T0 Low Byte                                                              0000,0000$/;"	v
+TL1	.\STC_NEW_8051.H	/^sfr TL1  = 0x8B; \/\/T1 Low Byte                                                              0000,0000$/;"	v
+TMOD	.\STC_NEW_8051.H	/^sfr TMOD = 0x89; \/\/T0\/T1 Modes             GATE1 C\/T1  M1_1  M1_0  GATE0 C\/T0  M0_1  M0_0   0000,0000$/;"	v
+TMPGD1	.\dualdriver.C	/^sbit TMPGD1=P2^3;                    \/\/TEC温度OK ，H－OK          1为种子源驱动$/;"	v
+TMPGD2	.\dualdriver.C	/^sbit TMPGD2=P2^7;                    \/\/TEC温度OK ，H－OK          2为放大级驱动$/;"	v
+TR0	.\STC_NEW_8051.H	/^sbit TR0 = TCON^4;$/;"	v
+TR1	.\STC_NEW_8051.H	/^sbit TR1 = TCON^6;$/;"	v
+WAKE_CLKO	.\STC_NEW_8051.H	/^sfr WAKE_CLKO = 0x8F; \/\/附加的 SFR WAK1_CLKO$/;"	v
+WDT_CONTR	.\STC_NEW_8051.H	/^sfr WDT_CONTR = 0xC1; \/\/Watch-Dog-Timer Control register$/;"	v
+_Nop	.\dualdriver.C	10;"	d	file:
+alarm	.\dualdriver.C	/^void alarm()$/;"	f
+chk_busy	.\dualdriver.C	/^void chk_busy (void)$/;"	f
+chn_disp	.\dualdriver.C	/^void chn_disp (uchar *chn,uchar num,uchar ADRS)$/;"	f
+clrram	.\dualdriver.C	/^void clrram (void)$/;"	f
+comm	.\dualdriver.C	15;"	d	file:
+command	.\dualdriver.C	/^void command()$/;"	f
+dat	.\dualdriver.C	16;"	d	file:
+delay	.\dualdriver.C	/^void delay(uint delay_k)$/;"	f
+delayR	.\dualdriver.C	/^void delayR(uint delay_k)$/;"	f
+inbuf	.\dualdriver.C	/^uchar  inbuf[INBUF_LEN];             \/\/处理数据缓冲区$/;"	v
+inbuf0	.\dualdriver.C	/^uchar  inbuf0[INBUF_LEN];            \/\/读取数据缓冲区$/;"	v
+init_lcd	.\dualdriver.C	/^void init_lcd (void)$/;"	f
+las_di_ok	.\dualdriver.C	/^bit  las_di_ok=0;                           \/\/激光二极管电流，1－OK$/;"	v
+main	.\dualdriver.C	/^void main()$/;"	f
+read_flag	.\dualdriver.C	/^bit  read_flag=0;                           \/\/ 读取标志位$/;"	v
+send_string_com	.\dualdriver.C	/^void send_string_com(uchar *str,uchar strlen)$/;"	f
+serial_initial	.\dualdriver.C	/^void serial_initial()$/;"	f
+set_flag	.\dualdriver.C	/^uchar  set_flag;$/;"	v
+setfault	.\dualdriver.C	/^void setfault()$/;"	f
+setsucced	.\dualdriver.C	/^void setsucced()$/;"	f
+stat_initial	.\dualdriver.C	/^void stat_initial()$/;"	f
+t	.\dualdriver.C	/^uchar  t=0;                                 \/\/ 缓冲区数据段$/;"	v
+tab1	.\dualdriver.C	/^uchar code tab1[]={"光纤激光控制器"};$/;"	v
+tab10	.\dualdriver.C	/^uchar code tab10[]={"设定温度"};$/;"	v
+tab11	.\dualdriver.C	/^uchar code tab11[]={"℃"};$/;"	v
+tab12	.\dualdriver.C	/^uchar code tab12[]={"POW:"};$/;"	v
+tab13	.\dualdriver.C	/^uchar code tab13[]={"设定功率"};$/;"	v
+tab14	.\dualdriver.C	/^uchar code tab14[]={"℃ APC"};$/;"	v
+tab15	.\dualdriver.C	/^uchar code tab15[]={"℃ ACC"};$/;"	v
+tab16	.\dualdriver.C	/^uchar code tab16[]={"系统采集控制模式中  "};$/;"	v
+tab17	.\dualdriver.C	/^uchar code tab17[]={"...................."};$/;"	v
+tab2	.\dualdriver.C	/^uchar code tab2[]={"苏州德龙激光有限公司"};$/;"	v
+tab3	.\dualdriver.C	/^uchar code tab3[]={"正在初始化"};$/;"	v
+tab4	.\dualdriver.C	/^uchar code tab4[]={"请稍候......"};$/;"	v
+tab5	.\dualdriver.C	/^uchar code tab5[]={"初始化完成"};$/;"	v
+tab6	.\dualdriver.C	/^uchar code tab6[]={"SED:"};$/;"	v
+tab7	.\dualdriver.C	/^uchar code tab7[]={"AMP:"};$/;"	v
+tab8	.\dualdriver.C	/^uchar code tab8[]={"VOTEC:1.42v"};$/;"	v
+tab9	.\dualdriver.C	/^uchar code tab9[]={"设定电流"};$/;"	v
+uchar	.\dualdriver.C	11;"	d	file:
+uint	.\dualdriver.C	12;"	d	file:
+wr_lcd	.\dualdriver.C	/^void wr_lcd (uchar dat_comm,uchar content)$/;"	f

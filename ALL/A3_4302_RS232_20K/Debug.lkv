@@ -1,9 +1,0 @@
--z -q -c -m"./Debug/laserdrvr.map" -o"./Debug/laserdrvr.out" -x -i"C:/ti2000/c2400/cgtools/lib" -v2
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\actions.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\CVECTORS.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\ISR.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\RS232.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\yucojca.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\Debug\YucoSupport.obj"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\rts2xx.lib"
-"C:\ti2000\NewLaserPrograme_ME\150K_PWM_rs232(UV100_A3)_zhj\150K_PWM_500ns_rs232_G0\TEST.CMD"

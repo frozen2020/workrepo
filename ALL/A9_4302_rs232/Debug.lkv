@@ -1,9 +1,0 @@
--z -q -c -m"./Debug/laserdrvr.map" -o"./Debug/laserdrvr.out" -x -i"C:/ti2000/c2400/cgtools/lib" -v2
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\actions.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\CVECTORS.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\ISR.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\RS232.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\yucojca.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\Debug\YucoSupport.obj"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\rts2xx.lib"
-"C:\ti2000\NewLaserPrograme_ME\A9(A4)\TEST.CMD"

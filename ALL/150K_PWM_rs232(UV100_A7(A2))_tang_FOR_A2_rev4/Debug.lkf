@@ -1,9 +1,0 @@
--z -q -c -m"./Debug/laserdrvr.map" -o"./Debug/laserdrvr.out" -x -i"C:/CCStudio_v3.3/c2400/cgtools/lib" -v2
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\actions.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\CVECTORS.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\ISR.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\RS232.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\yucojca.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\Debug\YucoSupport.obj"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\rts2xx.lib"
-"C:\Ti2000\ALL\150K_PWM_rs232(UV100_A7(A2))_tang_FOR_A2_rev4\TEST.CMD"
