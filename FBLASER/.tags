@@ -99,7 +99,7 @@ Laser_Set_curent2	.\dualdriver.C	/^uint   idata Laser_Set_curent2;             \
 Laser_Set_power1	.\dualdriver.C	/^uint   idata Laser_Set_power1;             \/\/设定种子源激光功率$/;"	v
 Laser_Set_power2	.\dualdriver.C	/^uint   idata Laser_Set_power2;             \/\/设定放大级激光功率$/;"	v
 Laser_meds_curent1	.\dualdriver.C	/^uint   idata Laser_meds_curent1;            \/\/种子源中间设定电流$/;"	v
-Laser_meds_curent2	.\dualdriver.C	/^uint   idata Laser_meds_curent2;            \/\/放大级中间设定电流$/;"	v
+Laser_meds_curent2	.\dualdriver.C	/^uint   idata Laser_meds_curent2;            \/\/放大级中间设定电流 $/;"	v
 Laser_meds_power1	.\dualdriver.C	/^uint   idata Laser_meds_power1;            \/\/种子源中间设定功率$/;"	v
 Laser_meds_power2	.\dualdriver.C	/^uint   idata Laser_meds_power2;            \/\/放大级中间设定功率$/;"	v
 Laser_power_Check	.\dualdriver.C	/^void Laser_power_Check()$/;"	f
@@ -212,6 +212,9 @@ delay	.\dualdriver.C	/^void delay(uint delay_k)$/;"	f
 delayR	.\dualdriver.C	/^void delayR(uint delay_k)$/;"	f
 inbuf	.\dualdriver.C	/^uchar  inbuf[INBUF_LEN];             \/\/处理数据缓冲区$/;"	v
 inbuf0	.\dualdriver.C	/^uchar  inbuf0[INBUF_LEN];            \/\/读取数据缓冲区$/;"	v
+init_current1	.\dualdriver.C	/^uint   init_current1;                       \/\/种子源初始电流$/;"	v
+init_current2	.\dualdriver.C	/^uint   init_current2;                       \/\/放大级初始电流$/;"	v
+init_flag	.\dualdriver.C	/^uint   init_flag;                           \/\/初始电流标志位 0：不启用 1：仅放大级 2：仅种子源 3：双路$/;"	v
 init_lcd	.\dualdriver.C	/^void init_lcd (void)$/;"	f
 las_di_ok	.\dualdriver.C	/^bit  las_di_ok=0;                           \/\/激光二极管电流，1－OK$/;"	v
 main	.\dualdriver.C	/^void main()$/;"	f

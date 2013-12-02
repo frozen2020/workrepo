@@ -1,0 +1,386 @@
+Fitter report for pulse_picker
+Thu Oct 31 17:02:25 2013
+Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Fitter Summary
+  3. Fitter Settings
+  4. Parallel Compilation
+  5. Pin-Out File
+  6. Fitter Resource Usage Summary
+  7. Input Pins
+  8. Output Pins
+  9. All Package Pins
+ 10. Output Pin Default Load For Reported TCO
+ 11. Fitter Resource Utilization by Entity
+ 12. Control Signals
+ 13. Non-Global High Fan-Out Signals
+ 14. Interconnect Usage Summary
+ 15. LAB Macrocells
+ 16. Logic Cell Interconnection
+ 17. Fitter Device Options
+ 18. Fitter Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------+
+; Fitter Summary                                                   ;
++-----------------------+------------------------------------------+
+; Fitter Status         ; Successful - Thu Oct 31 17:02:25 2013    ;
+; Quartus II Version    ; 9.0 Build 132 02/25/2009 SJ Full Version ;
+; Revision Name         ; pulse_picker                             ;
+; Top-level Entity Name ; pulse_picker                             ;
+; Family                ; MAX3000A                                 ;
+; Device                ; EPM3064ATC44-4                           ;
+; Timing Models         ; Final                                    ;
+; Total macrocells      ; 22 / 64 ( 34 % )                         ;
+; Total pins            ; 18 / 34 ( 53 % )                         ;
++-----------------------+------------------------------------------+
+
+
++-------------------------------------------------------------------------------------+
+; Fitter Settings                                                                     ;
++----------------------------------------------------+----------------+---------------+
+; Option                                             ; Setting        ; Default Value ;
++----------------------------------------------------+----------------+---------------+
+; Device                                             ; EPM3064ATC44-4 ;               ;
+; Use smart compilation                              ; Off            ; Off           ;
+; Use TimeQuest Timing Analyzer                      ; Off            ; Off           ;
+; Optimize Timing for ECOs                           ; Off            ; Off           ;
+; Regenerate full fit report during ECO compiles     ; Off            ; Off           ;
+; Optimize IOC Register Placement for Timing         ; On             ; On            ;
+; Limit to One Fitting Attempt                       ; Off            ; Off           ;
+; Fitter Initial Placement Seed                      ; 1              ; 1             ;
+; Slow Slew Rate                                     ; Off            ; Off           ;
+; Fitter Effort                                      ; Auto Fit       ; Auto Fit      ;
+; Force Fitter to Avoid Periphery Placement Warnings ; Off            ; Off           ;
++----------------------------------------------------+----------------+---------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2 processors           ;   0.0%      ;
++----------------------------+-------------+
+
+
++--------------+
+; Pin-Out File ;
++--------------+
+The pin-out file can be found in F:/dual FBlaser driver µ¥Æ¬»ú³ÌÐò/CPLD/pulse_picker.pin.
+
+
++------------------------------------------------------+
+; Fitter Resource Usage Summary                        ;
++-----------------------------------+------------------+
+; Resource                          ; Usage            ;
++-----------------------------------+------------------+
+; Logic cells                       ; 22 / 64 ( 34 % ) ;
+; Registers                         ; 20 / 64 ( 31 % ) ;
+; Number of pterms used             ; 74               ;
+; User inserted logic elements      ; 0                ;
+; I/O pins                          ; 18 / 34 ( 53 % ) ;
+;     -- Clock pins                 ; 0 / 2 ( 0 % )    ;
+;     -- Dedicated input pins       ; 0 / 2 ( 0 % )    ;
+; Global signals                    ; 0                ;
+; Shareable expanders               ; 0 / 64 ( 0 % )   ;
+; Parallel expanders                ; 0 / 60 ( 0 % )   ;
+; Cells using turbo bit             ; 22 / 64 ( 34 % ) ;
+; Maximum fan-out node              ; PD_clk           ;
+; Maximum fan-out                   ; 20               ;
+; Highest non-global fan-out signal ; PD_clk           ;
+; Highest non-global fan-out        ; 20               ;
+; Total fan-out                     ; 204              ;
+; Average fan-out                   ; 5.10             ;
++-----------------------------------+------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                    ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+--------------+----------------------+
+; Name     ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; I/O Standard ; Location assigned by ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+--------------+----------------------+
+; GATE     ; 13    ; --       ; 2   ; 14                    ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; LOCK     ; 14    ; --       ; 2   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; PD_clk   ; 33    ; --       ; 4   ; 20                    ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; Trig     ; 10    ; --       ; 2   ; 14                    ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[0] ; 15    ; --       ; 2   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[1] ; 18    ; --       ; 3   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[2] ; 19    ; --       ; 3   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[3] ; 20    ; --       ; 3   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[4] ; 21    ; --       ; 3   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; WIDTH[5] ; 22    ; --       ; 3   ; 0                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
+; clk      ; 6     ; --       ; 1   ; 1                     ; 0                  ; no     ; 3.3-V LVTTL  ; User                 ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+--------------+----------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                 ;
++------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+
+; Name ; Pin # ; I/O Bank ; LAB ; Output Register ; Slow Slew Rate ; Open Drain ; TRI Primitive ; I/O Standard ; Location assigned by ; Load  ;
++------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+
+; AA   ; 44    ; --       ; 1   ; no              ; no             ; no         ; no            ; 3.3-V LVTTL  ; User                 ; 10 pF ;
+; OO   ; 2     ; --       ; 1   ; no              ; no             ; no         ; no            ; 3.3-V LVTTL  ; User                 ; 10 pF ;
+; out  ; 35    ; --       ; 4   ; no              ; no             ; no         ; no            ; 3.3-V LVTTL  ; User                 ; 10 pF ;
++------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; All Package Pins                                                                                      ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; Location ; Pad Number ; I/O Bank ; Pin Name/Usage ; Dir.   ; I/O Standard ; Voltage ; User Assignment ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; 1        ; 6          ; --       ; TDI            ; input  ; 3.3-V LVTTL  ;         ; N               ;
+; 2        ; 7          ; --       ; OO             ; output ; 3.3-V LVTTL  ;         ; Y               ;
+; 3        ; 8          ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 4        ; 9          ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 5        ; 10         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 6        ; 11         ; --       ; clk            ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 7        ; 12         ; --       ; TMS            ; input  ; 3.3-V LVTTL  ;         ; N               ;
+; 8        ; 13         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 9        ; 14         ; --       ; VCCIO          ; power  ;              ; 3.3V    ;                 ;
+; 10       ; 15         ; --       ; Trig           ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 11       ; 16         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 12       ; 17         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 13       ; 18         ; --       ; GATE           ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 14       ; 19         ; --       ; LOCK           ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 15       ; 20         ; --       ; WIDTH[0]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 16       ; 21         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 17       ; 22         ; --       ; VCCINT         ; power  ;              ; 3.3V    ;                 ;
+; 18       ; 23         ; --       ; WIDTH[1]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 19       ; 24         ; --       ; WIDTH[2]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 20       ; 25         ; --       ; WIDTH[3]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 21       ; 26         ; --       ; WIDTH[4]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 22       ; 27         ; --       ; WIDTH[5]       ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 23       ; 28         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 24       ; 29         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 25       ; 30         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 26       ; 31         ; --       ; TCK            ; input  ; 3.3-V LVTTL  ;         ; N               ;
+; 27       ; 32         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 28       ; 33         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 29       ; 34         ; --       ; VCCIO          ; power  ;              ; 3.3V    ;                 ;
+; 30       ; 35         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 31       ; 36         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 32       ; 37         ; --       ; TDO            ; output ; 3.3-V LVTTL  ;         ; N               ;
+; 33       ; 38         ; --       ; PD_clk         ; input  ; 3.3-V LVTTL  ;         ; Y               ;
+; 34       ; 39         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 35       ; 40         ; --       ; out            ; output ; 3.3-V LVTTL  ;         ; Y               ;
+; 36       ; 41         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 37       ; 42         ; --       ; GND+           ;        ;              ;         ;                 ;
+; 38       ; 43         ; --       ; GND+           ;        ;              ;         ;                 ;
+; 39       ; 0          ; --       ; GND+           ;        ;              ;         ;                 ;
+; 40       ; 1          ; --       ; GND+           ;        ;              ;         ;                 ;
+; 41       ; 2          ; --       ; VCCINT         ; power  ;              ; 3.3V    ;                 ;
+; 42       ; 3          ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 43       ; 4          ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 44       ; 5          ; --       ; AA             ; output ; 3.3-V LVTTL  ;         ; Y               ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+Note: Pin directions (input, output or bidir) are based on device operating in user mode.
+
+
++-----------------------------------------------+
+; Output Pin Default Load For Reported TCO      ;
++--------------+-------+------------------------+
+; I/O Standard ; Load  ; Termination Resistance ;
++--------------+-------+------------------------+
+; 3.3-V LVTTL  ; 10 pF ; Not Available          ;
+; 3.3-V LVCMOS ; 10 pF ; Not Available          ;
+; 3.3-V PCI    ; 10 pF ; 25 Ohm (Parallel)      ;
+; 2.5 V        ; 10 pF ; Not Available          ;
++--------------+-------+------------------------+
+Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                             ;
++--------------------------------+------------+------+---------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node     ; Macrocells ; Pins ; Full Hierarchy Name                                           ; Library Name ;
++--------------------------------+------------+------+---------------------------------------------------------------+--------------+
+; |pulse_picker                  ; 22         ; 18   ; |pulse_picker                                                 ; work         ;
+;    |pulse_picker_nondelay:64|  ; 21         ; 0    ; |pulse_picker|pulse_picker_nondelay:64                        ; work         ;
+;       |lpm_counter:tmp2_rtl_0| ; 6          ; 0    ; |pulse_picker|pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0 ; work         ;
++--------------------------------+------------+------+---------------------------------------------------------------+--------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                ;
++---------------------------------+----------+---------+----------------------+--------+----------------------+------------------+
+; Name                            ; Location ; Fan-Out ; Usage                ; Global ; Global Resource Used ; Global Line Name ;
++---------------------------------+----------+---------+----------------------+--------+----------------------+------------------+
+; GATE                            ; PIN_13   ; 14      ; Async. clear, Preset ; no     ; --                   ; --               ;
+; PD_clk                          ; PIN_33   ; 20      ; Clock                ; no     ; --                   ; --               ;
+; Trig                            ; PIN_10   ; 14      ; Async. clear, Preset ; no     ; --                   ; --               ;
+; pulse_picker_nondelay:64|tmp_c1 ; LC5      ; 7       ; Async. clear         ; no     ; --                   ; --               ;
++---------------------------------+----------+---------+----------------------+--------+----------------------+------------------+
+
+
++-------------------------------------------------------------------+
+; Non-Global High Fan-Out Signals                                   ;
++---------------------------------------------------------+---------+
+; Name                                                    ; Fan-Out ;
++---------------------------------------------------------+---------+
+; PD_clk                                                  ; 20      ;
+; GATE                                                    ; 14      ;
+; Trig                                                    ; 14      ;
+; pulse_picker_nondelay:64|tmp1[1]                        ; 13      ;
+; pulse_picker_nondelay:64|tmp1[0]                        ; 13      ;
+; pulse_picker_nondelay:64|tmp1[3]                        ; 12      ;
+; pulse_picker_nondelay:64|tmp1[2]                        ; 12      ;
+; pulse_picker_nondelay:64|tmp1[5]                        ; 11      ;
+; pulse_picker_nondelay:64|tmp1[4]                        ; 11      ;
+; pulse_picker_nondelay:64|tmp1[6]                        ; 10      ;
+; pulse_picker_nondelay:64|tmp1[7]                        ; 9       ;
+; pulse_picker_nondelay:64|tmp_c1                         ; 7       ;
+; pulse_picker_nondelay:64|tmp1[9]                        ; 7       ;
+; pulse_picker_nondelay:64|tmp1[8]                        ; 7       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1] ; 6       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0] ; 6       ;
+; pulse_picker_nondelay:64|tmp1[10]                       ; 6       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2] ; 5       ;
+; pulse_picker_nondelay:64|tmp1[11]                       ; 5       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3] ; 4       ;
+; pulse_picker_nondelay:64|tmp1[12]                       ; 4       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4] ; 3       ;
+; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5] ; 2       ;
+; clk                                                     ; 1       ;
+; pulse_picker_nondelay:64|LessThan0~5                    ; 1       ;
+; clk~1                                                   ; 1       ;
++---------------------------------------------------------+---------+
+
+
++------------------------------------------------+
+; Interconnect Usage Summary                     ;
++----------------------------+-------------------+
+; Interconnect Resource Type ; Usage             ;
++----------------------------+-------------------+
+; Output enables             ; 0 / 6 ( 0 % )     ;
+; PIA buffers                ; 30 / 144 ( 21 % ) ;
++----------------------------+-------------------+
+
+
++----------------------------------------------------------------------+
+; LAB Macrocells                                                       ;
++----------------------------------------+-----------------------------+
+; Number of Macrocells  (Average = 5.50) ; Number of LABs  (Total = 3) ;
++----------------------------------------+-----------------------------+
+; 0                                      ; 1                           ;
+; 1                                      ; 1                           ;
+; 2                                      ; 0                           ;
+; 3                                      ; 0                           ;
+; 4                                      ; 0                           ;
+; 5                                      ; 0                           ;
+; 6                                      ; 1                           ;
+; 7                                      ; 0                           ;
+; 8                                      ; 0                           ;
+; 9                                      ; 0                           ;
+; 10                                     ; 0                           ;
+; 11                                     ; 0                           ;
+; 12                                     ; 0                           ;
+; 13                                     ; 0                           ;
+; 14                                     ; 0                           ;
+; 15                                     ; 1                           ;
++----------------------------------------+-----------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Logic Cell Interconnection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LAB ; Logic Cell ; Input                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ; Output                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+;  A  ; LC15       ; PD_clk, Trig, GATE                                                                                                                                                                                                                                                                                                                                                                                                                                                              ; pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1 ;
+;  A  ; LC6        ; pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], PD_clk, Trig, GATE                                                                                                                                                                                                                                                                                                                                                                                          ; pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1 ;
+;  A  ; LC14       ; pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[2], PD_clk, Trig, GATE ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                   ;
+;  A  ; LC12       ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[3], PD_clk, Trig, GATE                                                                                                                                                                                                                                                                                                                      ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                   ;
+;  A  ; LC7        ; pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[0], PD_clk, Trig, GATE ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                     ;
+;  A  ; LC3        ; pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[5], PD_clk, Trig, GATE                                                                                                                                                                                                                                                  ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                     ;
+;  A  ; LC2        ; pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[6], PD_clk, Trig, GATE                                                                                                                                                                                                                ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                       ;
+;  A  ; LC1        ; pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[7], PD_clk, Trig, GATE                                                                                                                                                                              ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                         ;
+;  A  ; LC10       ; pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], PD_clk, Trig, GATE                                                                                                                                                                              ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                             ;
+;  A  ; LC9        ; pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[9], PD_clk, Trig, GATE                                                                                                          ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                             ;
+;  A  ; LC8        ; pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[10], PD_clk, Trig, GATE                                                                       ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                               ;
+;  A  ; LC4        ; pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[11], PD_clk, Trig, GATE                                    ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                                                                  ;
+;  A  ; LC13       ; pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], pulse_picker_nondelay:64|tmp1[12], PD_clk, Trig, GATE ; pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                                                                                                     ;
+;  A  ; LC5        ; pulse_picker_nondelay:64|tmp1[12], pulse_picker_nondelay:64|tmp1[11], pulse_picker_nondelay:64|tmp1[10], pulse_picker_nondelay:64|tmp1[9], pulse_picker_nondelay:64|tmp1[8], pulse_picker_nondelay:64|tmp1[7], pulse_picker_nondelay:64|tmp1[6], pulse_picker_nondelay:64|tmp1[5], pulse_picker_nondelay:64|tmp1[4], pulse_picker_nondelay:64|tmp1[3], pulse_picker_nondelay:64|tmp1[2], pulse_picker_nondelay:64|tmp1[1], pulse_picker_nondelay:64|tmp1[0], PD_clk, Trig, GATE ; OO, pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3]                                                                                                   ;
+;  A  ; LC11       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1]                                                                                                                                                                                     ; AA                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC18       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                     ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|LessThan0~5                                                                                                                                                                                                                                                                                                     ;
+;  B  ; LC17       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                   ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3]                                                                                                       ;
+;  B  ; LC19       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                                                                            ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|LessThan0~5                                                                                                                                                                                                                                                                                                                                                              ;
+;  B  ; LC23       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                                                                                                                                                                ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|LessThan0~5                                                                                                                          ;
+;  B  ; LC21       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                                                                                                       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[3], pulse_picker_nondelay:64|LessThan0~5                                                                                                                                                                                   ;
+;  B  ; LC20       ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[1], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2], PD_clk, pulse_picker_nondelay:64|tmp_c1                                                                                                                                                                                                                                                              ; pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[4], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[0], pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5], pulse_picker_nondelay:64|LessThan0~5                                                                                                                                                                                                                                            ;
+;  D  ; LC64       ; clk                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ; out                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Fitter Device Options                                         ;
++----------------------------------------------+----------------+
+; Option                                       ; Setting        ;
++----------------------------------------------+----------------+
+; Enable user-supplied start-up clock (CLKUSR) ; Off            ;
+; Enable device-wide reset (DEV_CLRn)          ; Off            ;
+; Enable device-wide output enable (DEV_OE)    ; Off            ;
+; Enable INIT_DONE output                      ; Off            ;
+; Configuration scheme                         ; Passive Serial ;
+; Security bit                                 ; Off            ;
+; Base pin-out file on sameframe device        ; Off            ;
++----------------------------------------------+----------------+
+
+
++-----------------+
+; Fitter Messages ;
++-----------------+
+Info: *******************************************************************
+Info: Running Quartus II Fitter
+    Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
+    Info: Processing started: Thu Oct 31 17:02:25 2013
+Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off pulse_picker -c pulse_picker
+Info: Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info: Selected device EPM3064ATC44-4 for design "pulse_picker"
+Warning: Ignored locations or region assignments to the following nodes
+    Warning: Node "WIDTH0" is assigned to location or region, but does not exist in design
+    Warning: Node "WIDTH1" is assigned to location or region, but does not exist in design
+    Warning: Node "WIDTH2" is assigned to location or region, but does not exist in design
+    Warning: Node "WIDTH3" is assigned to location or region, but does not exist in design
+    Warning: Node "WIDTH4" is assigned to location or region, but does not exist in design
+    Warning: Node "WIDTH5" is assigned to location or region, but does not exist in design
+Info: Quartus II Fitter was successful. 0 errors, 7 warnings
+    Info: Peak virtual memory: 162 megabytes
+    Info: Processing ended: Thu Oct 31 17:02:25 2013
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

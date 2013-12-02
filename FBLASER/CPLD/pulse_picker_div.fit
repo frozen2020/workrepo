@@ -1,0 +1,91 @@
+-- MAX+plus II Compiler Fit File      
+-- Version 10.2 07/10/2002            
+-- Compiled: 11/19/2012 10:46:07      
+
+-- Copyright (C) 1988-2002 Altera Corporation
+-- Any megafunction design, and related net list (encrypted or decrypted),
+-- support information, device programming or simulation file, and any other
+-- associated documentation or information provided by Altera or a partner
+-- under Altera's Megafunction Partnership Program may be used only to
+-- program PLD devices (but not masked PLD devices) from Altera.  Any other
+-- use of such megafunction design, net list, support information, device
+-- programming or simulation file, or any other related documentation or
+-- information is prohibited for any other purpose, including, but not
+-- limited to modification, reverse engineering, de-compiling, or use with
+-- any other silicon devices, unless such use is explicitly licensed under
+-- a separate agreement with Altera or a megafunction partner.  Title to
+-- the intellectual property, including patents, copyrights, trademarks,
+-- trade secrets, or maskworks, embodied in any such megafunction design,
+-- net list, support information, device programming or simulation file, or
+-- any other related documentation or information provided by Altera or a
+-- megafunction partner, remains with Altera, the megafunction partner, or
+-- their respective licensors.  No other licenses, including any licenses
+-- needed under any third party's intellectual property, are provided herein.
+
+CHIP "pulse_picker_div"
+BEGIN
+
+    DEVICE = "EPM7032SLC44-5";
+
+    "GATE"                         : INPUT_PIN  = 4      ; -- LC1
+    "PD_CLK_IN"                    : INPUT_PIN  = 43     ;
+    "CLK_OUT"                      : OUTPUT_PIN = 5      ; -- LC2
+    "CP"                           : OUTPUT_PIN = 41     ; -- LC17
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder0|result_node3" : LOCATION   = LC10   ; -- PIN 14
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder0|result_node4" : LOCATION   = LC12   ; -- PIN 17
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder0|result_node5" : LOCATION   = LC13   ; -- PIN 18
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder0|result_node6" : LOCATION   = LC29   ; -- PIN 27
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder0|result_node7" : LOCATION   = LC30   ; -- PIN 26
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder1|result_node0" : LOCATION   = LC31   ; -- PIN 25
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder1|result_node3" : LOCATION   = LC32   ; -- PIN 24
+    "|LPM_ADD_SUB:210|addcore:adder|addcore:adder1|result_node4" : LOCATION   = LC22   ; -- PIN 36
+    ":5"                           : LOCATION   = LC23   ; -- PIN 34  -- tmp112
+    ":6"                           : LOCATION   = LC24   ; -- PIN 33  -- tmp111
+    ":7"                           : LOCATION   = LC28   ; -- PIN 28  -- tmp110
+    ":8"                           : LOCATION   = LC27   ; -- PIN 29  -- tmp19
+    ":9"                           : LOCATION   = LC26   ; -- PIN 31  -- tmp18
+    ":10"                          : LOCATION   = LC25   ; -- PIN 32  -- tmp17
+    ":11"                          : LOCATION   = LC21   ; -- PIN 37  -- tmp16
+    ":12"                          : LOCATION   = LC18   ; -- PIN 40  -- tmp15
+    ":13"                          : LOCATION   = LC19   ; -- PIN 39  -- tmp14
+    ":14"                          : LOCATION   = LC20   ; -- PIN 38  -- tmp13
+    ":15"                          : LOCATION   = LC4    ; -- PIN 7  -- tmp12
+    ":16"                          : LOCATION   = LC5    ; -- PIN 8  -- tmp11
+    ":17"                          : LOCATION   = LC6    ; -- PIN 9  -- tmp10
+    ":19"                          : LOCATION   = LC7    ; -- PIN 11  -- tmp22
+    ":20"                          : LOCATION   = LC8    ; -- PIN 12  -- tmp21
+    ":21"                          : LOCATION   = LC9    ; -- PIN 13  -- tmp20
+
+END;
+
+INTERNAL_INFO "pulse_picker_div"
+BEGIN
+	DEVICE = EPM7032SLC44-5;
+	LC17    : LORAX = "G13R0,PA7R0C0";
+	LC2     : LORAX = "G10R0";
+	LC23    : LORAX = "G32R0,PA12R0C1";
+	LC24    : LORAX = "G33R0,PA10R0C1";
+	LC28    : LORAX = "G41R0,PA22R0C1";
+	LC27    : LORAX = "G40R0,PA24R0C1";
+	LC26    : LORAX = "G39R0,PA25R0C1";
+	LC25    : LORAX = "G38R0,PA18R0C1";
+	LC21    : LORAX = "G30R0,PA16R0C1";
+	LC18    : LORAX = "G14R0,PA5R0C0,PA5R0C1";
+	LC19    : LORAX = "G15R0,PA3R0C0,PA3R0C1";
+	LC20    : LORAX = "G16R0,PA1R0C0,PA1R0C1";
+	LC4     : LORAX = "G12R0,PA0R0C0,PA0R0C1";
+	LC5     : LORAX = "G26R0,PA11R0C0,PA11R0C1";
+	LC6     : LORAX = "G27R0,PA10R0C0,PA15R0C1";
+	OH0R0P4 : LORAX = "G43R0,PA20R0C0,PA20R0C1";
+	LC10    : LORAX = "G35R0,PA21R0C1";
+	LC12    : LORAX = "G37R0,PA26R0C1";
+	LC13    : LORAX = "G51R0,PA28R0C1";
+	LC29    : LORAX = "G55R0,PA27R0C1";
+	LC30    : LORAX = "G56R0,PA30R0C1";
+	LC31    : LORAX = "G57R0,PA33R0C1";
+	LC32    : LORAX = "G58R0,PA31R0C1";
+	LC22    : LORAX = "G31R0,PA14R0C1";
+	LC7     : LORAX = "G28R0,PA12R0C0";
+	LC8     : LORAX = "G29R0,PA9R0C0";
+	LC9     : LORAX = "G34R0,PA19R0C0";
+END;

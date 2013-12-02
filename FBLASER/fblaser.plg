@@ -1,0 +1,72 @@
+<html>
+<body>
+<pre>
+<h1>µVision2 Build Log</h1>
+<h2>Project:</h2>
+D:\github\workrepo\FBLASER\fblaser.uv2
+Project File Date:  11/01/2013
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(188): warning C206: 'wr_lcd': missing function-prototype
+DUALDRIVER.C(188): error C267: 'wr_lcd': requires ANSI-style prototype
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Project build/rebuild aborted.
+Target not created
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(188): warning C206: 'wr_lcd': missing function-prototype
+DUALDRIVER.C(188): error C267: 'wr_lcd': requires ANSI-style prototype
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Target not created
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(183): warning C206: 'chk_busy': missing function-prototype
+DUALDRIVER.C(223): warning C206: 'delay': missing function-prototype
+DUALDRIVER.C(223): error C267: 'delay': requires ANSI-style prototype
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Target not created
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(206): warning C206: 'chk_busy': missing function-prototype
+DUALDRIVER.C(361): error C231: 'chk_busy': redefinition
+DUALDRIVER.C(378): error C231: 'chk_busy': redefinition
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Target not created
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(455): warning C206: 'AD_Convert': missing function-prototype
+DUALDRIVER.C(455): error C267: 'AD_Convert': requires ANSI-style prototype
+DUALDRIVER.C(465): error C193: '/': bad operand type
+DUALDRIVER.C(466): error C193: '/': bad operand type
+DUALDRIVER.C(468): error C193: '*': bad operand type
+DUALDRIVER.C(493): error C193: '*': bad operand type
+DUALDRIVER.C(541): error C193: '/': bad operand type
+DUALDRIVER.C(542): error C193: '/': bad operand type
+DUALDRIVER.C(640): error C193: '/': bad operand type
+DUALDRIVER.C(641): error C193: '/': bad operand type
+DUALDRIVER.C(685): error C193: '/': bad operand type
+DUALDRIVER.C(687): error C193: '/': bad operand type
+DUALDRIVER.C(717): error C193: '/': bad operand type
+DUALDRIVER.C(718): error C193: '/': bad operand type
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Target not created
+Build target 'Target 1'
+compiling dualdriver.C...
+DUALDRIVER.C(455): warning C206: 'AD_Convert': missing function-prototype
+DUALDRIVER.C(455): error C267: 'AD_Convert': requires ANSI-style prototype
+DUALDRIVER.C(465): error C193: '/': bad operand type
+DUALDRIVER.C(466): error C193: '/': bad operand type
+DUALDRIVER.C(468): error C193: '*': bad operand type
+DUALDRIVER.C(493): error C193: '*': bad operand type
+DUALDRIVER.C(541): error C193: '/': bad operand type
+DUALDRIVER.C(542): error C193: '/': bad operand type
+DUALDRIVER.C(640): error C193: '/': bad operand type
+DUALDRIVER.C(641): error C193: '/': bad operand type
+DUALDRIVER.C(685): error C193: '/': bad operand type
+DUALDRIVER.C(687): error C193: '/': bad operand type
+DUALDRIVER.C(717): error C193: '/': bad operand type
+DUALDRIVER.C(718): error C193: '/': bad operand type
+dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+Target not created

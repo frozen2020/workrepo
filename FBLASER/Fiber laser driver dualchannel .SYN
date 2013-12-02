@@ -1,0 +1,97 @@
+Protel Synchronization report
+=========================================================================
+Date : 6-Jan-2013 
+Time : 10:36:10
+
+Reference document: 激光二极管双路驱动.Sch
+Target document:    Fiber laser driver dualchannel .PCB
+=========================================================================
+
+ERRORS: 21 macros can not be executed:
+-------------------------------------------------------------------------
+Macro 1: Component Footprint Change
+Update component U9 footprint DIP-16 to SO-8
+Error: New footprint SO-8 not matching old footprint DIP-16
+
+Macro 2: Component Footprint Change
+Update component J5 footprint CN4 to CR-0805
+Error: New footprint CR-0805 not matching old footprint CN4
+
+Macro 3: New Node
+Add node U12-10 to net +2.5V
+Error: Node not found
+
+Macro 4: New Node
+Add node U12-15 to net +2.5V
+Error: Node not found
+
+Macro 5: New Node
+Add node U12-14 to net DA0
+Error: Node not found
+
+Macro 6: New Node
+Add node U14-14 to net DIN/AD
+Error: Node not found
+
+Macro 7: New Node
+Add node U14-15 to net DOUT
+Error: Node not found
+
+Macro 8: New Node
+Add node U14-16 to net DCLK
+Error: Node not found
+
+Macro 9: New Node
+Add node U14-9 to net ADTP1
+Error: Node not found
+
+Macro 10: New Node
+Add node U12-13 to net DA1
+Error: Node not found
+
+Macro 11: New Node
+Add node U12-12 to net DA2
+Error: Node not found
+
+Macro 12: New Node
+Add node U14-10 to net ADTP2
+Error: Node not found
+
+Macro 13: New Node
+Add node U12-11 to net DA3
+Error: Node not found
+
+Macro 14: New Node
+Add node U17-16 to net +5V
+Error: Node not found
+
+Macro 15: New Node
+Add node U16-16 to net +5V
+Error: Node not found
+
+Macro 16: New Node
+Add node U12-16 to net +5V
+Error: Node not found
+
+Macro 17: New Node
+Add node U17-15 to net GND
+Error: Node not found
+
+Macro 18: New Node
+Add node U16-15 to net GND
+Error: Node not found
+
+Macro 19: New Node
+Add node U14-13 to net GND
+Error: Node not found
+
+Macro 20: New Node
+Add node U12-9 to net GND
+Error: Node not found
+
+Macro 21: New Node
+Add node U11-14 to net VCC
+Error: Node not found
+
+
+

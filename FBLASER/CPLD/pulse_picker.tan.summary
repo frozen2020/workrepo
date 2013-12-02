@@ -1,0 +1,46 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 7.600 ns
+From           : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5]
+To             : AA
+From Clock     : PD_clk
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 4.500 ns
+From           : clk
+To             : out
+From Clock     : --
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Clock Setup: 'PD_clk'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 217.39 MHz ( period = 4.600 ns )
+From           : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2]
+To             : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5]
+From Clock     : PD_clk
+To Clock       : PD_clk
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

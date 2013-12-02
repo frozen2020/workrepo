@@ -55,7 +55,10 @@ uint   idata Laser_Set_curent2;             //设定放大级激光二极管电�
 uint   idata Laser_Fed_curent1;             //实际种子源激光二极管电流值
 uint   idata Laser_Fed_curent2;             //实际放大级激光二极管电流值
 uint   idata Laser_meds_curent1;            //种子源中间设定电流
-uint   idata Laser_meds_curent2;            //放大级中间设定电流
+uint   idata Laser_meds_curent2;            //放大级中间设定电流 
+uint   init_current1;                       //种子源初始电流
+uint   init_current2;                       //放大级初始电流
+uint   init_flag;                           //初始电流标志位 0：不启用 1：仅放大级 2：仅种子源 3：双路
 
 uint   idata Laser_Set_power1;             //设定种子源激光功率
 uint   idata Laser_Set_power2;             //设定放大级激光功率
@@ -150,23 +153,105 @@ void serial_initial()
       AUXR |= 0x01;		//串口1选择独立波特率发生器为波特率发生器
       AUXR |= 0x10;		//启动独立波特率发生器
 
-      TMOD=0x21;                //T1工作在方式2（8位模式）
+      TMOD=0x21;                //T1工作在方式2（8位模式）T工作在方式1（16位模式）
       AUXR &= 0x3f;             //T0,T1工作在1T/12
 
       IPH=0x14;
       IP=0x24;
       ES=1;
+      ET0=1;
       IT0=1;
       EX0=1;
       IT1=1;
       EX1=1;
       EA=1;
-
+      TL0 = 0x30;   //设置定时初值
+      TH0 = 0xF8;   //设置定时初值
+      TF0 = 0;    //清除TF0标志
+      TR0 = 1;    //定时器0开始计时
 
       return;
 }
 
 /**********************************************************************/
+
+
+
+/*********以下是长延时程序***********************************************/
+
+void delay(uint delay_k)
+{
+    uint k0=0;
+    do
+    {
+    do{k0--;}while(k0);
+    delay_k--;
+    }while(delay_k);
+
+}
+
+/*********以下是短延时程序***********************************************/
+void delayR(uint delay_k)
+{
+    do{delay_k--;}while(delay_k);
+
+
+}
+
+/*********************************************************************/
+
+/**************************判断忙标志位**********************/
+void chk_busy (void)
+{
+  P0=0xff;
+  _Nop();
+  RS=0;
+  RW=1;
+   _Nop();
+   _Nop();
+   _Nop();
+   _Nop();
+  ENAB=1;
+   _Nop();
+   _Nop();
+   _Nop();
+   _Nop();
+  while(LCD_BUSY==1);
+  _Nop();
+  ENAB=0;
+}
+
+/************************************************************/
+
+/**************************LCD写操作*************************/
+void wr_lcd (uchar dat_comm,uchar content)
+{
+  chk_busy ();
+  if(dat_comm)
+   {
+    RS=1;                 //data
+    RW=0;                 //write
+   }
+  else
+   {
+    RS=0;                //command
+    RW=0;                //write
+   }
+  P0=content;            
+  _Nop();
+  _Nop();
+  _Nop();
+  _Nop();
+  ENAB=1;
+  _Nop();
+  _Nop();
+  _Nop();
+  _Nop();
+  ENAB=0;
+}
+/************************************************************/
+
+
 
 
 
@@ -292,61 +377,6 @@ void alarm()
 
 }
 /*************************************************************/
-
-
-/**************************判断忙标志位**********************/
-void chk_busy (void)
-{
-  P0=0xff;
-  _Nop();
-  RS=0;
-  RW=1;
-   _Nop();
-   _Nop();
-   _Nop();
-   _Nop();
-  ENAB=1;
-   _Nop();
-   _Nop();
-   _Nop();
-   _Nop();
-  while(LCD_BUSY==1);
-  _Nop();
-  ENAB=0;
-}
-
-/************************************************************/
-
-/**************************LCD写操作*************************/
-void wr_lcd (uchar dat_comm,uchar content)
-{
-  chk_busy ();
-  if(dat_comm)
-   {
-    RS=1;                 //data
-    RW=0;                 //write
-   }
-  else
-   {
-    RS=0;                //command
-    RW=0;                //write
-   }
-  P0=content;            
-  _Nop();
-  _Nop();
-  _Nop();
-  _Nop();
-  ENAB=1;
-  _Nop();
-  _Nop();
-  _Nop();
-  _Nop();
-  ENAB=0;
-}
-/************************************************************/
-
-
-
 
 
 /*****************************设置显示*****************************************/
@@ -1078,29 +1108,6 @@ void Error_Process()
 
 
 
-/*********以下是长延时程序***********************************************/
-
-void delay(uint delay_k)
-{
-    uint k0=0;
-    do
-    {
-    do{k0--;}while(k0);
-    delay_k--;
-    }while(delay_k);
-
-}
-
-/*********以下是短延时程序***********************************************/
-void delayR(uint delay_k)
-{
-    do{delay_k--;}while(delay_k);
-
-
-}
-
-/*********************************************************************/
-
 /**************************以下是外部中断0程序************************/
  void INT_0() interrupt 0 using 0
  {
@@ -1163,7 +1170,20 @@ void RS232() interrupt 4 using 3
 
 /**********************************************************************/
 
+/*****************定时器中断程序*******************************/
 
+void tm0_isr() interrupt 1 using 1
+{
+     TL0 = 0x30;   //设置定时初值
+     TH0 = 0xF8;   //设置定时初值
+     if (count-- == 0)               //1ms * 1000 -> 1s
+     {
+     count = 1000;               //reset counter
+     TEST_LED = ! TEST_LED;      //work LED flash
+     }
+}
+
+/**********************************************************************/
 
 /***********以下是状态初始化程序*********************************/
 void stat_initial()
@@ -1223,13 +1243,13 @@ void stat_initial()
   Laser_Set_curent1=30;                          //记录种子源当前设定电流值
   Laser_Set_curent2=30;                          //记录放大级当前设定电流值
 
-  DA_Convert(3,92);                            // 种子源
+  DA_Convert(3,init_current1);                            // 种子源
    _Nop();
-  DA_Convert(3,92);
+  DA_Convert(3,init_current1);
 
-  DA_Convert(0,89);                            // 放大级
+  DA_Convert(0,init_current2);                            // 放大级
   _Nop();
-  DA_Convert(0,89);
+  DA_Convert(0,init_current2);
  }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1364,6 +1384,78 @@ void command()
               else setfault();
 
 setcf:       _Nop();
+
+           }
+
+
+///////////////////////////////////设定初始电流////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
+
+           {
+               uint init_current;
+               uchar CH;
+
+               if(inbuf[7]==0x0d)                                        //格式为SDIO=N
+              {
+                 init_current=inbuf[6]-48;
+
+
+              }
+               else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
+              {
+                 init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
+              {
+                 init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
+
+              }
+
+              else                                                    //格式为SDIO=NNNN
+              {
+                  setfault();
+                  goto seticf;
+              }
+
+              if(inbuf[5]=='S')
+              {
+                init_current1=init_current;
+              }
+              else if(inbuf[5]=='A')
+              {
+                init_current2=init_current;
+              }
+              else setfault();
+
+seticf:       _Nop();
+
+           }
+
+
+
+///////////////////////////////////设定初始化模式 0/1/2/3 ////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='E')&&(inbuf[4]=='='))
+
+           {   
+               uint init_flag_temp;
+               uchar CH;
+
+               if(inbuf[6]==0x0d)                                        //格式为SDIO=N
+              {
+                 init_flag_temp=inbuf[5]-48;
+                if ((init_flag_temp<0)||(init_flag_temp>3))
+                  goto setief;
+                else
+                  init_flag=init_flag_temp;
+              }
+              else                                                    //格式为SDIO=NNNN
+              {
+                  setfault();
+                  goto setief;
+              }
+
+setief:       _Nop();
 
            }
 
@@ -2206,6 +2298,7 @@ void main()
      Set_laser_current(3,30);
      }
      SHDN1=0;
+     
      SHDN2=0;
      send_string_com(inbuf1,9);
      t=0;
