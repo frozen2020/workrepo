@@ -19,25 +19,24 @@ typedef unsigned char BYTE;
 uchar  inbuf0[INBUF_LEN];            //读取数据缓冲区
 uchar  inbuf[INBUF_LEN];             //处理数据缓冲区
 uint   idata AD_inbuf[10];           //AD采集数据
-
-uchar code tab1[]={"光纤激光控制器"};
-uchar code tab2[]={"苏州德龙激光有限公司"};
-uchar code tab3[]={"正在初始化"};
-uchar code tab4[]={"请稍候......"};
-uchar code tab5[]={"初始化完成"};
-uchar code tab6[]={"SED:"};
-uchar code tab7[]={"AMP:"};
-uchar code tab8[]={"VOTEC:1.42v"};
-
-uchar code tab9[]={"设定电流"};
-uchar code tab10[]={"设定温度"};
-uchar code tab11[]={"℃"};
-uchar code tab12[]={"POW:"};
-uchar code tab13[]={"设定功率"};
-uchar code tab14[]={"℃ APC"};
-uchar code tab15[]={"℃ ACC"};
-uchar code tab16[]={"系统采集控制模式中  "};
-uchar code tab17[]={"...................."};
+uint  count=1000;
+//uchar code tab1[]={"光纤激光控制器"};
+//uchar code tab2[]={"苏州德龙激光有限公司"};
+//uchar code tab3[]={"正在初始化"};
+//uchar code tab4[]={"请稍候......"};
+//uchar code tab5[]={"初始化完成"};
+//uchar code tab6[]={"SED:"};
+//uchar code tab7[]={"AMP:"};
+//uchar code tab8[]={"VOTEC:1.42v"};
+//uchar code tab9[]={"设定电流"};
+//uchar code tab10[]={"设定温度"};
+//uchar code tab11[]={"℃"};
+//uchar code tab12[]={"POW:"};
+//uchar code tab13[]={"设定功率"};
+//uchar code tab14[]={"℃ APC"};
+//uchar code tab15[]={"℃ ACC"};
+//uchar code tab16[]={"系统采集控制模式中  "};
+//uchar code tab17[]={"...................."};
 uchar idata  TEC_parameter1[6];
 uchar idata  TEC_parameter2[6];
 uchar idata  Diode_parameter1[6];
@@ -55,7 +54,10 @@ uint   idata Laser_Set_curent2;             //设定放大级激光二极管电流值
 uint   idata Laser_Fed_curent1;             //实际种子源激光二极管电流值
 uint   idata Laser_Fed_curent2;             //实际放大级激光二极管电流值
 uint   idata Laser_meds_curent1;            //种子源中间设定电流
-uint   idata Laser_meds_curent2;            //放大级中间设定电流
+uint   idata Laser_meds_curent2;            //放大级中间设定电流 
+uint   init_current1;                       //种子源初始电流
+uint   init_current2;                       //放大级初始电流
+uint   init_flag;                           //初始电流标志位 0：不启用 1：仅放大级 2：仅种子源 3：双路
 
 uint   idata Laser_Set_power1;             //设定种子源激光功率
 uint   idata Laser_Set_power2;             //设定放大级激光功率
@@ -126,7 +128,7 @@ void DA_Convert(uchar Channel, uint Dcode);      //DA转换
 void Set_laser_current(uchar Channel,uint current);    //设定激光二极管电流
 void Set_laser_power(uchar Channel,uint power);        //设定激光功率
 void MCU_ADC(BYTE CHN);                      //单片机内部AD转换
-void Key_Button();                           //按键判别
+//void Key_Button();                           //按键判别
 void TEC_V_Check();                          //TEC两端电压
 void Diode_curent_Check();                   //激光二极管电流检测
 void Laser_power_Check();                    //激光功率检测
@@ -134,8 +136,8 @@ void Pdiod_V_Check();                        //激光二极管监测电压
 void TEC_Temp();                             //TEC温度
 void Error_Process();                        //异常处理
 void wr_lcd (uchar dat_comm,uchar content);
-void Lcd_disp();
-
+//void Lcd_disp();
+void Pwm_Set(uint,uint,uint);
 void Sdio_check();                     // 加电流时状态检查
 
 void serial_initial();                 // 串口初始化
@@ -183,18 +185,22 @@ void serial_initial()
       AUXR |= 0x01;		//串口1选择独立波特率发生器为波特率发生器
       AUXR |= 0x10;		//启动独立波特率发生器
 
-      TMOD=0x21;                //T1工作在方式2（8位模式）
+      TMOD=0x21;                //T1工作在方式2（8位模式）T工作在方式1（16位模式）
       AUXR &= 0x3f;             //T0,T1工作在1T/12
 
       IPH=0x14;
       IP=0x24;
       ES=1;
+      ET0=1;
       IT0=1;
       EX0=1;
       IT1=1;
       EX1=1;
       EA=1;
-
+      TL0 = 0x30;   //设置定时初值
+      TH0 = 0xF8;   //设置定时初值
+      TF0 = 0;    //清除TF0标志
+      TR0 = 0;    //定时器0开始计时
 
       return;
 }
@@ -326,34 +332,34 @@ void stat_initial()
 /***************************************************************/
 
 
-// /**************************LCD初始化***************************/
-// void init_lcd (void)
-// {
+/**************************LCD初始化***************************/
+void init_lcd (void)
+{
 
-//   wr_lcd (comm,0x30);                    //设定工作方式
-//   delayR(50000);
-//   wr_lcd (comm,0x01);                    //清屏
-//   delayR(50000);
-//   wr_lcd (comm,0x06);                    //光标的移动方向
-//   delayR(50000);
-//   wr_lcd (comm,0x0c);                    //开显示
-// }
+  wr_lcd (comm,0x30);                    //设定工作方式
+  delayR(50000);
+  wr_lcd (comm,0x01);                    //清屏
+  delayR(50000);
+  wr_lcd (comm,0x06);                    //光标的移动方向
+  delayR(50000);
+  wr_lcd (comm,0x0c);                    //开显示
+}
 
-// ***********************************************************
-// /**************************显示汉字或字符*********************/
+/*************************************************************/
+/**************************显示汉字或字符*********************/
 
-// void chn_disp (uchar *chn,uchar num,uchar ADRS)
-// {
-//     uchar i=0;
-// //  wr_lcd (comm,0x30);
-// //  delay(5);
-//     wr_lcd (comm,ADRS);
-//     for (i=0;i<num;i++)
-//     wr_lcd (dat,chn[i]);
-//     delay(2);
-//     return;
-// }
-// /*************************************************************/
+void chn_disp (uchar *chn,uchar num,uchar ADRS)
+{
+    uchar i=0;
+//  wr_lcd (comm,0x30);
+//  delay(5);
+    wr_lcd (comm,ADRS);
+    for (i=0;i<num;i++)
+    wr_lcd (dat,chn[i]);
+    delay(2);
+    return;
+}
+/*************************************************************/
 
 
 /***************************清DDRAM***************************/
@@ -427,11 +433,6 @@ void command()
         {
            stat_initial();
            serial_initial();
-           init_lcd ();
-           delay(10);
-           wr_lcd (comm,0x30);
-           delay(50);
-           clrram();
            setsucced();
         }
 
@@ -480,6 +481,78 @@ void command()
               else setfault();
 
 setcf:       _Nop();
+
+           }
+
+
+///////////////////////////////////设定初始电流////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
+
+           {
+               uint init_current;
+               uchar CH;
+
+               if(inbuf[7]==0x0d)                                        //格式为SDIO=N
+              {
+                 init_current=inbuf[6]-48;
+
+
+              }
+               else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
+              {
+                 init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
+              {
+                 init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
+
+              }
+
+              else                                                    //格式为SDIO=NNNN
+              {
+                  setfault();
+                  goto seticf;
+              }
+
+              if(inbuf[5]=='S')
+              {
+                init_current1=init_current;
+              }
+              else if(inbuf[5]=='A')
+              {
+                init_current2=init_current;
+              }
+              else setfault();
+
+seticf:       _Nop();
+
+           }
+
+
+
+///////////////////////////////////设定初始化模式 0/1/2/3 ////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='E')&&(inbuf[4]=='='))
+
+           {   
+               uint init_flag_temp;
+               uchar CH;
+
+               if(inbuf[6]==0x0d)                                        //格式为SDIO=N
+              {
+                 init_flag_temp=inbuf[5]-48;
+                if ((init_flag_temp<0)||(init_flag_temp>3))
+                  goto setief;
+                else
+                  init_flag=init_flag_temp;
+              }
+              else                                                    //格式为SDIO=NNNN
+              {
+                  setfault();
+                  goto setief;
+              }
+
+setief:       _Nop();
 
            }
 
@@ -577,6 +650,109 @@ setpf:       _Nop();
 
 settf:       _Nop();
 
+
+           }
+
+ ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////设定PWM频率//////////////////////////////////////////////////
+        else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='R')&&(inbuf[3]=='A')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //格式为PURA=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //格式为PURA=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else                                                    //格式为PURA=NNNN
+              {
+                  setfault();
+                  goto setprf;
+              }
+                Pwm_Set(1,1,1);
+                setsucced();
+setprf:       _Nop();
+
+           }
+          ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////设定PWM脉宽//////////////////////////////////////////////////
+               else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //格式为PUWI=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //格式为PUWI=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else                                                    //格式为PUWI=NNNN
+              {
+                  setfault();
+                  goto setpwf;
+              }
+                  Pwm_Set(1,1,1);
+                setsucced();
+setpwf:       _Nop();
+
+           }
+
+           ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////设定PWM延迟时间//////////////////////////////////////////////////
+	else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //格式为DELY=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //格式为DELY=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else                                                    //格式为DELY=NNNN
+              {
+                  setfault();
+                  goto setpdf;
+              }
+                Pwm_Set(1,1,1);
+                setsucced();
+setpdf:       _Nop();
 
            }
 
@@ -1067,69 +1243,69 @@ setdf:       _Nop();
 
 
 
-// /*****************************设置显示*****************************************/
-// void Lcd_disp()
-// {
-//  wr_lcd (comm,0x30);                    //设定工作方式
-//  delay(1);
-//  wr_lcd (comm,0x01);                    //清屏
-//  delay(1);
-//  wr_lcd (comm,0x0d);                    //开显示
-//  delay(1);
-//  wr_lcd (comm,0x10);
-//  delay(30);
+/*****************************设置显示****************************************
+void Lcd_disp()
+{
+ wr_lcd (comm,0x30);                    //设定工作方式
+ delay(1);
+ wr_lcd (comm,0x01);                    //清屏
+ delay(1);
+ wr_lcd (comm,0x0d);                    //开显示
+ delay(1);
+ wr_lcd (comm,0x10);
+ delay(30);
 
-//  if(CONT_MOD)                          //CONT_MOD: 1 APC, 0 ACC
+ if(CONT_MOD)                          //CONT_MOD: 1 APC, 0 ACC
 
-// //*****************APC模式显示设定功率**********************************/
-//  {
-//    chn_disp (tab13,8,0x80);
-//    delayR(50);
-//    chn_disp (Power_parameter1,6,0x84);
-//  }
+//*****************APC模式显示设定功率*********************************
+ {
+   chn_disp (tab13,8,0x80);
+   delayR(50);
+   chn_disp (Power_parameter1,6,0x84);
+ }
 
-// //*********************************************************************/
-//  else
-// //****************ACC模式显示电流设定**********************************/
-//  {
-//   chn_disp (tab9,8,0x80);
-//   delayR(50);
-//   chn_disp (Diode_parameter1,6,0x84);
+//********************************************************************
+ else
+//****************ACC模式显示电流设定**********************************
+ {
+  chn_disp (tab9,8,0x80);
+  delayR(50);
+  chn_disp (Diode_parameter1,6,0x84);
 
-//  }
-// //*********************************************************************/
+ }
+//*********************************************************************
 
-//  delayR(50);
+ delayR(50);
 
-// //*****************显示设定温度****************************************/
+//*****************显示设定温度****************************************
 
-//  delayR(50);
-//  chn_disp (TEC_parameter1,4,0x94);
-//  delayR(50);
-//  chn_disp (tab11,2,0x96);
-//  delayR(50);
-// // wr_lcd (comm,0x90);
-// //********************************************************************/
+ delayR(50);
+ chn_disp (TEC_parameter1,4,0x94);
+ delayR(50);
+ chn_disp (tab11,2,0x96);
+ delayR(50);
+// wr_lcd (comm,0x90);
+//********************************************************************
 
-// }
-// /**************************************************************************/
-
-
-// /*****************************判断按键电压*********************************/
-// void Key_Button()
-// {
-//   uchar kk=10;
-//   uchar tec_a=0;
-//   uchar tec_b=0;
-//   Key_V=0;
+}
+/**************************************************************************
 
 
+/*****************************判断按键电压*********************************
+void Key_Button()
+{
+  uchar kk=10;
+  uchar tec_a=0;
+  uchar tec_b=0;
+  Key_V=0;
 
 
-//   return;
-// }
 
-// /**************************************************************************/
+
+  return;
+}
+
+/**************************************************************************/
 
 /**********************二极管电流监测**************************************/
 void Diode_curent_Check()
@@ -1730,7 +1906,19 @@ uint AD_Convert(uchar Channel)
       _Nop();
 
       return(Dat_ad);
+}
 
+
+
+/**************************************************************************/
+/*****************************外部PWM设置程序*******************************/
+void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
+{ 
+  //脉宽1单位为10NS
+  //延迟1单位为10NS
+  //频率1单位为1KHZ
+
+  //
 }
 /**************************************************************************/
 /*****************************外部DA转换程序*******************************/
@@ -1870,10 +2058,10 @@ void delayR(uint delay_k)
 void INT_1() interrupt 2 using 1
 {
   _Nop();
-  chn_disp (tab16,20,0x80);
-  delayR(10000);
-  chn_disp (tab17,20,0x90);
-  delay(1000);
+  //chn_disp (tab16,20,0x80);
+  //delayR(10000);
+  //chn_disp (tab17,20,0x90);
+  //delay(1000);
 }
 /***********************************************************************/
 
@@ -1914,6 +2102,17 @@ void RS232() interrupt 4 using 3
 
 /**********************************************************************/
 
+/*****************定时器中断程序*******************************/
+
+void tm0_isr() interrupt 1 using 1
+{		
+     TL0 = 0x30;   //设置定时初值
+     TH0 = 0xF8;   //设置定时初值
+     if (count-- == 0)               //1ms * 1000 -> 1s
+     {
+     count = 1000;               //reset counter
+     }
+}
 
 /*************************设置错误***************************/
 void setfault()
@@ -1976,11 +2175,20 @@ void main()
 {
    uchar  i=10;
    uchar  tmp0=0;
-
+// setsucced();
+// delay(5000);
+// setsucced();
+// delay(5000);
+// setsucced();
    stat_initial();                               //状态初始划
    serial_initial();                             //串口初始化
-
-/*   if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
+// delay(20000);
+// setsucced();
+// delay(5000);
+// setsucced();
+// delay(5000);
+// setsucced();
+  if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
 
 ///////////////////////////////////APC模式设定初始功率//////////////////////////////////////////
  {
@@ -2011,9 +2219,9 @@ void main()
   _Nop();
   DA_Convert(0,88);
  }
-//////////////////////////////////////////////////////////////////////////////////////////////*/
-///////////////////////////////////上电开始显示///////////////////////////////////////////////
-   init_lcd ();
+//////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////上电开始显示//////////////////////////////////////////////tang
+ /*  init_lcd ();
    delay(5);
    wr_lcd (comm,0x30);
    delay(30);                                    //需要足够的等待延时
@@ -2030,7 +2238,7 @@ void main()
    delay(10);
    chn_disp (tab5,10,0x80);
    delay(5);
-/////////////////////////////////////////////////////////////////////////////////////////////
+*/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -2055,13 +2263,13 @@ void main()
 
 /***************************检查按键**************************************/
 
- Key_Button();
+ // Key_Button();  tang
 
 
 ///////////////////////////////////////////////////////////////////////////
 
 /***************************检查当前实际功率值****************************/
- Laser_power_Check();
+ //Laser_power_Check(); tang
 
 
 /*************************************************************************/
@@ -2087,13 +2295,13 @@ void main()
      uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
      if(CONT_MOD)
      {
-     Set_laser_power(1,3);
-     Set_laser_power(2,3);
+     Set_laser_power(0,3);       //tang
+     Set_laser_power(3,3);
      }
      else
      {
-     Set_laser_current(1,30);
-     Set_laser_current(2,30);
+     Set_laser_current(0,30);
+     Set_laser_current(3,30);
      }
      SHDN1=0;
      SHDN2=0;
@@ -2109,15 +2317,16 @@ void main()
      uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
      if(CONT_MOD)
      {
-     Set_laser_power(1,3);
-     Set_laser_power(2,3);
+     Set_laser_power(0,3);       //tang
+     Set_laser_power(3,3);
      }
      else
      {
-     Set_laser_current(1,30);
-     Set_laser_current(2,30);
+     Set_laser_current(0,30);
+     Set_laser_current(3,30);
      }
      SHDN1=0;
+     
      SHDN2=0;
      send_string_com(inbuf1,9);
      t=0;
@@ -2154,7 +2363,7 @@ void main()
 ////////////////////////////////////////////////////////////////////////
 
 
-/****************************LCD显示***********************************/
+/****************************LCD显示***********************************
 
 
      chn_disp (tab6,4,0x80);
@@ -2187,14 +2396,14 @@ void main()
         chn_disp (tab15,6,0x97);
      }
 
-///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////*/
 }
 
 else
 {
-     chn_disp (tab16,20,0x80);
-     delayR(10000);
-     chn_disp (tab17,20,0x90);
+    // chn_disp (tab16,20,0x80);
+   // delayR(10000);
+    // chn_disp (tab17,20,0x90);
 }
 
     }while(1);

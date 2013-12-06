@@ -1,5 +1,5 @@
-/*Ë«Â·¹âÏË¼¤¹âÆ÷¿ØÖÆÆ÷¹Ì¼şÇı¶¯³ÌĞò       ×÷Õß£ºĞíÎÀĞÇ
-/* ¾§ÕñÆµÂÊ24M*/
+/*åŒè·¯å…‰çº¤æ¿€å…‰å™¨æ§åˆ¶å™¨å›ºä»¶é©±åŠ¨ç¨‹åº       ä½œè€…ï¼šè®¸å«æ˜Ÿ
+/* æ™¶æŒ¯é¢‘ç‡24M*/
 
 #include<stdio.h>
 #include<math.h>
@@ -7,37 +7,36 @@
 #include<STC_NEW_8051.h>
 
 
-#define  _Nop() _nop_()              // ¶¨Òå¿ÕÖ¸Áî
+#define  _Nop() _nop_()              // å®šä¹‰ç©ºæŒ‡ä»¤
 #define  uchar unsigned char
 #define  uint  unsigned int
 typedef unsigned char BYTE;
-#define  INBUF_LEN 15                //Êı¾İ³¤¶È
+#define  INBUF_LEN 15                //æ•°æ®é•¿åº¦
 #define comm  0
 #define dat   1
 
 
-uchar  inbuf0[INBUF_LEN];            //¶ÁÈ¡Êı¾İ»º³åÇø
-uchar  inbuf[INBUF_LEN];             //´¦ÀíÊı¾İ»º³åÇø
-uint   idata AD_inbuf[10];           //AD²É¼¯Êı¾İ
-
-uchar code tab1[]={"¹âÏË¼¤¹â¿ØÖÆÆ÷"};
-uchar code tab2[]={"ËÕÖİµÂÁú¼¤¹âÓĞÏŞ¹«Ë¾"};
-uchar code tab3[]={"ÕıÔÚ³õÊ¼»¯"};
-uchar code tab4[]={"ÇëÉÔºò......"};
-uchar code tab5[]={"³õÊ¼»¯Íê³É"};
-uchar code tab6[]={"SED:"};
-uchar code tab7[]={"AMP:"};
-uchar code tab8[]={"VOTEC:1.42v"};
-
-uchar code tab9[]={"Éè¶¨µçÁ÷"};
-uchar code tab10[]={"Éè¶¨ÎÂ¶È"};
-uchar code tab11[]={"¡æ"};
-uchar code tab12[]={"POW:"};
-uchar code tab13[]={"Éè¶¨¹¦ÂÊ"};
-uchar code tab14[]={"¡æ APC"};
-uchar code tab15[]={"¡æ ACC"};
-uchar code tab16[]={"ÏµÍ³²É¼¯¿ØÖÆÄ£Ê½ÖĞ  "};
-uchar code tab17[]={"...................."};
+uchar  inbuf0[INBUF_LEN];            //è¯»å–æ•°æ®ç¼“å†²åŒº
+uchar  inbuf[INBUF_LEN];             //å¤„ç†æ•°æ®ç¼“å†²åŒº
+uint   idata AD_inbuf[10];           //ADé‡‡é›†æ•°æ®
+uint  count=1000;
+//uchar code tab1[]={"å…‰çº¤æ¿€å…‰æ§åˆ¶å™¨"};
+//uchar code tab2[]={"è‹å·å¾·é¾™æ¿€å…‰æœ‰é™å…¬å¸"};
+//uchar code tab3[]={"æ­£åœ¨åˆå§‹åŒ–"};
+//uchar code tab4[]={"è¯·ç¨å€™......"};
+//uchar code tab5[]={"åˆå§‹åŒ–å®Œæˆ"};
+//uchar code tab6[]={"SED:"};
+//uchar code tab7[]={"AMP:"};
+//uchar code tab8[]={"VOTEC:1.42v"};
+//uchar code tab9[]={"è®¾å®šç”µæµ"};
+//uchar code tab10[]={"è®¾å®šæ¸©åº¦"};
+//uchar code tab11[]={"â„ƒ"};
+//uchar code tab12[]={"POW:"};
+//uchar code tab13[]={"è®¾å®šåŠŸç‡"};
+//uchar code tab14[]={"â„ƒ APC"};
+//uchar code tab15[]={"â„ƒ ACC"};
+//uchar code tab16[]={"ç³»ç»Ÿé‡‡é›†æ§åˆ¶æ¨¡å¼ä¸­  "};
+//uchar code tab17[]={"...................."};
 uchar idata  TEC_parameter1[6];
 uchar idata  TEC_parameter2[6];
 uchar idata  Diode_parameter1[6];
@@ -46,115 +45,118 @@ uchar idata  Power_parameter1[6];
 uchar idata  Power_parameter2[6];
 uchar  set_flag;
 
-bit     Sys_mod;                            //ÏµÍ³¹¤×÷Ä£Ê½  1:Ö÷¶¯Ä£Ê½£¬0£ºÏµÍ³²É¼¯Ä£Ê½
+bit     Sys_mod;                            //ç³»ç»Ÿå·¥ä½œæ¨¡å¼  1:ä¸»åŠ¨æ¨¡å¼ï¼Œ0ï¼šç³»ç»Ÿé‡‡é›†æ¨¡å¼
 
 uint   idata MCU_AD_code;
 uint   idata AD_code;
-uint   idata Laser_Set_curent1;             //Éè¶¨ÖÖ×ÓÔ´¼¤¹â¶ş¼«¹ÜµçÁ÷Öµ
-uint   idata Laser_Set_curent2;             //Éè¶¨·Å´ó¼¶¼¤¹â¶ş¼«¹ÜµçÁ÷Öµ
-uint   idata Laser_Fed_curent1;             //Êµ¼ÊÖÖ×ÓÔ´¼¤¹â¶ş¼«¹ÜµçÁ÷Öµ
-uint   idata Laser_Fed_curent2;             //Êµ¼Ê·Å´ó¼¶¼¤¹â¶ş¼«¹ÜµçÁ÷Öµ
-uint   idata Laser_meds_curent1;            //ÖÖ×ÓÔ´ÖĞ¼äÉè¶¨µçÁ÷
-uint   idata Laser_meds_curent2;            //·Å´ó¼¶ÖĞ¼äÉè¶¨µçÁ÷
+uint   idata Laser_Set_curent1;             //è®¾å®šç§å­æºæ¿€å…‰äºŒæç®¡ç”µæµå€¼
+uint   idata Laser_Set_curent2;             //è®¾å®šæ”¾å¤§çº§æ¿€å…‰äºŒæç®¡ç”µæµå€¼
+uint   idata Laser_Fed_curent1;             //å®é™…ç§å­æºæ¿€å…‰äºŒæç®¡ç”µæµå€¼
+uint   idata Laser_Fed_curent2;             //å®é™…æ”¾å¤§çº§æ¿€å…‰äºŒæç®¡ç”µæµå€¼
+uint   idata Laser_meds_curent1;            //ç§å­æºä¸­é—´è®¾å®šç”µæµ
+uint   idata Laser_meds_curent2;            //æ”¾å¤§çº§ä¸­é—´è®¾å®šç”µæµ 
+uint   init_current1;                       //ç§å­æºåˆå§‹ç”µæµ
+uint   init_current2;                       //æ”¾å¤§çº§åˆå§‹ç”µæµ
+uint   init_flag;                           //åˆå§‹ç”µæµæ ‡å¿—ä½ 0ï¼šä¸å¯ç”¨ 1ï¼šä»…æ”¾å¤§çº§ 2ï¼šä»…ç§å­æº 3ï¼šåŒè·¯
 
-uint   idata Laser_Set_power1;             //Éè¶¨ÖÖ×ÓÔ´¼¤¹â¹¦ÂÊ
-uint   idata Laser_Set_power2;             //Éè¶¨·Å´ó¼¶¼¤¹â¹¦ÂÊ
-uint   idata Laser_Fed_power1;             //ÖÖ×ÓÔ´Êµ¼Ê¼¤¹â¹¦ÂÊ
-uint   idata Laser_Fed_power2;             //·Å´ó¼¶Êµ¼Ê¼¤¹â¹¦ÂÊ
-uint   idata Laser_meds_power1;            //ÖÖ×ÓÔ´ÖĞ¼äÉè¶¨¹¦ÂÊ
-uint   idata Laser_meds_power2;            //·Å´ó¼¶ÖĞ¼äÉè¶¨¹¦ÂÊ
+uint   idata Laser_Set_power1;             //è®¾å®šç§å­æºæ¿€å…‰åŠŸç‡
+uint   idata Laser_Set_power2;             //è®¾å®šæ”¾å¤§çº§æ¿€å…‰åŠŸç‡
+uint   idata Laser_Fed_power1;             //ç§å­æºå®é™…æ¿€å…‰åŠŸç‡
+uint   idata Laser_Fed_power2;             //æ”¾å¤§çº§å®é™…æ¿€å…‰åŠŸç‡
+uint   idata Laser_meds_power1;            //ç§å­æºä¸­é—´è®¾å®šåŠŸç‡
+uint   idata Laser_meds_power2;            //æ”¾å¤§çº§ä¸­é—´è®¾å®šåŠŸç‡
 
-float  idata TEC_Set_Tempture1;             //ÖÖ×ÓÔ´Éè¶¨ÀäÈ´ÎÂ¶È
-float  idata TEC_Set_Tempture2;             //·Å´ó¼¶Éè¶¨ÀäÈ´ÎÂ¶È
-float  idata TEC_Fed_Tempture1;             //ÖÖ×ÓÔ´µ±Ç°ÀäÈ´ÎÂ¶È
-float  idata TEC_Fed_Tempture2;             //·Å´ó¼¶µ±Ç°ÀäÈ´ÎÂ¶È
-uint   idata TEC_meds_tempture1;            //ÖÖ×ÓÔ´ÖĞ¼äÉè¶¨ÎÂ¶È
-uint   idata TEC_meds_tempture2;            //·Å´ó¼¶ÖĞ¼äÉè¶¨ÎÂ¶È
+float  idata TEC_Set_Tempture1;             //ç§å­æºè®¾å®šå†·å´æ¸©åº¦
+float  idata TEC_Set_Tempture2;             //æ”¾å¤§çº§è®¾å®šå†·å´æ¸©åº¦
+float  idata TEC_Fed_Tempture1;             //ç§å­æºå½“å‰å†·å´æ¸©åº¦
+float  idata TEC_Fed_Tempture2;             //æ”¾å¤§çº§å½“å‰å†·å´æ¸©åº¦
+uint   idata TEC_meds_tempture1;            //ç§å­æºä¸­é—´è®¾å®šæ¸©åº¦
+uint   idata TEC_meds_tempture2;            //æ”¾å¤§çº§ä¸­é—´è®¾å®šæ¸©åº¦
 
-uint   idata Key_V;                         //°´¼üµçÑ¹
+uint   idata Key_V;                         //æŒ‰é”®ç”µå‹
 
-uint   idata PDiode_V1;                     //¼à²âÖÖ×ÓÔ´µçÁ÷¶ş¼«¹Ü·´À¡µçÑ¹
-uint   idata PDiode_V2;                     //¼à²â·Å´ó¼¶µçÁ÷¶ş¼«¹Ü·´À¡µçÑ¹
-uint   idata TEC_VO1;                       //ÖÖ×ÓÔ´TECÁ½¶ËµçÑ¹Öµ
-uint   idata TEC_VO2;                       //·Å´ó¼¶TECÁ½¶ËµçÑ¹Öµ
-
-
-
-uchar  t=0;                                 // »º³åÇøÊı¾İ¶Î
-
-bit  read_flag=0;                           // ¶ÁÈ¡±êÖ¾Î»
-bit  las_di_ok=0;                           //¼¤¹â¶ş¼«¹ÜµçÁ÷£¬1£­OK
-
-
-//////////////////////////ÊäÈë¿ØÖÆÎ»/////////////////////////////////////////////////////
-
-sbit KEYB=P1^0;                      //3¼üÅÌÊäÈë£¨Ä£ÄâÁ¿£©
+uint   idata PDiode_V1;                     //ç›‘æµ‹ç§å­æºç”µæµäºŒæç®¡åé¦ˆç”µå‹
+uint   idata PDiode_V2;                     //ç›‘æµ‹æ”¾å¤§çº§ç”µæµäºŒæç®¡åé¦ˆç”µå‹
+uint   idata TEC_VO1;                       //ç§å­æºTECä¸¤ç«¯ç”µå‹å€¼
+uint   idata TEC_VO2;                       //æ”¾å¤§çº§TECä¸¤ç«¯ç”µå‹å€¼
 
 
 
-sbit TMPGD1=P2^3;                    //TECÎÂ¶ÈOK £¬H£­OK          1ÎªÖÖ×ÓÔ´Çı¶¯
-sbit TMPGD2=P2^7;                    //TECÎÂ¶ÈOK £¬H£­OK          2Îª·Å´ó¼¶Çı¶¯
-sbit DOUT=P1^6;                      //AD´®ĞĞÊä³ö
+uchar  t=0;                                 // ç¼“å†²åŒºæ•°æ®æ®µ
 
-sbit CONT_MOD=P4^3;                  //¿ØÖÆÄ£Ê½Ê¶±ğ£¬1ÎªAPC£¬0ÎªACC
+bit  read_flag=0;                           // è¯»å–æ ‡å¿—ä½
+bit  las_di_ok=0;                           //æ¿€å…‰äºŒæç®¡ç”µæµï¼Œ1ï¼OK
 
-//////////////////////////Êä³ö¿ØÖÆÎ»/////////////////////////////////////////////////////
-sbit LDAC=P2^2;                      //DA×°ÔØĞÅºÅ
-sbit CSDA=P4^0;                      //DAÑ¡Í¨ĞÅºÅ
-sbit DINDA=P2^1;                     //DA´®ĞĞÊı¾İÊäÈë
-//sbit SCLK=P1^7;                    //DAÊ±ÖÓÊäÈë         09.02 P1.7ĞŞ¸Ä³ÉÄ£ÄâÁ¿ÊäÈë
-sbit SCLK=P2^0;                      //DAÊ±ÖÓÊäÈë
-sbit SHDN1=P3^6;                     //¹Ø±ÕTECÎÂ¿Ø£¬L£­¹Ø±Õ
-sbit SHDN2=P2^6;                     //¹Ø±ÕTECÎÂ¿Ø£¬L£­¹Ø±Õ
 
-sbit FS=P3^7;                        //DAÖ¡ĞÅºÅ
-sbit ENAB=P4^4;                      //LCDÊ¹ÄÜĞÅºÅ£¬ÏÂ½µÑØ
-sbit RW=P4^5;                        //LCD¶ÁĞ´ĞÅºÅ£¬H£­read£¬L£­write
-sbit RS=P4^1;                        //LCDÑ¡Í¨ĞÅºÅ £¬H£­date£¬L£­instruction
-sbit LIM1=P3^5;                      //¼¤¹â¶ş¼«¹Ü¹ıÁ÷ÖĞ¶ÏĞÅºÅ
-sbit LIM2=P2^5;                      //¼¤¹â¶ş¼«¹Ü¹ıÁ÷ÖĞ¶ÏĞÅºÅ
-//sbit INT1=P3^3;                    //Íâ²¿ÖĞ¶ÏĞÅºÅ1£¨±¸ÓÃ£©
-sbit DCLK=P1^7;                      //ADÊ±ÖÓĞÅºÅ
-sbit ADIN=P1^5;                      //AD´®ĞĞÊı¾İÊäÈë
-sbit CSAD=P2^4;                      //ADÑ¡Í¨ĞÅºÅ£¬L£­Ñ¡Í¨
+//////////////////////////è¾“å…¥æ§åˆ¶ä½/////////////////////////////////////////////////////
+
+sbit KEYB=P1^0;                      //3é”®ç›˜è¾“å…¥ï¼ˆæ¨¡æ‹Ÿé‡ï¼‰
+
+
+
+sbit TMPGD1=P2^3;                    //TECæ¸©åº¦OK ï¼ŒHï¼OK          1ä¸ºç§å­æºé©±åŠ¨
+sbit TMPGD2=P2^7;                    //TECæ¸©åº¦OK ï¼ŒHï¼OK          2ä¸ºæ”¾å¤§çº§é©±åŠ¨
+sbit DOUT=P1^6;                      //ADä¸²è¡Œè¾“å‡º
+
+sbit CONT_MOD=P4^3;                  //æ§åˆ¶æ¨¡å¼è¯†åˆ«ï¼Œ1ä¸ºAPCï¼Œ0ä¸ºACC
+
+//////////////////////////è¾“å‡ºæ§åˆ¶ä½/////////////////////////////////////////////////////
+sbit LDAC=P2^2;                      //DAè£…è½½ä¿¡å·
+sbit CSDA=P4^0;                      //DAé€‰é€šä¿¡å·
+sbit DINDA=P2^1;                     //DAä¸²è¡Œæ•°æ®è¾“å…¥
+//sbit SCLK=P1^7;                    //DAæ—¶é’Ÿè¾“å…¥         09.02 P1.7ä¿®æ”¹æˆæ¨¡æ‹Ÿé‡è¾“å…¥
+sbit SCLK=P2^0;                      //DAæ—¶é’Ÿè¾“å…¥
+sbit SHDN1=P3^6;                     //å…³é—­TECæ¸©æ§ï¼ŒLï¼å…³é—­
+sbit SHDN2=P2^6;                     //å…³é—­TECæ¸©æ§ï¼ŒLï¼å…³é—­
+
+sbit FS=P3^7;                        //DAå¸§ä¿¡å·
+sbit ENAB=P4^4;                      //LCDä½¿èƒ½ä¿¡å·ï¼Œä¸‹é™æ²¿
+sbit RW=P4^5;                        //LCDè¯»å†™ä¿¡å·ï¼ŒHï¼readï¼ŒLï¼write
+sbit RS=P4^1;                        //LCDé€‰é€šä¿¡å· ï¼ŒHï¼dateï¼ŒLï¼instruction
+sbit LIM1=P3^5;                      //æ¿€å…‰äºŒæç®¡è¿‡æµä¸­æ–­ä¿¡å·
+sbit LIM2=P2^5;                      //æ¿€å…‰äºŒæç®¡è¿‡æµä¸­æ–­ä¿¡å·
+//sbit INT1=P3^3;                    //å¤–éƒ¨ä¸­æ–­ä¿¡å·1ï¼ˆå¤‡ç”¨ï¼‰
+sbit DCLK=P1^7;                      //ADæ—¶é’Ÿä¿¡å·
+sbit ADIN=P1^5;                      //ADä¸²è¡Œæ•°æ®è¾“å…¥
+sbit CSAD=P2^4;                      //ADé€‰é€šä¿¡å·ï¼ŒLï¼é€‰é€š
 sbit LCD_BUSY=P0^7;
 
 
-uint AD_Convert(uchar Channel);      //AD×ª»»
-void DA_Convert(uchar Channel, uint Dcode);      //DA×ª»»
-//void Set_TEC_TEMP(uint tempture);              //Éè¶¨ÀäÈ´ÎÂ¶È
-void Set_laser_current(uchar Channel,uint current);    //Éè¶¨¼¤¹â¶ş¼«¹ÜµçÁ÷
-void Set_laser_power(uchar Channel,uint power);        //Éè¶¨¼¤¹â¹¦ÂÊ
-void MCU_ADC(BYTE CHN);                      //µ¥Æ¬»úÄÚ²¿AD×ª»»
-void Key_Button();                           //°´¼üÅĞ±ğ
-void TEC_V_Check();                          //TECÁ½¶ËµçÑ¹
-void Diode_curent_Check();                   //¼¤¹â¶ş¼«¹ÜµçÁ÷¼ì²â
-void Laser_power_Check();                    //¼¤¹â¹¦ÂÊ¼ì²â
-void Pdiod_V_Check();                        //¼¤¹â¶ş¼«¹Ü¼à²âµçÑ¹
-void TEC_Temp();                             //TECÎÂ¶È
-void Error_Process();                        //Òì³£´¦Àí
+uint AD_Convert(uchar Channel);      //ADè½¬æ¢
+void DA_Convert(uchar Channel, uint Dcode);      //DAè½¬æ¢
+//void Set_TEC_TEMP(uint tempture);              //è®¾å®šå†·å´æ¸©åº¦
+void Set_laser_current(uchar Channel,uint current);    //è®¾å®šæ¿€å…‰äºŒæç®¡ç”µæµ
+void Set_laser_power(uchar Channel,uint power);        //è®¾å®šæ¿€å…‰åŠŸç‡
+void MCU_ADC(BYTE CHN);                      //å•ç‰‡æœºå†…éƒ¨ADè½¬æ¢
+//void Key_Button();                           //æŒ‰é”®åˆ¤åˆ«
+void TEC_V_Check();                          //TECä¸¤ç«¯ç”µå‹
+void Diode_curent_Check();                   //æ¿€å…‰äºŒæç®¡ç”µæµæ£€æµ‹
+void Laser_power_Check();                    //æ¿€å…‰åŠŸç‡æ£€æµ‹
+void Pdiod_V_Check();                        //æ¿€å…‰äºŒæç®¡ç›‘æµ‹ç”µå‹
+void TEC_Temp();                             //TECæ¸©åº¦
+void Error_Process();                        //å¼‚å¸¸å¤„ç†
 void wr_lcd (uchar dat_comm,uchar content);
-void Lcd_disp();
+//void Lcd_disp();
+void Pwm_Set(uint,uint,uint);
+void Sdio_check();                     // åŠ ç”µæµæ—¶çŠ¶æ€æ£€æŸ¥
 
-void Sdio_check();                     // ¼ÓµçÁ÷Ê±×´Ì¬¼ì²é
-
-void serial_initial();                 // ´®¿Ú³õÊ¼»¯
-void stat_initial();                   // ×´Ì¬³õÊ¼»¯
-void INT_0();                          // Íâ²¿ÖĞ¶Ï0
-void delay(uint);                      // ³¤ÑÓÊ±
-void delayR(uint);                     // ¶ÌÑÓÊ±
-void RS232();                          // ´®¿ÚÖĞ¶Ï
-
-
-
-void command();                        // Ö¸ÁîÅĞ¶Ï
-void setfault();                       // ÉèÖÃ´íÎó
-void setsucced();                      // ÉèÖÃ³É¹¦
-void alarm();                          // ¾¯¸æ
+void serial_initial();                 // ä¸²å£åˆå§‹åŒ–
+void stat_initial();                   // çŠ¶æ€åˆå§‹åŒ–
+void INT_0();                          // å¤–éƒ¨ä¸­æ–­0
+void delay(uint);                      // é•¿å»¶æ—¶
+void delayR(uint);                     // çŸ­å»¶æ—¶
+void RS232();                          // ä¸²å£ä¸­æ–­
 
 
 
-/***************Ïò´®¿Ú·¢ËÍÒ»¸ö×Ö·û´®*****************/
+void command();                        // æŒ‡ä»¤åˆ¤æ–­
+void setfault();                       // è®¾ç½®é”™è¯¯
+void setsucced();                      // è®¾ç½®æˆåŠŸ
+void alarm();                          // è­¦å‘Š
+
+
+
+/***************å‘ä¸²å£å‘é€ä¸€ä¸ªå­—ç¬¦ä¸²*****************/
 void send_string_com(uchar *str,uchar strlen)
 {
     uchar k=0;
@@ -171,30 +173,34 @@ void send_string_com(uchar *str,uchar strlen)
 
 
 
-/***********ÒÔÏÂÊÇ´®¿Ú³õÊ¼»¯³ÌĞò********************************************/
+/***********ä»¥ä¸‹æ˜¯ä¸²å£åˆå§‹åŒ–ç¨‹åº********************************************/
 void serial_initial()
 {
 
 
-      PCON |= 0x80;		//Ê¹ÄÜ²¨ÌØÂÊ±¶ËÙÎ»SMOD
-      SCON = 0x50;		//8Î»Êı¾İ,¿É±ä²¨ÌØÂÊ
-      BRT = 0x64;		//Éè¶¨¶ÀÁ¢²¨ÌØÂÊ·¢ÉúÆ÷ÖØ×°Öµ
-      AUXR |= 0x04;		//¶ÀÁ¢²¨ÌØÂÊ·¢ÉúÆ÷Ê±ÖÓÎªFosc,¼´1T
-      AUXR |= 0x01;		//´®¿Ú1Ñ¡Ôñ¶ÀÁ¢²¨ÌØÂÊ·¢ÉúÆ÷Îª²¨ÌØÂÊ·¢ÉúÆ÷
-      AUXR |= 0x10;		//Æô¶¯¶ÀÁ¢²¨ÌØÂÊ·¢ÉúÆ÷
+      PCON |= 0x80;		//ä½¿èƒ½æ³¢ç‰¹ç‡å€é€Ÿä½SMOD
+      SCON = 0x50;		//8ä½æ•°æ®,å¯å˜æ³¢ç‰¹ç‡
+      BRT = 0x64;		//è®¾å®šç‹¬ç«‹æ³¢ç‰¹ç‡å‘ç”Ÿå™¨é‡è£…å€¼
+      AUXR |= 0x04;		//ç‹¬ç«‹æ³¢ç‰¹ç‡å‘ç”Ÿå™¨æ—¶é’Ÿä¸ºFosc,å³1T
+      AUXR |= 0x01;		//ä¸²å£1é€‰æ‹©ç‹¬ç«‹æ³¢ç‰¹ç‡å‘ç”Ÿå™¨ä¸ºæ³¢ç‰¹ç‡å‘ç”Ÿå™¨
+      AUXR |= 0x10;		//å¯åŠ¨ç‹¬ç«‹æ³¢ç‰¹ç‡å‘ç”Ÿå™¨
 
-      TMOD=0x21;                //T1¹¤×÷ÔÚ·½Ê½2£¨8Î»Ä£Ê½£©
-      AUXR &= 0x3f;             //T0,T1¹¤×÷ÔÚ1T/12
+      TMOD=0x21;                //T1å·¥ä½œåœ¨æ–¹å¼2ï¼ˆ8ä½æ¨¡å¼ï¼‰Tå·¥ä½œåœ¨æ–¹å¼1ï¼ˆ16ä½æ¨¡å¼ï¼‰
+      AUXR &= 0x3f;             //T0,T1å·¥ä½œåœ¨1T/12
 
       IPH=0x14;
       IP=0x24;
       ES=1;
+      ET0=1;
       IT0=1;
       EX0=1;
       IT1=1;
       EX1=1;
       EA=1;
-
+      TL0 = 0x30;   //è®¾ç½®å®šæ—¶åˆå€¼
+      TH0 = 0xF8;   //è®¾ç½®å®šæ—¶åˆå€¼
+      TF0 = 0;    //æ¸…é™¤TF0æ ‡å¿—
+      TR0 = 0;    //å®šæ—¶å™¨0å¼€å§‹è®¡æ—¶
 
       return;
 }
@@ -204,14 +210,14 @@ void serial_initial()
 
 
 
-/***********ÒÔÏÂÊÇ×´Ì¬³õÊ¼»¯³ÌĞò*********************************/
+/***********ä»¥ä¸‹æ˜¯çŠ¶æ€åˆå§‹åŒ–ç¨‹åº*********************************/
 void stat_initial()
 {
 
      ADC_RES=0;
      ADC_RESL=0;
 
-     read_flag=0;          //¶ÁÈ¡±êÖ¾ÇåÁã
+     read_flag=0;          //è¯»å–æ ‡å¿—æ¸…é›¶
      las_di_ok=0;
      t=0;
      set_flag=0;
@@ -224,49 +230,49 @@ void stat_initial()
      Laser_Fed_power1=0;
      Laser_Fed_power2=0;
 
-/**************DAÒı½Å³õÊ¼»¯*************************/
+/**************DAå¼•è„šåˆå§‹åŒ–*************************/
      CSDA=1;
      LDAC=1;
      FS=0;
      SCLK=0;
      DINDA=0;
 /**************************************************/
-     DA_Convert(2,1273);                          //Éè¶¨ÖÖ×ÓÔ´TECÎÂ¶ÈÎª25¶È
+     DA_Convert(2,1273);                          //è®¾å®šç§å­æºTECæ¸©åº¦ä¸º25åº¦
      _Nop();
      DA_Convert(2,1273);
      _Nop();
-     DA_Convert(1,1273);                          //Éè¶¨·Å´ó¼¶TECÎÂ¶ÈÎª25¶È
+     DA_Convert(1,1273);                          //è®¾å®šæ”¾å¤§çº§TECæ¸©åº¦ä¸º25åº¦
      _Nop();
      DA_Convert(1,1273);
 /**************************************************/
   if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
 
-///////////////////////////////////APCÄ£Ê½Éè¶¨³õÊ¼¹¦ÂÊ//////////////////////////////////////////
+///////////////////////////////////APCæ¨¡å¼è®¾å®šåˆå§‹åŠŸç‡//////////////////////////////////////////
  {
-  Laser_Set_power1=3;                        //¼ÇÂ¼ÖÖ×ÓÔ´µ±Ç°Éè¶¨¹¦ÂÊÖµ
-  Laser_Set_power2=3;                        //¼ÇÂ¼·Å´ó¼¶µ±Ç°Éè¶¨¹¦ÂÊÖµ
+  Laser_Set_power1=3;                        //è®°å½•ç§å­æºå½“å‰è®¾å®šåŠŸç‡å€¼
+  Laser_Set_power2=3;                        //è®°å½•æ”¾å¤§çº§å½“å‰è®¾å®šåŠŸç‡å€¼
 
-  DA_Convert(3,25);                          // ÖÖ×ÓÔ´
+  DA_Convert(3,25);                          // ç§å­æº
    _Nop();
   DA_Convert(3,25);
 
-  DA_Convert(0,25);                          // ·Å´ó¼¶
+  DA_Convert(0,25);                          // æ”¾å¤§çº§
    _Nop();
   DA_Convert(0,25);
  }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
   else
-//////////////////////////////////ACCÄ£Ê½Éè¶¨³õÊ¼µçÁ÷//////////////////////////////////////////
+//////////////////////////////////ACCæ¨¡å¼è®¾å®šåˆå§‹ç”µæµ//////////////////////////////////////////
  {
-  Laser_Set_curent1=30;                          //¼ÇÂ¼ÖÖ×ÓÔ´µ±Ç°Éè¶¨µçÁ÷Öµ
-  Laser_Set_curent2=30;                          //¼ÇÂ¼·Å´ó¼¶µ±Ç°Éè¶¨µçÁ÷Öµ
+  Laser_Set_curent1=30;                          //è®°å½•ç§å­æºå½“å‰è®¾å®šç”µæµå€¼
+  Laser_Set_curent2=30;                          //è®°å½•æ”¾å¤§çº§å½“å‰è®¾å®šç”µæµå€¼
 
-  DA_Convert(3,92);                            // ÖÖ×ÓÔ´
+  DA_Convert(3,92);                            // ç§å­æº
    _Nop();
   DA_Convert(3,92);
 
-  DA_Convert(0,89);                            // ·Å´ó¼¶
+  DA_Convert(0,89);                            // æ”¾å¤§çº§
   _Nop();
   DA_Convert(0,89);
  }
@@ -274,7 +280,7 @@ void stat_initial()
 
 
 
-     P4SW=0x30;            //Éè¶¨P4.4¡¢P4.5ÎªI/O¹¦ÄÜ
+     P4SW=0x30;            //è®¾å®šP4.4ã€P4.5ä¸ºI/OåŠŸèƒ½
      P1M1=0x07;
      P1M0=0x00;
 
@@ -286,7 +292,7 @@ void stat_initial()
 
 
 
-/*************TEC¿ØÖÆÆ÷³õÊ¼»¯*********************/
+/*************TECæ§åˆ¶å™¨åˆå§‹åŒ–*********************/
      SHDN1=1;
 //   TMPGD1=1;
      LIM1=1;
@@ -326,37 +332,37 @@ void stat_initial()
 /***************************************************************/
 
 
-// /**************************LCD³õÊ¼»¯***************************/
-// void init_lcd (void)
-// {
+/**************************LCDåˆå§‹åŒ–***************************/
+void init_lcd (void)
+{
 
-//   wr_lcd (comm,0x30);                    //Éè¶¨¹¤×÷·½Ê½
-//   delayR(50000);
-//   wr_lcd (comm,0x01);                    //ÇåÆÁ
-//   delayR(50000);
-//   wr_lcd (comm,0x06);                    //¹â±êµÄÒÆ¶¯·½Ïò
-//   delayR(50000);
-//   wr_lcd (comm,0x0c);                    //¿ªÏÔÊ¾
-// }
+  wr_lcd (comm,0x30);                    //è®¾å®šå·¥ä½œæ–¹å¼
+  delayR(50000);
+  wr_lcd (comm,0x01);                    //æ¸…å±
+  delayR(50000);
+  wr_lcd (comm,0x06);                    //å…‰æ ‡çš„ç§»åŠ¨æ–¹å‘
+  delayR(50000);
+  wr_lcd (comm,0x0c);                    //å¼€æ˜¾ç¤º
+}
 
-// ***********************************************************
-// /**************************ÏÔÊ¾ºº×Ö»ò×Ö·û*********************/
+/*************************************************************/
+/**************************æ˜¾ç¤ºæ±‰å­—æˆ–å­—ç¬¦*********************/
 
-// void chn_disp (uchar *chn,uchar num,uchar ADRS)
-// {
-//     uchar i=0;
-// //  wr_lcd (comm,0x30);
-// //  delay(5);
-//     wr_lcd (comm,ADRS);
-//     for (i=0;i<num;i++)
-//     wr_lcd (dat,chn[i]);
-//     delay(2);
-//     return;
-// }
-// /*************************************************************/
+void chn_disp (uchar *chn,uchar num,uchar ADRS)
+{
+    uchar i=0;
+//  wr_lcd (comm,0x30);
+//  delay(5);
+    wr_lcd (comm,ADRS);
+    for (i=0;i<num;i++)
+    wr_lcd (dat,chn[i]);
+    delay(2);
+    return;
+}
+/*************************************************************/
 
 
-/***************************ÇåDDRAM***************************/
+/***************************æ¸…DDRAM***************************/
 void clrram (void)
 {
   wr_lcd (comm,0x30);
@@ -367,7 +373,7 @@ void clrram (void)
 
 
 
-/**************************ÅĞ¶ÏÃ¦±êÖ¾Î»**********************/
+/**************************åˆ¤æ–­å¿™æ ‡å¿—ä½**********************/
 void chk_busy (void)
 {
   P0=0xff;
@@ -390,7 +396,7 @@ void chk_busy (void)
 
 /************************************************************/
 
-/**************************LCDĞ´²Ù×÷*************************/
+/**************************LCDå†™æ“ä½œ*************************/
 void wr_lcd (uchar dat_comm,uchar content)
 {
   chk_busy ();
@@ -418,48 +424,43 @@ void wr_lcd (uchar dat_comm,uchar content)
 }
 /************************************************************/
 
-/****************************²Ù×÷Ö¸ÁîÖ´ĞĞ***********************/
+/****************************æ“ä½œæŒ‡ä»¤æ‰§è¡Œ***********************/
 void command()
 {
 
-    ///////////////////////////°å¿¨³õÊ¼»¯Ö¸Áî////////////////////////////////////////////
+    ///////////////////////////æ¿å¡åˆå§‹åŒ–æŒ‡ä»¤////////////////////////////////////////////
      if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='T')&&(inbuf[4]=='I'))
         {
            stat_initial();
            serial_initial();
-           init_lcd ();
-           delay(10);
-           wr_lcd (comm,0x30);
-           delay(50);
-           clrram();
            setsucced();
         }
 
-///////////////////////////////////Éè¶¨µçÁ÷////////////////////////////////////////////
+///////////////////////////////////è®¾å®šç”µæµ////////////////////////////////////////////
        else if((inbuf[0]=='S')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='O')&&(inbuf[4]=='='))
 
            {
                uint dio_cu;
                uchar CH;
 
-               if(inbuf[7]==0x0d)                                        //¸ñÊ½ÎªSDIO=N
+               if(inbuf[7]==0x0d)                                        //æ ¼å¼ä¸ºSDIO=N
               {
                  dio_cu=inbuf[6]-48;
 
 
               }
-               else if(inbuf[8]==0x0d)                                   //¸ñÊ½ÎªSDIO=NN
+               else if(inbuf[8]==0x0d)                                   //æ ¼å¼ä¸ºSDIO=NN
               {
                  dio_cu=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
-              else if(inbuf[9]==0x0d)                                    //¸ñÊ½ÎªSDIO=NNN
+              else if(inbuf[9]==0x0d)                                    //æ ¼å¼ä¸ºSDIO=NNN
               {
                  dio_cu=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
 
               }
 
-              else                                                    //¸ñÊ½ÎªSDIO=NNNN
+              else                                                    //æ ¼å¼ä¸ºSDIO=NNNN
               {
                   setfault();
                   goto setcf;
@@ -467,13 +468,13 @@ void command()
 
               if(inbuf[5]=='S')
               {
-                CH=3;                                     //ÖÖ×ÓÔ´SEED
+                CH=3;                                     //ç§å­æºSEED
                 Set_laser_current(CH,dio_cu);
                 setsucced();
               }
               else if(inbuf[5]=='A')
               {
-                CH=0;                                    //·Å´ó¼¶AMP
+                CH=0;                                    //æ”¾å¤§çº§AMP
                 Set_laser_current(CH,dio_cu);
                 setsucced();
               }
@@ -484,28 +485,100 @@ setcf:       _Nop();
            }
 
 
- //////////////////////////////Éè¶¨¹¦ÂÊ//////////////////////////////////////////////////
+///////////////////////////////////è®¾å®šåˆå§‹ç”µæµ////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
+
+           {
+               uint init_current;
+               uchar CH;
+
+               if(inbuf[7]==0x0d)                                        //æ ¼å¼ä¸ºSDIO=N
+              {
+                 init_current=inbuf[6]-48;
+
+
+              }
+               else if(inbuf[8]==0x0d)                                   //æ ¼å¼ä¸ºSDIO=NN
+              {
+                 init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[9]==0x0d)                                    //æ ¼å¼ä¸ºSDIO=NNN
+              {
+                 init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
+
+              }
+
+              else                                                    //æ ¼å¼ä¸ºSDIO=NNNN
+              {
+                  setfault();
+                  goto seticf;
+              }
+
+              if(inbuf[5]=='S')
+              {
+                init_current1=init_current;
+              }
+              else if(inbuf[5]=='A')
+              {
+                init_current2=init_current;
+              }
+              else setfault();
+
+seticf:       _Nop();
+
+           }
+
+
+
+///////////////////////////////////è®¾å®šåˆå§‹åŒ–æ¨¡å¼ 0/1/2/3 ////////////////////////////////////////////
+       else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='E')&&(inbuf[4]=='='))
+
+           {   
+               uint init_flag_temp;
+               uchar CH;
+
+               if(inbuf[6]==0x0d)                                        //æ ¼å¼ä¸ºSDIO=N
+              {
+                 init_flag_temp=inbuf[5]-48;
+                if ((init_flag_temp<0)||(init_flag_temp>3))
+                  goto setief;
+                else
+                  init_flag=init_flag_temp;
+              }
+              else                                                    //æ ¼å¼ä¸ºSDIO=NNNN
+              {
+                  setfault();
+                  goto setief;
+              }
+
+setief:       _Nop();
+
+           }
+
+
+ //////////////////////////////è®¾å®šåŠŸç‡//////////////////////////////////////////////////
         else if((inbuf[0]=='S')&&(inbuf[1]=='P')&&(inbuf[2]=='O')&&(inbuf[3]=='W')&&(inbuf[4]=='='))
             {
                uint las_pow;
                uchar CHH;
-               if(inbuf[6]==0x0d)                                        //¸ñÊ½ÎªSPOW=N
+               if(inbuf[6]==0x0d)                                        //æ ¼å¼ä¸ºSPOW=N
               {
                  las_pow=(uint)(inbuf[5]-48);
 
               }
-               else if(inbuf[7]==0x0d)                                   //¸ñÊ½ÎªSPOW=NN
+               else if(inbuf[7]==0x0d)                                   //æ ¼å¼ä¸ºSPOW=NN
               {
                  las_pow=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
 
               }
-              else if(inbuf[8]==0x0d)                                    //¸ñÊ½ÎªSPOW=NNN
+              else if(inbuf[8]==0x0d)                                    //æ ¼å¼ä¸ºSPOW=NNN
               {
                  las_pow=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
 
-              else                                                      //¸ñÊ½ÎªSPOW=NNNN
+              else                                                      //æ ¼å¼ä¸ºSPOW=NNNN
               {
                   setfault();
                   goto setpf;
@@ -513,13 +586,13 @@ setcf:       _Nop();
 
               if(inbuf[5]=='S')
               {
-                CH=3;                                     //ÖÖ×ÓÔ´SEED
+                CH=3;                                     //ç§å­æºSEED
                 Set_laser_power(CHH,las_pow);
                 setsucced();
               }
               else if(inbuf[5]=='A')
               {
-                CH=0;                                    //·Å´ó¼¶AMP
+                CH=0;                                    //æ”¾å¤§çº§AMP
                 Set_laser_power(CHH,las_pow);
                 setsucced();
               }
@@ -530,7 +603,7 @@ setpf:       _Nop();
 
             }
  ////////////////////////////////////////////////////////////////////////////////////////
- //////////////////////////////Éè¶¨ÎÂ¶È//////////////////////////////////////////////////
+ //////////////////////////////è®¾å®šæ¸©åº¦//////////////////////////////////////////////////
         else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='P')&&(inbuf[4]=='='))
            {
               uint  tmp_tec=0;
@@ -561,14 +634,14 @@ setpf:       _Nop();
 
                if(inbuf[5]=='S')
               {
-                DA_Convert(2,kt);                         //ÖÖ×ÓÔ´SEED
+                DA_Convert(2,kt);                         //ç§å­æºSEED
                 _Nop();
                 DA_Convert(2,kt);
                 setsucced();
               }
               else if(inbuf[5]=='A')
               {
-                DA_Convert(1,kt);                         //·Å´ó¼¶AMP
+                DA_Convert(1,kt);                         //æ”¾å¤§çº§AMP
                 _Nop();
                 DA_Convert(1,kt);
                 setsucced();
@@ -580,16 +653,119 @@ settf:       _Nop();
 
            }
 
-/////////////////////////////////¹Ø±Õ»ò¿ªÆôTEC¿ØÖÆÆ÷////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////è®¾å®šPWMé¢‘ç‡//////////////////////////////////////////////////
+        else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='R')&&(inbuf[3]=='A')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //æ ¼å¼ä¸ºPURA=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //æ ¼å¼ä¸ºPURA=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //æ ¼å¼ä¸ºPURA=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //æ ¼å¼ä¸ºPURA=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else                                                    //æ ¼å¼ä¸ºPURA=NNNN
+              {
+                  setfault();
+                  goto setprf;
+              }
+                Pwm_Set(1,1,1);
+                setsucced();
+setprf:       _Nop();
+
+           }
+          ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////è®¾å®šPWMè„‰å®½//////////////////////////////////////////////////
+               else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //æ ¼å¼ä¸ºPUWI=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //æ ¼å¼ä¸ºPUWI=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //æ ¼å¼ä¸ºPUWI=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else if(inbuf[8]==0x0d)                                    //æ ¼å¼ä¸ºPUWI=NNN
+              {
+                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+
+              }
+              else                                                    //æ ¼å¼ä¸ºPUWI=NNNN
+              {
+                  setfault();
+                  goto setpwf;
+              }
+                  Pwm_Set(1,1,1);
+                setsucced();
+setpwf:       _Nop();
+
+           }
+
+           ////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////è®¾å®šPWMå»¶è¿Ÿæ—¶é—´//////////////////////////////////////////////////
+	else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='='))
+         {
+               uint pwm_pulserate;
+             
+               if(inbuf[6]==0x0d)                                        //æ ¼å¼ä¸ºDELY=N
+              {
+                 pwm_pulserate=inbuf[5]-48;
+
+
+              }
+               else if(inbuf[7]==0x0d)                                   //æ ¼å¼ä¸ºDELY=NN
+              {
+                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+
+              }
+              else                                                    //æ ¼å¼ä¸ºDELY=NNNN
+              {
+                  setfault();
+                  goto setpdf;
+              }
+                Pwm_Set(1,1,1);
+                setsucced();
+setpdf:       _Nop();
+
+           }
+
+/////////////////////////////////å…³é—­æˆ–å¼€å¯TECæ§åˆ¶å™¨////////////////////////////////
        else if((inbuf[0]=='S')&&(inbuf[1]=='H')&&(inbuf[2]=='D')&&(inbuf[3]=='N')&&(inbuf[4]=='='))
 
            {
-              if((inbuf[5]=='S')&&(inbuf[7]==0x0d))             //ÖÖ×ÓÔ´TEC
+              if((inbuf[5]=='S')&&(inbuf[7]==0x0d))             //ç§å­æºTEC
               {
                  SHDN1=(bit)((inbuf[6]-48)&0x01);
                  setsucced();
               }
-              else if((inbuf[5]=='A')&&(inbuf[7]==0x0d))        //·Å´ó¼¶TEC
+              else if((inbuf[5]=='A')&&(inbuf[7]==0x0d))        //æ”¾å¤§çº§TEC
               {
                  SHDN2=(bit)((inbuf[6]-48)&0x01);
                  setsucced();
@@ -598,7 +774,7 @@ settf:       _Nop();
 
            }
 
- //////////////////////////////////Ç¿ÖÆ¹ØµçÁ÷///////////////////////////////////////
+ //////////////////////////////////å¼ºåˆ¶å…³ç”µæµ///////////////////////////////////////
 
       else if((inbuf[0]=='D')&&(inbuf[1]=='L')&&(inbuf[2]=='I')&&(inbuf[3]=='M')&&(inbuf[4]=='='))
 
@@ -634,7 +810,7 @@ settf:       _Nop();
                  setfault();
 setdf:       _Nop();
            }
- //////////////////////////////////²éÑ¯µ±Ç°Êµ¼ÊµçÁ÷/////////////////////////////////
+ //////////////////////////////////æŸ¥è¯¢å½“å‰å®é™…ç”µæµ/////////////////////////////////
       else if((inbuf[0]=='D')&&(inbuf[1]=='I')&&(inbuf[2]=='O')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
 
            {
@@ -704,7 +880,7 @@ setdf:       _Nop();
            }
 
 
- //////////////////////////////////²éÑ¯µ±Ç°Êµ¼Ê¹¦ÂÊ/////////////////////////////////
+ //////////////////////////////////æŸ¥è¯¢å½“å‰å®é™…åŠŸç‡/////////////////////////////////
       else if((inbuf[0]=='L')&&(inbuf[1]=='A')&&(inbuf[2]=='P')&&(inbuf[3]=='O')&&(inbuf[4]=='?'))
 
            {
@@ -773,7 +949,7 @@ setdf:       _Nop();
 
            }
 
-///////////////////////////////////²éÑ¯µ±Ç°ÀäÈ´ÎÂ¶È////////////////////////////////
+///////////////////////////////////æŸ¥è¯¢å½“å‰å†·å´æ¸©åº¦////////////////////////////////
       else if((inbuf[0]=='T')&&(inbuf[1]=='E')&&(inbuf[2]=='C')&&(inbuf[3]=='P')&&(inbuf[4]=='?'))
 
            {
@@ -816,7 +992,7 @@ setdf:       _Nop();
                alarm();
 
            }
-///////////////////////////////////²éÑ¯µ±Ç°¼à²â¶ş¼«¹Ü·´À¡µçÑ¹/////////////////////
+///////////////////////////////////æŸ¥è¯¢å½“å‰ç›‘æµ‹äºŒæç®¡åé¦ˆç”µå‹/////////////////////
       else if((inbuf[0]=='P')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
 
            {
@@ -853,7 +1029,7 @@ setdf:       _Nop();
 
            }
 
-///////////////////////////////////²éÑ¯µ±Ç°TECÁ½¶ËµÄµçÑ¹//////////////////////////
+///////////////////////////////////æŸ¥è¯¢å½“å‰TECä¸¤ç«¯çš„ç”µå‹//////////////////////////
       else if((inbuf[0]=='V')&&(inbuf[1]=='O')&&(inbuf[2]=='T')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
 
            {
@@ -891,7 +1067,7 @@ setdf:       _Nop();
               send_string_com(inbuf,12);
 
            }
-//////////////////////////////////²éÑ¯µ±Ç°TECÎÂ¶ÈÊÇ·ñOK//////////////////////////
+//////////////////////////////////æŸ¥è¯¢å½“å‰TECæ¸©åº¦æ˜¯å¦OK//////////////////////////
       else if((inbuf[0]=='T')&&(inbuf[1]=='P')&&(inbuf[2]=='G')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
 
            {
@@ -941,7 +1117,7 @@ setdf:       _Nop();
 
            }
 
-///////////////////////////////////²éÑ¯TEC¿ØÖÆÆ÷ÊÇ·ñ¹Ø±Õ//////////////////////////
+///////////////////////////////////æŸ¥è¯¢TECæ§åˆ¶å™¨æ˜¯å¦å…³é—­//////////////////////////
       else if((inbuf[0]=='U')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
 
            {
@@ -1006,7 +1182,7 @@ setdf:       _Nop();
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////¿ØÖÆÄ£Ê½²éÑ¯////////////////////////////////////
+///////////////////////////////////æ§åˆ¶æ¨¡å¼æŸ¥è¯¢////////////////////////////////////
        else if((inbuf[0]=='C')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
 
            {
@@ -1040,12 +1216,12 @@ setdf:       _Nop();
            }
 
 
-/////////////////////////////////////ÏµÍ³¹¤×÷Ä£Ê½ÇĞ»»////////////////////////////////////////////
+/////////////////////////////////////ç³»ç»Ÿå·¥ä½œæ¨¡å¼åˆ‡æ¢////////////////////////////////////////////
       else if((inbuf[0]=='S')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='='))
       {
            if(inbuf[6]==0x0d)
               {
-                 Sys_mod=(bit)((inbuf[5]-48)&0x01);        //1:Ö÷¶¯Ä£Ê½£¬0£ºÏµÍ³²É¼¯Ä£Ê½
+                 Sys_mod=(bit)((inbuf[5]-48)&0x01);        //1:ä¸»åŠ¨æ¨¡å¼ï¼Œ0ï¼šç³»ç»Ÿé‡‡é›†æ¨¡å¼
                  setsucced();
               }
            else
@@ -1054,7 +1230,7 @@ setdf:       _Nop();
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
       else
-       setfault();                              //ÉèÖÃ´íÎó
+       setfault();                              //è®¾ç½®é”™è¯¯
 
 
 
@@ -1067,71 +1243,71 @@ setdf:       _Nop();
 
 
 
-// /*****************************ÉèÖÃÏÔÊ¾*****************************************/
-// void Lcd_disp()
-// {
-//  wr_lcd (comm,0x30);                    //Éè¶¨¹¤×÷·½Ê½
-//  delay(1);
-//  wr_lcd (comm,0x01);                    //ÇåÆÁ
-//  delay(1);
-//  wr_lcd (comm,0x0d);                    //¿ªÏÔÊ¾
-//  delay(1);
-//  wr_lcd (comm,0x10);
-//  delay(30);
+/*****************************è®¾ç½®æ˜¾ç¤º****************************************
+void Lcd_disp()
+{
+ wr_lcd (comm,0x30);                    //è®¾å®šå·¥ä½œæ–¹å¼
+ delay(1);
+ wr_lcd (comm,0x01);                    //æ¸…å±
+ delay(1);
+ wr_lcd (comm,0x0d);                    //å¼€æ˜¾ç¤º
+ delay(1);
+ wr_lcd (comm,0x10);
+ delay(30);
 
-//  if(CONT_MOD)                          //CONT_MOD: 1 APC, 0 ACC
+ if(CONT_MOD)                          //CONT_MOD: 1 APC, 0 ACC
 
-// //*****************APCÄ£Ê½ÏÔÊ¾Éè¶¨¹¦ÂÊ**********************************/
-//  {
-//    chn_disp (tab13,8,0x80);
-//    delayR(50);
-//    chn_disp (Power_parameter1,6,0x84);
-//  }
+//*****************APCæ¨¡å¼æ˜¾ç¤ºè®¾å®šåŠŸç‡*********************************
+ {
+   chn_disp (tab13,8,0x80);
+   delayR(50);
+   chn_disp (Power_parameter1,6,0x84);
+ }
 
-// //*********************************************************************/
-//  else
-// //****************ACCÄ£Ê½ÏÔÊ¾µçÁ÷Éè¶¨**********************************/
-//  {
-//   chn_disp (tab9,8,0x80);
-//   delayR(50);
-//   chn_disp (Diode_parameter1,6,0x84);
+//********************************************************************
+ else
+//****************ACCæ¨¡å¼æ˜¾ç¤ºç”µæµè®¾å®š**********************************
+ {
+  chn_disp (tab9,8,0x80);
+  delayR(50);
+  chn_disp (Diode_parameter1,6,0x84);
 
-//  }
-// //*********************************************************************/
+ }
+//*********************************************************************
 
-//  delayR(50);
+ delayR(50);
 
-// //*****************ÏÔÊ¾Éè¶¨ÎÂ¶È****************************************/
+//*****************æ˜¾ç¤ºè®¾å®šæ¸©åº¦****************************************
 
-//  delayR(50);
-//  chn_disp (TEC_parameter1,4,0x94);
-//  delayR(50);
-//  chn_disp (tab11,2,0x96);
-//  delayR(50);
-// // wr_lcd (comm,0x90);
-// //********************************************************************/
+ delayR(50);
+ chn_disp (TEC_parameter1,4,0x94);
+ delayR(50);
+ chn_disp (tab11,2,0x96);
+ delayR(50);
+// wr_lcd (comm,0x90);
+//********************************************************************
 
-// }
-// /**************************************************************************/
-
-
-// /*****************************ÅĞ¶Ï°´¼üµçÑ¹*********************************/
-// void Key_Button()
-// {
-//   uchar kk=10;
-//   uchar tec_a=0;
-//   uchar tec_b=0;
-//   Key_V=0;
+}
+/**************************************************************************
 
 
+/*****************************åˆ¤æ–­æŒ‰é”®ç”µå‹*********************************
+void Key_Button()
+{
+  uchar kk=10;
+  uchar tec_a=0;
+  uchar tec_b=0;
+  Key_V=0;
 
 
-//   return;
-// }
 
-// /**************************************************************************/
 
-/**********************¶ş¼«¹ÜµçÁ÷¼à²â**************************************/
+  return;
+}
+
+/**************************************************************************/
+
+/**********************äºŒæç®¡ç”µæµç›‘æµ‹**************************************/
 void Diode_curent_Check()
 {
     uchar k=16;
@@ -1140,10 +1316,10 @@ void Diode_curent_Check()
     AD_inbuf[1]=0;
     do
     {
-      AD_code=AD_Convert(0);                  //ÖÖ×ÓÔ´µçÁ÷
+      AD_code=AD_Convert(0);                  //ç§å­æºç”µæµ
       AD_inbuf[0]= AD_code+AD_inbuf[0];
 
-      AD_code=AD_Convert(3);                  //·Å´ó¼¶µçÁ÷
+      AD_code=AD_Convert(3);                  //æ”¾å¤§çº§ç”µæµ
       AD_inbuf[1]= AD_code+AD_inbuf[1];
 
       k--;
@@ -1153,7 +1329,7 @@ void Diode_curent_Check()
     AD_inbuf[0]=AD_inbuf[0]/16;
     AD_inbuf[1]=AD_inbuf[1]/16;
 
-    Laser_Fed_curent1=(AD_inbuf[0]*5/6-AD_inbuf[0]*15/768)/2;     //R=1.5Å·
+    Laser_Fed_curent1=(AD_inbuf[0]*5/6-AD_inbuf[0]*15/768)/2;     //R=1.5æ¬§
     Laser_meds_curent1=Laser_Fed_curent1;
     if (Laser_Fed_curent1<10)
       { Diode_parameter1[0]=Laser_Fed_curent1+48;
@@ -1178,7 +1354,7 @@ void Diode_curent_Check()
         Diode_parameter1[4]=0x41;
       }
 
-    Laser_Fed_curent2=(AD_inbuf[1]*5/6-AD_inbuf[1]*15/768)/2;     //R=1.5Å·
+    Laser_Fed_curent2=(AD_inbuf[1]*5/6-AD_inbuf[1]*15/768)/2;     //R=1.5æ¬§
     Laser_meds_curent2=Laser_Fed_curent2;
     if (Laser_Fed_curent2<10)
       { Diode_parameter2[0]=Laser_Fed_curent2+48;
@@ -1206,7 +1382,7 @@ void Diode_curent_Check()
     return;
 }
 /**************************************************************************/
-/*****************************¼¤¹â¹¦ÂÊ¼ì²â*********************************/
+/*****************************æ¿€å…‰åŠŸç‡æ£€æµ‹*********************************/
 void Laser_power_Check()
 {
 
@@ -1216,10 +1392,10 @@ void Laser_power_Check()
     AD_inbuf[9]=0;
     do
     {
-      AD_code=AD_Convert(1);                  //ÖÖ×ÓÔ´
+      AD_code=AD_Convert(1);                  //ç§å­æº
       AD_inbuf[8]= AD_code+AD_inbuf[8];
 
-      AD_code=AD_Convert(4);                  //·Å´ó¼¶
+      AD_code=AD_Convert(4);                  //æ”¾å¤§çº§
       AD_inbuf[9]= AD_code+AD_inbuf[9];
       k--;
     }while(k);
@@ -1307,7 +1483,7 @@ void Laser_power_Check()
 /**************************************************************************/
 
 
-/*****************************µ±Ç°ÀäÈ´ÎÂ¶È*********************************/
+/*****************************å½“å‰å†·å´æ¸©åº¦*********************************/
 void TEC_Temp()
 {
     uint  tx1=0;
@@ -1317,10 +1493,10 @@ void TEC_Temp()
     AD_inbuf[7]=0;
     do
     {
-      AD_code=AD_Convert(2);        //ÖÖ×ÓÔ´TECÎÂ¶È
+      AD_code=AD_Convert(2);        //ç§å­æºTECæ¸©åº¦
       AD_inbuf[6]= AD_code+AD_inbuf[6];
 
-      AD_code=AD_Convert(5);        //·Å´ó¼¶TECÎÂ¶È
+      AD_code=AD_Convert(5);        //æ”¾å¤§çº§TECæ¸©åº¦
       AD_inbuf[7]= AD_code+AD_inbuf[7];
       kt--;
     }while(kt);
@@ -1354,7 +1530,7 @@ void TEC_Temp()
 
 /**************************************************************************/
 
-/*****************************µ±Ç°TECÁ½¶ËµçÑ¹******************************/
+/*****************************å½“å‰TECä¸¤ç«¯ç”µå‹******************************/
 void TEC_V_Check()                                                 //???????????????????????
 {
     uchar kk=20;
@@ -1386,7 +1562,7 @@ void TEC_V_Check()                                                 //???????????
 
 /**************************************************************************/
 
-/*****************************¼à²â¶ş¼«¹ÜµçÑ¹******************************/
+/*****************************ç›‘æµ‹äºŒæç®¡ç”µå‹******************************/
 void Pdiod_V_Check()
 {
     uchar kk=10;
@@ -1394,10 +1570,10 @@ void Pdiod_V_Check()
     AD_inbuf[3]=0;
     do
     {
-      AD_code=AD_Convert(1);             //ÖÖ×ÓÔ´¼¤¹â¶ş¼«¹Ü
+      AD_code=AD_Convert(1);             //ç§å­æºæ¿€å…‰äºŒæç®¡
       AD_inbuf[2]= AD_code+AD_inbuf[2];
 
-      AD_code=AD_Convert(4);             //·Å´ó¼¶¼¤¹â¶ş¼«¹Ü
+      AD_code=AD_Convert(4);             //æ”¾å¤§çº§æ¿€å…‰äºŒæç®¡
       AD_inbuf[3]= AD_code+AD_inbuf[3];
       kk--;
     }while(kk);
@@ -1412,7 +1588,7 @@ void Pdiod_V_Check()
 
 
 
-/*******************************Éè¶¨ÎÂ¶ÈÖµ*************************************
+/*******************************è®¾å®šæ¸©åº¦å€¼*************************************
 
 void Set_TEC_TEMP(uint tempture)
 {
@@ -1430,7 +1606,7 @@ void Set_TEC_TEMP(uint tempture)
 
 /******************************************************************************/
 
-/*****************************Éè¶¨¹¦ÂÊÖµ**********************************/
+/*****************************è®¾å®šåŠŸç‡å€¼**********************************/
 void Set_laser_power(uchar Channel,uint power)
 {
   float  u,v;
@@ -1444,7 +1620,7 @@ void Set_laser_power(uchar Channel,uint power)
   temp_p=(uint)(v);
 
 
-  if(Channel==3)                                         //Éè¶¨ÖÖ×ÓÔ´¹¦ÂÊ
+  if(Channel==3)                                         //è®¾å®šç§å­æºåŠŸç‡
   {
 
     if(SHDN1)
@@ -1462,7 +1638,7 @@ void Set_laser_power(uchar Channel,uint power)
     else if(Channel==0)
   {
 
-    if(SHDN2)                                             //Éè¶¨·Å´ó¼¶¹¦ÂÊ
+    if(SHDN2)                                             //è®¾å®šæ”¾å¤§çº§åŠŸç‡
      {
 
           DA_Convert(0,temp_p);
@@ -1485,7 +1661,7 @@ void Set_laser_power(uchar Channel,uint power)
 
 /*************************************************************************/
 
-/*****************************Éè¶¨µçÁ÷Öµ**********************************/
+/*****************************è®¾å®šç”µæµå€¼**********************************/
 
 void Set_laser_current(uchar Channel,uint current)
 {
@@ -1497,7 +1673,7 @@ void Set_laser_current(uchar Channel,uint current)
 
 
 
-      tmp_c1=current*3+current*9/125;                     //R=1.5Å·
+      tmp_c1=current*3+current*9/125;                     //R=1.5æ¬§
 
 
 
@@ -1650,7 +1826,7 @@ void Set_laser_current(uchar Channel,uint current)
 
 /***************************************************************************/
 
-/*****************************Íâ²¿AD×ª»»³ÌĞò*******************************/
+/*****************************å¤–éƒ¨ADè½¬æ¢ç¨‹åº*******************************/
 uint AD_Convert(uchar Channel)
 {
    uchar i,Dath,Datl,temp,Contbit;
@@ -1659,7 +1835,7 @@ uint AD_Convert(uchar Channel)
    Datl=0;
    temp=0;
    Dat_ad=0;
-   switch (Channel)                        //  ÄÚ²¿REF
+   switch (Channel)                        //  å†…éƒ¨REF
     {
         case 0:Contbit=0x00;break;
         case 1:Contbit=0x08;break;
@@ -1678,7 +1854,7 @@ uint AD_Convert(uchar Channel)
 
    for(i=0;i<8;i++)
    {
-      ADIN=(bit)(Contbit&(0x80>>i));   //´®ĞĞÊı¾İÎ»
+      ADIN=(bit)(Contbit&(0x80>>i));   //ä¸²è¡Œæ•°æ®ä½
 
       DCLK=0;
       _Nop();
@@ -1693,7 +1869,7 @@ uint AD_Convert(uchar Channel)
     CSAD=0;
     _Nop();
 
-    for(i=0;i<8;i++)                   //Ğ´Èë¿ØÖÆ×Ö£¬²¢¶ÁÈ¡¸ßËÄÎ»Êı¾İ
+    for(i=0;i<8;i++)                   //å†™å…¥æ§åˆ¶å­—ï¼Œå¹¶è¯»å–é«˜å››ä½æ•°æ®
     {
       ADIN=(bit)(Contbit&(0x80>>i));
 
@@ -1730,10 +1906,22 @@ uint AD_Convert(uchar Channel)
       _Nop();
 
       return(Dat_ad);
+}
 
+
+
+/**************************************************************************/
+/*****************************å¤–éƒ¨PWMè®¾ç½®ç¨‹åº*******************************/
+void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
+{ 
+  //è„‰å®½1å•ä½ä¸º10NS
+  //å»¶è¿Ÿ1å•ä½ä¸º10NS
+  //é¢‘ç‡1å•ä½ä¸º1KHZ
+
+  //
 }
 /**************************************************************************/
-/*****************************Íâ²¿DA×ª»»³ÌĞò*******************************/
+/*****************************å¤–éƒ¨DAè½¬æ¢ç¨‹åº*******************************/
 void DA_Convert(uchar Channel, uint Dcode)
 {
 
@@ -1748,9 +1936,9 @@ void DA_Convert(uchar Channel, uint Dcode)
         default: break;
     }
 
-    LDAC=1;                               //Êı¾İË¢ĞÂ
+    LDAC=1;                               //æ•°æ®åˆ·æ–°
     _Nop();
-    CSDA=0;                               //Æ¬Ñ¡ÓĞĞ§
+    CSDA=0;                               //ç‰‡é€‰æœ‰æ•ˆ
     FS=1;
     _Nop();
     FS=0;
@@ -1766,7 +1954,7 @@ void DA_Convert(uchar Channel, uint Dcode)
 
    LDAC=0;
    _Nop();
-   CSDA=1;                             //Æ¬Ñ¡ÎŞĞ§
+   CSDA=1;                             //ç‰‡é€‰æ— æ•ˆ
    Dcode=0;
   return;
 
@@ -1774,7 +1962,7 @@ void DA_Convert(uchar Channel, uint Dcode)
 /**************************************************************************/
 
 
-/*****************************µ¥Æ¬»úÄÚ²¿AD********************************/
+/*****************************å•ç‰‡æœºå†…éƒ¨AD********************************/
  void MCU_ADC(BYTE CHN)
  {
     BYTE    AD_finished;
@@ -1788,22 +1976,22 @@ void DA_Convert(uchar Channel, uint Dcode)
 
         default: break;
     }
-    AUXR1 &= ~0x04;                     //0000,0100, Áî ADRJ=0
+    AUXR1 &= ~0x04;                     //0000,0100, ä»¤ ADRJ=0
     ADC_RES=0;
     ADC_RESL=0;
 
-    CHN &= 0x07;                        //0000,0111 Çå0¸ß5Î»
+    CHN &= 0x07;                        //0000,0111 æ¸…0é«˜5ä½
 
     ADC_CONTR =ADC_SPEEDH ;
     _nop_();
-    ADC_CONTR |= CHN ;                  //Ñ¡Ôñ A/D µ±Ç°Í¨µÀ
+    ADC_CONTR |= CHN ;                  //é€‰æ‹© A/D å½“å‰é€šé“
     _nop_();
-    ADC_CONTR |= 0x80;                  //Æô¶¯ A/D µçÔ´
+    ADC_CONTR |= 0x80;                  //å¯åŠ¨ A/D ç”µæº
     delayR(10);
     ADC_CONTR |= 0x08;
     delayR(10);
     AD_finished = 0;
-    while (AD_finished ==0 )            //µÈ´ıA/D×ª»»½áÊø
+    while (AD_finished ==0 )            //ç­‰å¾…A/Dè½¬æ¢ç»“æŸ
     {
       AD_finished = (ADC_CONTR & 0x10);
     }
@@ -1829,7 +2017,7 @@ void Error_Process()
 
 
 
-/*********ÒÔÏÂÊÇ³¤ÑÓÊ±³ÌĞò***********************************************/
+/*********ä»¥ä¸‹æ˜¯é•¿å»¶æ—¶ç¨‹åº***********************************************/
 
 void delay(uint delay_k)
 {
@@ -1842,7 +2030,7 @@ void delay(uint delay_k)
 
 }
 
-/*********ÒÔÏÂÊÇ¶ÌÑÓÊ±³ÌĞò***********************************************/
+/*********ä»¥ä¸‹æ˜¯çŸ­å»¶æ—¶ç¨‹åº***********************************************/
 void delayR(uint delay_k)
 {
     do{delay_k--;}while(delay_k);
@@ -1852,7 +2040,7 @@ void delayR(uint delay_k)
 
 /*********************************************************************/
 
-/**************************ÒÔÏÂÊÇÍâ²¿ÖĞ¶Ï0³ÌĞò************************/
+/**************************ä»¥ä¸‹æ˜¯å¤–éƒ¨ä¸­æ–­0ç¨‹åº************************/
  void INT_0() interrupt 0 using 0
  {
     if (!LIM1)
@@ -1866,14 +2054,14 @@ void delayR(uint delay_k)
  }
 /*********************************************************************/
 
-/***************************ÒÔÏÂÊÇÍâ²¿ÖĞ¶Ï1³ÌĞò***********************/
+/***************************ä»¥ä¸‹æ˜¯å¤–éƒ¨ä¸­æ–­1ç¨‹åº***********************/
 void INT_1() interrupt 2 using 1
 {
   _Nop();
-  chn_disp (tab16,20,0x80);
-  delayR(10000);
-  chn_disp (tab17,20,0x90);
-  delay(1000);
+  //chn_disp (tab16,20,0x80);
+  //delayR(10000);
+  //chn_disp (tab17,20,0x90);
+  //delay(1000);
 }
 /***********************************************************************/
 
@@ -1881,7 +2069,7 @@ void INT_1() interrupt 2 using 1
 
 
 
-/*****************ÒÔÏÂÊÇ´®¿ÚÖĞ¶Ï³ÌĞò*******************************/
+/*****************ä»¥ä¸‹æ˜¯ä¸²å£ä¸­æ–­ç¨‹åº*******************************/
 
 void RS232() interrupt 4 using 3
 {
@@ -1914,8 +2102,19 @@ void RS232() interrupt 4 using 3
 
 /**********************************************************************/
 
+/*****************å®šæ—¶å™¨ä¸­æ–­ç¨‹åº*******************************/
 
-/*************************ÉèÖÃ´íÎó***************************/
+void tm0_isr() interrupt 1 using 1
+{		
+     TL0 = 0x30;   //è®¾ç½®å®šæ—¶åˆå€¼
+     TH0 = 0xF8;   //è®¾ç½®å®šæ—¶åˆå€¼
+     if (count-- == 0)               //1ms * 1000 -> 1s
+     {
+     count = 1000;               //reset counter
+     }
+}
+
+/*************************è®¾ç½®é”™è¯¯***************************/
 void setfault()
 {
 
@@ -1928,7 +2127,7 @@ void setfault()
 /*************************************************************/
 
 
-/*************************ÉèÖÃ³É¹¦***************************/
+/*************************è®¾ç½®æˆåŠŸ***************************/
 void setsucced()
 {
 
@@ -1945,7 +2144,7 @@ void setsucced()
 
 
 
-/********************************¾¯¸æ*************************/
+/********************************è­¦å‘Š*************************/
 void alarm()
 {
    uchar t=6;
@@ -1971,52 +2170,61 @@ void alarm()
 
 
 
-/************************Ö÷³ÌĞò*******************************/
+/************************ä¸»ç¨‹åº*******************************/
 void main()
 {
    uchar  i=10;
    uchar  tmp0=0;
+// setsucced();
+// delay(5000);
+// setsucced();
+// delay(5000);
+// setsucced();
+   stat_initial();                               //çŠ¶æ€åˆå§‹åˆ’
+   serial_initial();                             //ä¸²å£åˆå§‹åŒ–
+// delay(20000);
+// setsucced();
+// delay(5000);
+// setsucced();
+// delay(5000);
+// setsucced();
+  if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
 
-   stat_initial();                               //×´Ì¬³õÊ¼»®
-   serial_initial();                             //´®¿Ú³õÊ¼»¯
-
-/*   if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
-
-///////////////////////////////////APCÄ£Ê½Éè¶¨³õÊ¼¹¦ÂÊ//////////////////////////////////////////
+///////////////////////////////////APCæ¨¡å¼è®¾å®šåˆå§‹åŠŸç‡//////////////////////////////////////////
  {
-  Laser_Set_power1=3;                        //¼ÇÂ¼ÖÖ×ÓÔ´µ±Ç°Éè¶¨¹¦ÂÊÖµ
-  Laser_Set_power2=3;                        //¼ÇÂ¼·Å´ó¼¶µ±Ç°Éè¶¨¹¦ÂÊÖµ
+  Laser_Set_power1=3;                        //è®°å½•ç§å­æºå½“å‰è®¾å®šåŠŸç‡å€¼
+  Laser_Set_power2=3;                        //è®°å½•æ”¾å¤§çº§å½“å‰è®¾å®šåŠŸç‡å€¼
 
-  DA_Convert(3,25);                          // ÖÖ×ÓÔ´
+  DA_Convert(3,25);                          // ç§å­æº
    _Nop();
   DA_Convert(3,25);
 
-  DA_Convert(0,25);                          // ·Å´ó¼¶
+  DA_Convert(0,25);                          // æ”¾å¤§çº§
    _Nop();
   DA_Convert(0,25);
  }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
   else
-//////////////////////////////////ACCÄ£Ê½Éè¶¨³õÊ¼µçÁ÷//////////////////////////////////////////
+//////////////////////////////////ACCæ¨¡å¼è®¾å®šåˆå§‹ç”µæµ//////////////////////////////////////////
  {
-  Laser_Set_curent1=30;                          //¼ÇÂ¼ÖÖ×ÓÔ´µ±Ç°Éè¶¨µçÁ÷Öµ
-  Laser_Set_curent2=30;                          //¼ÇÂ¼·Å´ó¼¶µ±Ç°Éè¶¨µçÁ÷Öµ
+  Laser_Set_curent1=30;                          //è®°å½•ç§å­æºå½“å‰è®¾å®šç”µæµå€¼
+  Laser_Set_curent2=30;                          //è®°å½•æ”¾å¤§çº§å½“å‰è®¾å®šç”µæµå€¼
 
-  DA_Convert(3,88);                            // ÖÖ×ÓÔ´
+  DA_Convert(3,88);                            // ç§å­æº
    _Nop();
   DA_Convert(3,88);
 
-  DA_Convert(0,88);                            // ·Å´ó¼¶
+  DA_Convert(0,88);                            // æ”¾å¤§çº§
   _Nop();
   DA_Convert(0,88);
  }
-//////////////////////////////////////////////////////////////////////////////////////////////*/
-///////////////////////////////////ÉÏµç¿ªÊ¼ÏÔÊ¾///////////////////////////////////////////////
-   init_lcd ();
+//////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////ä¸Šç”µå¼€å§‹æ˜¾ç¤º//////////////////////////////////////////////tang
+ /*  init_lcd ();
    delay(5);
    wr_lcd (comm,0x30);
-   delay(30);                                    //ĞèÒª×ã¹»µÄµÈ´ıÑÓÊ±
+   delay(30);                                    //éœ€è¦è¶³å¤Ÿçš„ç­‰å¾…å»¶æ—¶
    chn_disp (tab1,14,0x80);
    delay(5);
    chn_disp (tab2,20,0x90);
@@ -2030,7 +2238,7 @@ void main()
    delay(10);
    chn_disp (tab5,10,0x80);
    delay(5);
-/////////////////////////////////////////////////////////////////////////////////////////////
+*/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -2041,8 +2249,8 @@ void main()
 
      if(read_flag)
       {
-        command();                        //Ö¸ÁîÊ¶±ğ
-        read_flag=0;                      //È¡Êı±êÖ¾Çå0
+        command();                        //æŒ‡ä»¤è¯†åˆ«
+        read_flag=0;                      //å–æ•°æ ‡å¿—æ¸…0
         t=0;
       }
 
@@ -2053,19 +2261,19 @@ void main()
  {
 
 
-/***************************¼ì²é°´¼ü**************************************/
+/***************************æ£€æŸ¥æŒ‰é”®**************************************/
 
- Key_Button();
+ // Key_Button();  tang
 
 
 ///////////////////////////////////////////////////////////////////////////
 
-/***************************¼ì²éµ±Ç°Êµ¼Ê¹¦ÂÊÖµ****************************/
- Laser_power_Check();
+/***************************æ£€æŸ¥å½“å‰å®é™…åŠŸç‡å€¼****************************/
+ //Laser_power_Check(); tang
 
 
 /*************************************************************************/
-/***************************¼ì²âµ±Ç°Êµ¼ÊµçÁ÷Öµ****************************/
+/***************************æ£€æµ‹å½“å‰å®é™…ç”µæµå€¼****************************/
 
  Diode_curent_Check();
 
@@ -2075,7 +2283,7 @@ void main()
 ///////////////////////////////////////////////////////////////////////////
 
 
-/***************************¼ì²âµ±Ç°ÀäÈ´ÎÂ¶È******************************/
+/***************************æ£€æµ‹å½“å‰å†·å´æ¸©åº¦******************************/
    TEC_Temp();
 
 
@@ -2087,13 +2295,13 @@ void main()
      uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
      if(CONT_MOD)
      {
-     Set_laser_power(1,3);
-     Set_laser_power(2,3);
+     Set_laser_power(0,3);       //tang
+     Set_laser_power(3,3);
      }
      else
      {
-     Set_laser_current(1,30);
-     Set_laser_current(2,30);
+     Set_laser_current(0,30);
+     Set_laser_current(3,30);
      }
      SHDN1=0;
      SHDN2=0;
@@ -2109,15 +2317,16 @@ void main()
      uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
      if(CONT_MOD)
      {
-     Set_laser_power(1,3);
-     Set_laser_power(2,3);
+     Set_laser_power(0,3);       //tang
+     Set_laser_power(3,3);
      }
      else
      {
-     Set_laser_current(1,30);
-     Set_laser_current(2,30);
+     Set_laser_current(0,30);
+     Set_laser_current(3,30);
      }
      SHDN1=0;
+     
      SHDN2=0;
      send_string_com(inbuf1,9);
      t=0;
@@ -2126,7 +2335,7 @@ void main()
 //////////////////////////////////////////////////////////////////////////
 
 
-/***************************¼ì²â¼à²â¶ş¼«¹Ü·´À¡µçÑ¹************************/
+/***************************æ£€æµ‹ç›‘æµ‹äºŒæç®¡åé¦ˆç”µå‹************************/
 
  Pdiod_V_Check();
 
@@ -2135,7 +2344,7 @@ void main()
 //////////////////////////////////////////////////////////////////////////
 
 
-/***************************¼ì²âTECÎÂ¿ØÊÇ·ñÍê³É**************************/
+/***************************æ£€æµ‹TECæ¸©æ§æ˜¯å¦å®Œæˆ**************************/
 
 
 
@@ -2144,7 +2353,7 @@ void main()
 /////////////////////////////////////////////////////////////////////////
 
 
-/***************************¼ì²âTECÁ½¶ËµçÑ¹ÊÇ·ñÕı³£*********************/
+/***************************æ£€æµ‹TECä¸¤ç«¯ç”µå‹æ˜¯å¦æ­£å¸¸*********************/
 
   TEC_V_Check();
 
@@ -2154,21 +2363,21 @@ void main()
 ////////////////////////////////////////////////////////////////////////
 
 
-/****************************LCDÏÔÊ¾***********************************/
+/****************************LCDæ˜¾ç¤º***********************************
 
 
      chn_disp (tab6,4,0x80);
      delayR(50);
-     chn_disp (Diode_parameter1,6,0x82);      //ÏÔÊ¾ÖÖ×ÓÔ´µçÁ÷
+     chn_disp (Diode_parameter1,6,0x82);      //æ˜¾ç¤ºç§å­æºç”µæµ
      delayR(50);
-     chn_disp (TEC_parameter1,4,0x85);        //ÏÔÊ¾ÖÖ×ÓÔ´TECÎÂ¶È
+     chn_disp (TEC_parameter1,4,0x85);        //æ˜¾ç¤ºç§å­æºTECæ¸©åº¦
 
 
      chn_disp (tab7,4,0x90);
      delayR(50);
-     chn_disp (Diode_parameter2,6,0x92);      //ÏÔÊ¾·Å´ó¼¶µçÁ÷
+     chn_disp (Diode_parameter2,6,0x92);      //æ˜¾ç¤ºæ”¾å¤§çº§ç”µæµ
      delayR(50);
-     chn_disp (TEC_parameter2,4,0x95);        //ÏÔÊ¾·Å´ó¼¶TECÎÂ¶È
+     chn_disp (TEC_parameter2,4,0x95);        //æ˜¾ç¤ºæ”¾å¤§çº§TECæ¸©åº¦
 
 
 
@@ -2187,14 +2396,14 @@ void main()
         chn_disp (tab15,6,0x97);
      }
 
-///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////*/
 }
 
 else
 {
-     chn_disp (tab16,20,0x80);
-     delayR(10000);
-     chn_disp (tab17,20,0x90);
+    // chn_disp (tab16,20,0x80);
+   // delayR(10000);
+    // chn_disp (tab17,20,0x90);
 }
 
     }while(1);

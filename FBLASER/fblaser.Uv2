@@ -5,8 +5,8 @@ Target (Target 1), 0x0000 // Tools: 'MCS-51'
 
 Group (Source Group 1)
 
-File 1,1,<.\dualdriver.C><dualdriver.C>
 File 1,5,<.\STC_NEW_8051.H><STC_NEW_8051.H>
+File 1,1,<.\dualdriver_gbk.c><dualdriver_gbk.c>
 
 
 Options 1,0,0  // Target 'Target 1'
@@ -28,7 +28,7 @@ Options 1,0,0  // Target 'Target 1'
  EnvLib ()
  EnvReg (ÿAtmel\)
  OrgReg (ÿAtmel\)
- TgStat=0
+ TgStat=9
  OutDir (.\)
  OutName (fblaser)
  GenApp=1

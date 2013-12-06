@@ -4,69 +4,358 @@
 <h1>µVision2 Build Log</h1>
 <h2>Project:</h2>
 D:\github\workrepo\FBLASER\fblaser.uv2
-Project File Date:  11/01/2013
+Project File Date:  12/02/2013
 
 <h2>Output:</h2>
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(188): warning C206: 'wr_lcd': missing function-prototype
-DUALDRIVER.C(188): error C267: 'wr_lcd': requires ANSI-style prototype
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
-Project build/rebuild aborted.
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(494): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(540): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1916): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1916): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1916): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?COMMAND?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_DISP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_BUTTON?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_TEMP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_V_CHECK?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PDIOD_V_CHECK?DUALDRIVER_GBK
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?LASER_POWER_CHECK?DUALDRIVER_GBK
+    LENGTH:  0009H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_PWM_SET?DUALDRIVER_GBK
+    LENGTH:  0006H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_TEMP?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_SET_LASER_CURRENT?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?COMMAND?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_AD_CONVERT?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?KEY_BUTTON?DUALDRIVER_GBK
+    LENGTH:  0003H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?PDIOD_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+Program Size: data=280.3 xdata=0 code=9257
 Target not created
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(188): warning C206: 'wr_lcd': missing function-prototype
-DUALDRIVER.C(188): error C267: 'wr_lcd': requires ANSI-style prototype
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1262): error C202: 'tab13': undefined identifier
+DUALDRIVER_GBK.C(1271): error C202: 'tab9': undefined identifier
+DUALDRIVER_GBK.C(1285): error C202: 'tab11': undefined identifier
+DUALDRIVER_GBK.C(1329): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1330): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1332): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1357): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1405): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1406): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1504): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1505): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1549): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1551): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1581): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1582): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(2061): error C202: 'tab16': undefined identifier
+DUALDRIVER_GBK.C(2063): error C202: 'tab17': undefined identifier
+DUALDRIVER_GBK.C(2222): error C202: 'tab1': undefined identifier
+DUALDRIVER_GBK.C(2224): error C202: 'tab2': undefined identifier
+DUALDRIVER_GBK.C(2228): error C202: 'tab3': undefined identifier
+DUALDRIVER_GBK.C(2229): error C202: 'tab4': undefined identifier
+DUALDRIVER_GBK.C(2233): error C202: 'tab5': undefined identifier
+DUALDRIVER_GBK.C(2363): error C202: 'tab6': undefined identifier
+DUALDRIVER_GBK.C(2370): error C202: 'tab7': undefined identifier
+DUALDRIVER_GBK.C(2382): error C202: 'tab14': undefined identifier
+DUALDRIVER_GBK.C(2384): error C202: 'tab14': undefined identifier
+DUALDRIVER_GBK.C(2388): error C202: 'tab15': undefined identifier
+DUALDRIVER_GBK.C(2390): error C202: 'tab15': undefined identifier
+DUALDRIVER_GBK.C(2398): error C202: 'tab16': undefined identifier
+DUALDRIVER_GBK.C(2400): error C202: 'tab17': undefined identifier
 Target not created
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(183): warning C206: 'chk_busy': missing function-prototype
-DUALDRIVER.C(223): warning C206: 'delay': missing function-prototype
-DUALDRIVER.C(223): error C267: 'delay': requires ANSI-style prototype
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+DUALDRIVER_GBK.C(2061): error C202: 'tab16': undefined identifier
+DUALDRIVER_GBK.C(2063): error C202: 'tab17': undefined identifier
+DUALDRIVER_GBK.C(2222): error C202: 'tab1': undefined identifier
+DUALDRIVER_GBK.C(2224): error C202: 'tab2': undefined identifier
+DUALDRIVER_GBK.C(2228): error C202: 'tab3': undefined identifier
+DUALDRIVER_GBK.C(2229): error C202: 'tab4': undefined identifier
+DUALDRIVER_GBK.C(2233): error C202: 'tab5': undefined identifier
+DUALDRIVER_GBK.C(2363): error C202: 'tab6': undefined identifier
+DUALDRIVER_GBK.C(2370): error C202: 'tab7': undefined identifier
+DUALDRIVER_GBK.C(2382): error C202: 'tab14': undefined identifier
+DUALDRIVER_GBK.C(2384): error C202: 'tab14': undefined identifier
+DUALDRIVER_GBK.C(2388): error C202: 'tab15': undefined identifier
+DUALDRIVER_GBK.C(2390): error C202: 'tab15': undefined identifier
+DUALDRIVER_GBK.C(2398): error C202: 'tab16': undefined identifier
+DUALDRIVER_GBK.C(2400): error C202: 'tab17': undefined identifier
 Target not created
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(206): warning C206: 'chk_busy': missing function-prototype
-DUALDRIVER.C(361): error C231: 'chk_busy': redefinition
-DUALDRIVER.C(378): error C231: 'chk_busy': redefinition
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+DUALDRIVER_GBK.C(2222): error C202: 'tab1': undefined identifier
+DUALDRIVER_GBK.C(2224): error C202: 'tab2': undefined identifier
+DUALDRIVER_GBK.C(2228): error C202: 'tab3': undefined identifier
+DUALDRIVER_GBK.C(2229): error C202: 'tab4': undefined identifier
+DUALDRIVER_GBK.C(2233): error C202: 'tab5': undefined identifier
 Target not created
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(455): warning C206: 'AD_Convert': missing function-prototype
-DUALDRIVER.C(455): error C267: 'AD_Convert': requires ANSI-style prototype
-DUALDRIVER.C(465): error C193: '/': bad operand type
-DUALDRIVER.C(466): error C193: '/': bad operand type
-DUALDRIVER.C(468): error C193: '*': bad operand type
-DUALDRIVER.C(493): error C193: '*': bad operand type
-DUALDRIVER.C(541): error C193: '/': bad operand type
-DUALDRIVER.C(542): error C193: '/': bad operand type
-DUALDRIVER.C(640): error C193: '/': bad operand type
-DUALDRIVER.C(641): error C193: '/': bad operand type
-DUALDRIVER.C(685): error C193: '/': bad operand type
-DUALDRIVER.C(687): error C193: '/': bad operand type
-DUALDRIVER.C(717): error C193: '/': bad operand type
-DUALDRIVER.C(718): error C193: '/': bad operand type
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+DUALDRIVER_GBK.C(2222): error C202: 'tab1': undefined identifier
+DUALDRIVER_GBK.C(2224): error C202: 'tab2': undefined identifier
+DUALDRIVER_GBK.C(2228): error C202: 'tab3': undefined identifier
+DUALDRIVER_GBK.C(2229): error C202: 'tab4': undefined identifier
+DUALDRIVER_GBK.C(2233): error C202: 'tab5': undefined identifier
 Target not created
 Build target 'Target 1'
-compiling dualdriver.C...
-DUALDRIVER.C(455): warning C206: 'AD_Convert': missing function-prototype
-DUALDRIVER.C(455): error C267: 'AD_Convert': requires ANSI-style prototype
-DUALDRIVER.C(465): error C193: '/': bad operand type
-DUALDRIVER.C(466): error C193: '/': bad operand type
-DUALDRIVER.C(468): error C193: '*': bad operand type
-DUALDRIVER.C(493): error C193: '*': bad operand type
-DUALDRIVER.C(541): error C193: '/': bad operand type
-DUALDRIVER.C(542): error C193: '/': bad operand type
-DUALDRIVER.C(640): error C193: '/': bad operand type
-DUALDRIVER.C(641): error C193: '/': bad operand type
-DUALDRIVER.C(685): error C193: '/': bad operand type
-DUALDRIVER.C(687): error C193: '/': bad operand type
-DUALDRIVER.C(717): error C193: '/': bad operand type
-DUALDRIVER.C(718): error C193: '/': bad operand type
-dualdriver.C(1314): warning C329: single-line comment contains line-continuation
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_CHN_DISP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?COMMAND?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_TEMP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_V_CHECK?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PDIOD_V_CHECK?DUALDRIVER_GBK
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?LASER_POWER_CHECK?DUALDRIVER_GBK
+    LENGTH:  0009H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_PWM_SET?DUALDRIVER_GBK
+    LENGTH:  0006H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_TEMP?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_SET_LASER_CURRENT?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?COMMAND?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_AD_CONVERT?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?PDIOD_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+Program Size: data=277.3 xdata=0 code=8840
 Target not created
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_CHN_DISP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?COMMAND?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_TEMP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_V_CHECK?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PDIOD_V_CHECK?DUALDRIVER_GBK
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?LASER_POWER_CHECK?DUALDRIVER_GBK
+    LENGTH:  0009H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_PWM_SET?DUALDRIVER_GBK
+    LENGTH:  0006H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_TEMP?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_SET_LASER_CURRENT?DUALDRIVER_GBK
+    LENGTH:  0005H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?COMMAND?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_AD_CONVERT?DUALDRIVER_GBK
+    LENGTH:  0004H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?TEC_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?PDIOD_V_CHECK?DUALDRIVER_GBK
+    LENGTH:  0001H
+Program Size: data=277.3 xdata=0 code=8840
+Target not created
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_CHN_DISP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?COMMAND?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_TEMP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_V_CHECK?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PDIOD_V_CHECK?DUALDRIVER_GBK
+Program Size: data=131.3 xdata=138 code=9926
+"fblaser" - 0 Error(s), 12 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_CHN_DISP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?COMMAND?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_TEMP?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEC_V_CHECK?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PDIOD_V_CHECK?DUALDRIVER_GBK
+Program Size: data=131.3 xdata=138 code=9926
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 12 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+Program Size: data=131.3 xdata=81 code=10307
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+Program Size: data=220.3 xdata=0 code=9201
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(493): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(539): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulserate': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsewidth': unreferenced local variable
+DUALDRIVER_GBK.C(1915): warning C280: 'pwm_pulsedelay': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?DUALDRIVER_GBK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRRAM?DUALDRIVER_GBK
+Program Size: data=220.3 xdata=0 code=9169
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 7 Warning(s).

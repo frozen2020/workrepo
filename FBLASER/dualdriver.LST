@@ -1,4 +1,4 @@
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 1   
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 1   
 
 
 C51 COMPILER V7.02b, COMPILATION OF MODULE DUALDRIVER
@@ -62,7 +62,7 @@ stmt level    source
   53          uint   idata Laser_Set_curent1;             //设定种子源激光二极管电流值
   54          uint   idata Laser_Set_curent2;             //设定放大级激光二极管电流值
   55          uint   idata Laser_Fed_curent1;             //实际种子源激光二极管电流值
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 2   
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 2   
 
   56          uint   idata Laser_Fed_curent2;             //实际放大级激光二极管电流值
   57          uint   idata Laser_meds_curent1;            //种子源中间设定电流
@@ -126,7 +126,7 @@ stmt level    source
  114          sbit ENAB=P4^4;                      //LCD使能信号，下降沿
  115          sbit RW=P4^5;                        //LCD读写信号，H－read，L－write
  116          sbit RS=P4^1;                        //LCD选通信号 ，H－date，L－instruction
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 3   
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 3   
 
  117          sbit LIM1=P3^5;                      //激光二极管过流中断信号
  118          sbit LIM2=P2^5;                      //激光二极管过流中断信号
@@ -190,7 +190,7 @@ stmt level    source
  176          /**********************************************************************/
  177          
  178          
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 4   
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 4   
 
  179          
  180          /*********以下是长延时程序***********************************************/
@@ -216,2275 +216,2107 @@ stmt level    source
  200          
  201          /*********************************************************************/
  202          
- 203          /**************************判断忙标志位**********************/
- 204          void chk_busy (void)
- 205          {
- 206   1        P0=0xff;
- 207   1        _Nop();
- 208   1        RS=0;
- 209   1        RW=1;
- 210   1         _Nop();
- 211   1         _Nop();
- 212   1         _Nop();
- 213   1         _Nop();
- 214   1        ENAB=1;
- 215   1         _Nop();
- 216   1         _Nop();
- 217   1         _Nop();
- 218   1         _Nop();
- 219   1        while(LCD_BUSY==1);
- 220   1        _Nop();
- 221   1        ENAB=0;
- 222   1      }
- 223          
- 224          /************************************************************/
- 225          
- 226          /**************************LCD写操作*************************/
- 227          void wr_lcd (uchar dat_comm,uchar content)
- 228          {
- 229   1        chk_busy ();
- 230   1        if(dat_comm)
- 231   1         {
- 232   2          RS=1;                 //data
- 233   2          RW=0;                 //write
- 234   2         }
- 235   1        else
- 236   1         {
- 237   2          RS=0;                //command
- 238   2          RW=0;                //write
- 239   2         }
- 240   1        P0=content;            
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 5   
+ 203          
+ 204          
+ 205          /*************************设置错误***************************/
+ 206          void setfault()
+ 207          {
+ 208   1      
+ 209   1        uchar inbuf1[10]={'s','e','t','f','a','u','l','t',0x0d,0x0a};
+ 210   1      
+ 211   1        send_string_com(inbuf1,10);
+ 212   1      
+ 213   1        t=0;
+ 214   1      }
+ 215          /*************************************************************/
+ 216          
+ 217          
+ 218          /*************************设置成功***************************/
+ 219          void setsucced()
+ 220          {
+ 221   1      
+ 222   1        uchar inbuf1[11]={'s','e','t','s','u','c','c','e','d',0x0d,0x0a};
+ 223   1      
+ 224   1        send_string_com(inbuf1,11);
+ 225   1        t=0;
+ 226   1        return;
+ 227   1      }
+ 228          /*************************************************************/
+ 229          
+ 230          
+ 231          
+ 232          
+ 233          /*****************************单片机内部AD********************************/
+ 234           void MCU_ADC(BYTE CHN)
+ 235           {
+ 236   1          BYTE    AD_finished;
+ 237   1          switch (CHN)
+ 238   1          {
+ 239   2              case 0: P1ASF=0x01;break;
+ 240   2              case 1: P1ASF=0x02;break;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 5   
 
- 241   1        _Nop();
- 242   1        _Nop();
- 243   1        _Nop();
- 244   1        _Nop();
- 245   1        ENAB=1;
- 246   1        _Nop();
- 247   1        _Nop();
- 248   1        _Nop();
- 249   1        _Nop();
- 250   1        ENAB=0;
- 251   1      }
- 252          /************************************************************/
- 253          
- 254          
- 255          
- 256          
- 257          
- 258          
- 259          /**************************显示汉字或字符*********************/
- 260          
- 261          void chn_disp (uchar *chn,uchar num,uchar ADRS)
- 262          {
- 263   1          uchar i=0;
- 264   1      //  wr_lcd (comm,0x30);
- 265   1      //  delay(5);
- 266   1          wr_lcd (comm,ADRS);
- 267   1          for (i=0;i<num;i++)
- 268   1          wr_lcd (dat,chn[i]);
- 269   1          delay(2);
- 270   1          return;
- 271   1      }
- 272          /*************************************************************/
+ 241   2              case 2:P1ASF=0x04;break;
+ 242   2              case 3:P1ASF=0x08;break;
+ 243   2              case 7:P1ASF=0x80;break;
+ 244   2      
+ 245   2              default: break;
+ 246   2          }
+ 247   1          AUXR1 &= ~0x04;                     //0000,0100, 令 ADRJ=0
+ 248   1          ADC_RES=0;
+ 249   1          ADC_RESL=0;
+ 250   1      
+ 251   1          CHN &= 0x07;                        //0000,0111 清0高5位
+ 252   1      
+ 253   1          ADC_CONTR =ADC_SPEEDH ;
+ 254   1          _nop_();
+ 255   1          ADC_CONTR |= CHN ;                  //选择 A/D 当前通道
+ 256   1          _nop_();
+ 257   1          ADC_CONTR |= 0x80;                  //启动 A/D 电源
+ 258   1          delayR(10);
+ 259   1          ADC_CONTR |= 0x08;
+ 260   1          delayR(10);
+ 261   1          AD_finished = 0;
+ 262   1          while (AD_finished ==0 )            //等待A/D转换结束
+ 263   1          {
+ 264   2            AD_finished = (ADC_CONTR & 0x10);
+ 265   2          }
+ 266   1          ADC_CONTR &= 0xE7;
+ 267   1      
+ 268   1          P1ASF=0x00;
+ 269   1          MCU_AD_code=ADC_RES*4+ADC_RESL;
+ 270   1      
+ 271   1          return;
+ 272   1       }
  273          
- 274          
- 275          /***************************清DDRAM***************************/
- 276          void clrram (void)
- 277          {
- 278   1        wr_lcd (comm,0x30);
- 279   1        delayR(50000);
- 280   1        wr_lcd (comm,0x01);
- 281   1      }
- 282          /************************************************************/
- 283          
- 284          
- 285          /*************************设置错误***************************/
- 286          void setfault()
- 287          {
- 288   1      
- 289   1        uchar inbuf1[10]={'s','e','t','f','a','u','l','t',0x0d,0x0a};
- 290   1      
- 291   1        send_string_com(inbuf1,10);
- 292   1      
- 293   1        t=0;
- 294   1      }
- 295          /*************************************************************/
- 296          
- 297          
- 298          /*************************设置成功***************************/
- 299          void setsucced()
- 300          {
- 301   1      
- 302   1        uchar inbuf1[11]={'s','e','t','s','u','c','c','e','d',0x0d,0x0a};
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 6   
+ 274          /*************************************************************************/
+ 275          
+ 276          
+ 277          /********************************警告*************************/
+ 278          void alarm()
+ 279          {
+ 280   1         uchar t=6;
+ 281   1         uchar inbuf1[7]={'A','l','a','r','m',0x0d,0x0a};
+ 282   1      
+ 283   1         send_string_com(inbuf1,7);
+ 284   1        do
+ 285   1        {
+ 286   2         delay(50);
+ 287   2         t--;
+ 288   2        }while(t);
+ 289   1         send_string_com(inbuf1,5);
+ 290   1         t=6;
+ 291   1         do
+ 292   1        {
+ 293   2         delay(50);
+ 294   2         t--;
+ 295   2        }while(t);
+ 296   1         send_string_com(inbuf1,5);
+ 297   1      
+ 298   1      }
+ 299          /*************************************************************/
+ 300          
+ 301          
+ 302          
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 6   
 
- 303   1      
- 304   1        send_string_com(inbuf1,11);
- 305   1        t=0;
- 306   1        return;
- 307   1      }
- 308          /*************************************************************/
- 309          
- 310          
- 311          
- 312          
- 313          /*****************************单片机内部AD********************************/
- 314           void MCU_ADC(BYTE CHN)
- 315           {
- 316   1          BYTE    AD_finished;
- 317   1          switch (CHN)
- 318   1          {
- 319   2              case 0: P1ASF=0x01;break;
- 320   2              case 1: P1ASF=0x02;break;
- 321   2              case 2:P1ASF=0x04;break;
- 322   2              case 3:P1ASF=0x08;break;
- 323   2              case 7:P1ASF=0x80;break;
- 324   2      
- 325   2              default: break;
- 326   2          }
- 327   1          AUXR1 &= ~0x04;                     //0000,0100, 令 ADRJ=0
- 328   1          ADC_RES=0;
- 329   1          ADC_RESL=0;
- 330   1      
- 331   1          CHN &= 0x07;                        //0000,0111 清0高5位
- 332   1      
- 333   1          ADC_CONTR =ADC_SPEEDH ;
- 334   1          _nop_();
- 335   1          ADC_CONTR |= CHN ;                  //选择 A/D 当前通道
- 336   1          _nop_();
- 337   1          ADC_CONTR |= 0x80;                  //启动 A/D 电源
- 338   1          delayR(10);
- 339   1          ADC_CONTR |= 0x08;
- 340   1          delayR(10);
- 341   1          AD_finished = 0;
- 342   1          while (AD_finished ==0 )            //等待A/D转换结束
- 343   1          {
- 344   2            AD_finished = (ADC_CONTR & 0x10);
- 345   2          }
- 346   1          ADC_CONTR &= 0xE7;
- 347   1      
- 348   1          P1ASF=0x00;
- 349   1          MCU_AD_code=ADC_RES*4+ADC_RESL;
- 350   1      
- 351   1          return;
- 352   1       }
- 353          
- 354          /*************************************************************************/
- 355          
- 356          
- 357          /********************************警告*************************/
- 358          void alarm()
- 359          {
- 360   1         uchar t=6;
- 361   1         uchar inbuf1[7]={'A','l','a','r','m',0x0d,0x0a};
- 362   1      
- 363   1         send_string_com(inbuf1,7);
- 364   1        do
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 7   
+ 303          /**********************二极管电流监测**************************************/
+ 304          void Diode_curent_Check()
+ 305          {
+ 306   1          uchar k=16;
+ 307   1      //    float a,b;
+ 308   1          AD_inbuf[0]=0;
+ 309   1          AD_inbuf[1]=0;
+ 310   1          do
+ 311   1          {
+ 312   2            AD_code=AD_Convert(0);                  //种子源电流
+*** WARNING C206 IN LINE 312 OF DUALDRIVER.C: 'AD_Convert': missing function-prototype
+*** ERROR C267 IN LINE 312 OF DUALDRIVER.C: 'AD_Convert': requires ANSI-style prototype
+ 313   2            AD_inbuf[0]= AD_code+AD_inbuf[0];
+ 314   2      
+ 315   2            AD_code=AD_Convert(3);                  //放大级电流
+ 316   2            AD_inbuf[1]= AD_code+AD_inbuf[1];
+ 317   2      
+ 318   2            k--;
+ 319   2          }while(k);
+ 320   1      
+ 321   1      
+ 322   1          AD_inbuf[0]=AD_inbuf[0]/16;
+*** ERROR C193 IN LINE 322 OF DUALDRIVER.C: '/': bad operand type
+ 323   1          AD_inbuf[1]=AD_inbuf[1]/16;
+*** ERROR C193 IN LINE 323 OF DUALDRIVER.C: '/': bad operand type
+ 324   1      
+ 325   1          Laser_Fed_curent1=(AD_inbuf[0]*5/6-AD_inbuf[0]*15/768)/2;     //R=1.5欧
+*** ERROR C193 IN LINE 325 OF DUALDRIVER.C: '*': bad operand type
+ 326   1          Laser_meds_curent1=Laser_Fed_curent1;
+ 327   1          if (Laser_Fed_curent1<10)
+ 328   1            { Diode_parameter1[0]=Laser_Fed_curent1+48;
+ 329   2              Diode_parameter1[1]=0x6d;
+ 330   2              Diode_parameter1[2]=0x41;
+ 331   2              Diode_parameter1[3]=0x20;
+ 332   2              Diode_parameter1[4]=0x20;
+ 333   2      
+ 334   2            } else if(Laser_Fed_curent1<100)
+ 335   1      
+ 336   1            { Diode_parameter1[0]=Laser_Fed_curent1 /10+48;
+ 337   2              Diode_parameter1[1]=Laser_Fed_curent1 %10+48;
+ 338   2              Diode_parameter1[2]=0x6d;
+ 339   2              Diode_parameter1[3]=0x41;
+ 340   2              Diode_parameter1[4]=0x20;
+ 341   2            } else if(Laser_Fed_curent1<1000)
+ 342   1      
+ 343   1            { Diode_parameter1[0]=Laser_Fed_curent1 /100+48;
+ 344   2              Diode_parameter1[1]=(Laser_Fed_curent1 %100)/10+48;
+ 345   2              Diode_parameter1[2]=Laser_Fed_curent1 %10+48;
+ 346   2              Diode_parameter1[3]=0x6d;
+ 347   2              Diode_parameter1[4]=0x41;
+ 348   2            }
+ 349   1      
+ 350   1          Laser_Fed_curent2=(AD_inbuf[1]*5/6-AD_inbuf[1]*15/768)/2;     //R=1.5欧
+*** ERROR C193 IN LINE 350 OF DUALDRIVER.C: '*': bad operand type
+ 351   1          Laser_meds_curent2=Laser_Fed_curent2;
+ 352   1          if (Laser_Fed_curent2<10)
+ 353   1            { Diode_parameter2[0]=Laser_Fed_curent2+48;
+ 354   2              Diode_parameter2[1]=0x6d;
+ 355   2              Diode_parameter2[2]=0x41;
+ 356   2              Diode_parameter2[3]=0x20;
+ 357   2              Diode_parameter2[4]=0x20;
+ 358   2      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 7   
 
- 365   1        {
- 366   2         delay(50);
- 367   2         t--;
- 368   2        }while(t);
- 369   1         send_string_com(inbuf1,5);
- 370   1         t=6;
- 371   1         do
- 372   1        {
- 373   2         delay(50);
- 374   2         t--;
- 375   2        }while(t);
- 376   1         send_string_com(inbuf1,5);
- 377   1      
- 378   1      }
- 379          /*************************************************************/
- 380          
- 381          
- 382          /*****************************设置显示*****************************************/
- 383          void Lcd_disp()
- 384          {
- 385   1       wr_lcd (comm,0x30);                    //设定工作方式
- 386   1       delay(1);
- 387   1       wr_lcd (comm,0x01);                    //清屏
- 388   1       delay(1);
- 389   1       wr_lcd (comm,0x0d);                    //开显示
- 390   1       delay(1);
- 391   1       wr_lcd (comm,0x10);
- 392   1       delay(30);
- 393   1      
- 394   1       if(CONT_MOD)                          //CONT_MOD: 1 APC, 0 ACC
+ 359   2            } else if(Laser_Fed_curent2<100)
+ 360   1      
+ 361   1            { Diode_parameter2[0]=Laser_Fed_curent2 /10+48;
+ 362   2              Diode_parameter2[1]=Laser_Fed_curent2 %10+48;
+ 363   2              Diode_parameter2[2]=0x6d;
+ 364   2              Diode_parameter2[3]=0x41;
+ 365   2              Diode_parameter2[4]=0x20;
+ 366   2            } else if(Laser_Fed_curent2<1000)
+ 367   1      
+ 368   1            { Diode_parameter2[0]=Laser_Fed_curent2 /100+48;
+ 369   2              Diode_parameter2[1]=(Laser_Fed_curent2 %100)/10+48;
+ 370   2              Diode_parameter2[2]=Laser_Fed_curent2 %10+48;
+ 371   2              Diode_parameter2[3]=0x6d;
+ 372   2              Diode_parameter2[4]=0x41;
+ 373   2            }
+ 374   1      
+ 375   1          return;
+ 376   1      }
+ 377          /**************************************************************************/
+ 378          /*****************************激光功率检测*********************************/
+ 379          void Laser_power_Check()
+ 380          {
+ 381   1      
+ 382   1          uchar k=10;
+ 383   1          float a,b;
+ 384   1          AD_inbuf[8]=0;
+ 385   1          AD_inbuf[9]=0;
+ 386   1          do
+ 387   1          {
+ 388   2            AD_code=AD_Convert(1);                  //种子源
+ 389   2            AD_inbuf[8]= AD_code+AD_inbuf[8];
+ 390   2      
+ 391   2            AD_code=AD_Convert(4);                  //放大级
+ 392   2            AD_inbuf[9]= AD_code+AD_inbuf[9];
+ 393   2            k--;
+ 394   2          }while(k);
  395   1      
- 396   1      //*****************APC模式显示设定功率**********************************/
- 397   1       {
- 398   2         chn_disp (tab13,8,0x80);
- 399   2         delayR(50);
- 400   2         chn_disp (Power_parameter1,6,0x84);
- 401   2       }
- 402   1      
- 403   1      //*********************************************************************/
- 404   1       else
- 405   1      //****************ACC模式显示电流设定**********************************/
- 406   1       {
- 407   2        chn_disp (tab9,8,0x80);
- 408   2        delayR(50);
- 409   2        chn_disp (Diode_parameter1,6,0x84);
- 410   2      
- 411   2       }
- 412   1      //*********************************************************************/
- 413   1      
- 414   1       delayR(50);
- 415   1      
- 416   1      //*****************显示设定温度****************************************/
- 417   1      
- 418   1       delayR(50);
- 419   1       chn_disp (TEC_parameter1,4,0x94);
- 420   1       delayR(50);
- 421   1       chn_disp (tab11,2,0x96);
- 422   1       delayR(50);
- 423   1      // wr_lcd (comm,0x90);
- 424   1      //********************************************************************/
- 425   1      
- 426   1      }
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 8   
+ 396   1      
+ 397   1      
+ 398   1          AD_inbuf[8]=AD_inbuf[8]/10;
+*** ERROR C193 IN LINE 398 OF DUALDRIVER.C: '/': bad operand type
+ 399   1          AD_inbuf[9]=AD_inbuf[9]/10;
+*** ERROR C193 IN LINE 399 OF DUALDRIVER.C: '/': bad operand type
+ 400   1      
+ 401   1          AD_code=AD_inbuf[8];
+ 402   1          a=(float)(AD_code);
+ 403   1          a=a*2.5;
+ 404   1          a=a/4096+0.02015;
+ 405   1          b=a*a*117.314+275.543*a-0.806;
+ 406   1      
+ 407   1          Laser_Fed_power1=(uint)(b);
+ 408   1          Laser_meds_power1=Laser_Fed_power1;
+ 409   1      
+ 410   1          if (Laser_Fed_power1<10)
+ 411   1            { Power_parameter1[0]=Laser_Fed_power1+48;
+ 412   2              Power_parameter1[1]=0x6d;
+ 413   2              Power_parameter1[2]=0x77;
+ 414   2              Power_parameter1[3]=0x20;
+ 415   2              Power_parameter1[4]=0x20;
+ 416   2              Power_parameter1[5]=0x20;
+ 417   2      
+ 418   2            } else if(Laser_Fed_power1<100)
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 8   
 
- 427          /**************************************************************************/
- 428          
- 429          
- 430          /*****************************判断按键电压*********************************/
- 431          void Key_Button()
- 432          {
- 433   1        uchar kk=10;
- 434   1        uchar tec_a=0;
- 435   1        uchar tec_b=0;
- 436   1        Key_V=0;
- 437   1      
- 438   1      
- 439   1      
- 440   1      
- 441   1        return;
- 442   1      }
- 443          
- 444          /**************************************************************************/
- 445          
- 446          /**********************二极管电流监测**************************************/
- 447          void Diode_curent_Check()
- 448          {
- 449   1          uchar k=16;
- 450   1      //    float a,b;
- 451   1          AD_inbuf[0]=0;
- 452   1          AD_inbuf[1]=0;
- 453   1          do
- 454   1          {
- 455   2            AD_code=AD_Convert(0);                  //种子源电流
-*** WARNING C206 IN LINE 455 OF DUALDRIVER.C: 'AD_Convert': missing function-prototype
-*** ERROR C267 IN LINE 455 OF DUALDRIVER.C: 'AD_Convert': requires ANSI-style prototype
- 456   2            AD_inbuf[0]= AD_code+AD_inbuf[0];
- 457   2      
- 458   2            AD_code=AD_Convert(3);                  //放大级电流
- 459   2            AD_inbuf[1]= AD_code+AD_inbuf[1];
- 460   2      
- 461   2            k--;
- 462   2          }while(k);
- 463   1      
- 464   1      
- 465   1          AD_inbuf[0]=AD_inbuf[0]/16;
-*** ERROR C193 IN LINE 465 OF DUALDRIVER.C: '/': bad operand type
- 466   1          AD_inbuf[1]=AD_inbuf[1]/16;
-*** ERROR C193 IN LINE 466 OF DUALDRIVER.C: '/': bad operand type
- 467   1      
- 468   1          Laser_Fed_curent1=(AD_inbuf[0]*5/6-AD_inbuf[0]*15/768)/2;     //R=1.5欧
-*** ERROR C193 IN LINE 468 OF DUALDRIVER.C: '*': bad operand type
- 469   1          Laser_meds_curent1=Laser_Fed_curent1;
- 470   1          if (Laser_Fed_curent1<10)
- 471   1            { Diode_parameter1[0]=Laser_Fed_curent1+48;
- 472   2              Diode_parameter1[1]=0x6d;
- 473   2              Diode_parameter1[2]=0x41;
- 474   2              Diode_parameter1[3]=0x20;
- 475   2              Diode_parameter1[4]=0x20;
- 476   2      
- 477   2            } else if(Laser_Fed_curent1<100)
- 478   1      
- 479   1            { Diode_parameter1[0]=Laser_Fed_curent1 /10+48;
- 480   2              Diode_parameter1[1]=Laser_Fed_curent1 %10+48;
- 481   2              Diode_parameter1[2]=0x6d;
- 482   2              Diode_parameter1[3]=0x41;
- 483   2              Diode_parameter1[4]=0x20;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 9   
+ 419   1      
+ 420   1            { Power_parameter1[0]=Laser_Fed_power1/10+48;
+ 421   2              Power_parameter1[1]=Laser_Fed_power1 %10+48;
+ 422   2              Power_parameter1[2]=0x6d;
+ 423   2              Power_parameter1[3]=0x77;
+ 424   2              Power_parameter1[4]=0x20;
+ 425   2              Power_parameter1[5]=0x20;
+ 426   2            } else if(Laser_Fed_power1<1000)
+ 427   1      
+ 428   1            { Power_parameter1[0]=Laser_Fed_power1 /100+48;
+ 429   2              Power_parameter1[1]=(Laser_Fed_power1 %100)/10+48;
+ 430   2              Power_parameter1[2]=Laser_Fed_power1 %10+48;
+ 431   2              Power_parameter1[3]=0x6d;
+ 432   2              Power_parameter1[4]=0x77;
+ 433   2              Power_parameter1[5]=0x20;
+ 434   2            }
+ 435   1      
+ 436   1          AD_code=AD_inbuf[9];
+ 437   1          a=(float)(AD_code);
+ 438   1          a=a*2.5;
+ 439   1          a=a/4096+0.02015;
+ 440   1          b=a*a*117.314+275.543*a-0.806;
+ 441   1      
+ 442   1          Laser_Fed_power2=(uint)(b);
+ 443   1          Laser_meds_power2=Laser_Fed_power2;
+ 444   1      
+ 445   1          if (Laser_Fed_power2<10)
+ 446   1            { Power_parameter2[0]=Laser_Fed_power2+48;
+ 447   2              Power_parameter2[1]=0x6d;
+ 448   2              Power_parameter2[2]=0x77;
+ 449   2              Power_parameter2[3]=0x20;
+ 450   2              Power_parameter2[4]=0x20;
+ 451   2              Power_parameter2[5]=0x20;
+ 452   2      
+ 453   2            } else if(Laser_Fed_power2<100)
+ 454   1      
+ 455   1            { Power_parameter2[0]=Laser_Fed_power2/10+48;
+ 456   2              Power_parameter2[1]=Laser_Fed_power2 %10+48;
+ 457   2              Power_parameter2[2]=0x6d;
+ 458   2              Power_parameter2[3]=0x77;
+ 459   2              Power_parameter2[4]=0x20;
+ 460   2              Power_parameter2[5]=0x20;
+ 461   2            } else if(Laser_Fed_power2<1000)
+ 462   1      
+ 463   1            { Power_parameter2[0]=Laser_Fed_power2 /100+48;
+ 464   2              Power_parameter2[1]=(Laser_Fed_power2 %100)/10+48;
+ 465   2              Power_parameter2[2]=Laser_Fed_power2 %10+48;
+ 466   2              Power_parameter2[3]=0x6d;
+ 467   2              Power_parameter2[4]=0x77;
+ 468   2              Power_parameter2[5]=0x20;
+ 469   2            }
+ 470   1      
+ 471   1          return;
+ 472   1      
+ 473   1      
+ 474   1      
+ 475   1      }
+ 476          /**************************************************************************/
+ 477          
+ 478          
+ 479          /*****************************当前冷却温度*********************************/
+ 480          void TEC_Temp()
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 9   
 
- 484   2            } else if(Laser_Fed_curent1<1000)
- 485   1      
- 486   1            { Diode_parameter1[0]=Laser_Fed_curent1 /100+48;
- 487   2              Diode_parameter1[1]=(Laser_Fed_curent1 %100)/10+48;
- 488   2              Diode_parameter1[2]=Laser_Fed_curent1 %10+48;
- 489   2              Diode_parameter1[3]=0x6d;
- 490   2              Diode_parameter1[4]=0x41;
- 491   2            }
- 492   1      
- 493   1          Laser_Fed_curent2=(AD_inbuf[1]*5/6-AD_inbuf[1]*15/768)/2;     //R=1.5欧
-*** ERROR C193 IN LINE 493 OF DUALDRIVER.C: '*': bad operand type
- 494   1          Laser_meds_curent2=Laser_Fed_curent2;
- 495   1          if (Laser_Fed_curent2<10)
- 496   1            { Diode_parameter2[0]=Laser_Fed_curent2+48;
- 497   2              Diode_parameter2[1]=0x6d;
- 498   2              Diode_parameter2[2]=0x41;
- 499   2              Diode_parameter2[3]=0x20;
- 500   2              Diode_parameter2[4]=0x20;
- 501   2      
- 502   2            } else if(Laser_Fed_curent2<100)
- 503   1      
- 504   1            { Diode_parameter2[0]=Laser_Fed_curent2 /10+48;
- 505   2              Diode_parameter2[1]=Laser_Fed_curent2 %10+48;
- 506   2              Diode_parameter2[2]=0x6d;
- 507   2              Diode_parameter2[3]=0x41;
- 508   2              Diode_parameter2[4]=0x20;
- 509   2            } else if(Laser_Fed_curent2<1000)
- 510   1      
- 511   1            { Diode_parameter2[0]=Laser_Fed_curent2 /100+48;
- 512   2              Diode_parameter2[1]=(Laser_Fed_curent2 %100)/10+48;
- 513   2              Diode_parameter2[2]=Laser_Fed_curent2 %10+48;
- 514   2              Diode_parameter2[3]=0x6d;
- 515   2              Diode_parameter2[4]=0x41;
- 516   2            }
- 517   1      
- 518   1          return;
- 519   1      }
- 520          /**************************************************************************/
- 521          /*****************************激光功率检测*********************************/
- 522          void Laser_power_Check()
- 523          {
- 524   1      
- 525   1          uchar k=10;
- 526   1          float a,b;
- 527   1          AD_inbuf[8]=0;
- 528   1          AD_inbuf[9]=0;
- 529   1          do
- 530   1          {
- 531   2            AD_code=AD_Convert(1);                  //种子源
- 532   2            AD_inbuf[8]= AD_code+AD_inbuf[8];
- 533   2      
- 534   2            AD_code=AD_Convert(4);                  //放大级
- 535   2            AD_inbuf[9]= AD_code+AD_inbuf[9];
- 536   2            k--;
- 537   2          }while(k);
- 538   1      
- 539   1      
+ 481          {
+ 482   1          uint  tx1=0;
+ 483   1          uint  tx2=0;
+ 484   1          uchar kt=16;
+ 485   1          AD_inbuf[6]=0;
+ 486   1          AD_inbuf[7]=0;
+ 487   1          do
+ 488   1          {
+ 489   2            AD_code=AD_Convert(2);        //种子源TEC温度
+ 490   2            AD_inbuf[6]= AD_code+AD_inbuf[6];
+ 491   2      
+ 492   2            AD_code=AD_Convert(5);        //放大级TEC温度
+ 493   2            AD_inbuf[7]= AD_code+AD_inbuf[7];
+ 494   2            kt--;
+ 495   2          }while(kt);
+ 496   1      
+ 497   1           AD_inbuf[6]=AD_inbuf[6]/16;
+*** ERROR C193 IN LINE 497 OF DUALDRIVER.C: '/': bad operand type
+ 498   1           AD_inbuf[7]=AD_inbuf[7]/16;
+*** ERROR C193 IN LINE 498 OF DUALDRIVER.C: '/': bad operand type
+ 499   1           TEC_meds_tempture1=AD_inbuf[6];
+ 500   1           TEC_meds_tempture2=AD_inbuf[7];
+ 501   1      
+ 502   1           TEC_Fed_Tempture1=(float)( TEC_meds_tempture1)/23.6749+142.4;
+ 503   1           TEC_Fed_Tempture2=(float)( TEC_meds_tempture2)/23.6749+142.4;
+ 504   1           tx1= (uint)(TEC_Fed_Tempture1);
+ 505   1           TEC_meds_tempture1=tx1;
+ 506   1           tx2= (uint)(TEC_Fed_Tempture2);
+ 507   1           TEC_meds_tempture2=tx2;
+ 508   1      
+ 509   1           TEC_parameter1[0]=tx1 /100+48;
+ 510   1           TEC_parameter1[1]=(tx1 /10)%10+48;
+ 511   1           TEC_parameter1[2]=0x2e;
+ 512   1           TEC_parameter1[3]=tx1 %10+48;
+ 513   1      
+ 514   1      
+ 515   1           TEC_parameter2[0]=tx2 /100+48;
+ 516   1           TEC_parameter2[1]=(tx2 /10)%10+48;
+ 517   1           TEC_parameter2[2]=0x2e;
+ 518   1           TEC_parameter2[3]=tx2 %10+48;
+ 519   1      
+ 520   1      
+ 521   1        return;
+ 522   1      }
+ 523          
+ 524          /**************************************************************************/
+ 525          
+ 526          /*****************************当前TEC两端电压******************************/
+ 527          void TEC_V_Check()                                                 //???????????????????????
+ 528          {
+ 529   1          uchar kk=20;
+ 530   1          AD_inbuf[4]=0;
+ 531   1          AD_inbuf[5]=0;
+ 532   1          do
+ 533   1          {
+ 534   2            MCU_ADC(1);
+ 535   2            AD_inbuf[4]= MCU_AD_code+ AD_inbuf[4];
+ 536   2            MCU_ADC(2);
+ 537   2            AD_inbuf[5]= MCU_AD_code+ AD_inbuf[5];
+ 538   2            kk--;
+ 539   2          }while(kk);
  540   1      
- 541   1          AD_inbuf[8]=AD_inbuf[8]/10;
-*** ERROR C193 IN LINE 541 OF DUALDRIVER.C: '/': bad operand type
- 542   1          AD_inbuf[9]=AD_inbuf[9]/10;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 10  
+
+ 541   1      
+ 542   1           TEC_VO1=AD_inbuf[4]/20 ;
 *** ERROR C193 IN LINE 542 OF DUALDRIVER.C: '/': bad operand type
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 10  
+ 543   1           TEC_VO1=TEC_VO1*5;
+ 544   1           TEC_VO2=AD_inbuf[4]/20 ;
+*** ERROR C193 IN LINE 544 OF DUALDRIVER.C: '/': bad operand type
+ 545   1           TEC_VO2=TEC_VO2*5;
+ 546   1      
+ 547   1      //     TEC_parameter[0]=(uchar)(TEC_VO/1024)+48;
+ 548   1      //     TEC_parameter[1]=0x2e;
+ 549   1      //     TEC_parameter[2]=(uchar)((TEC_VO%1024)*10/1024)+48;
+ 550   1      //     TEC_parameter[3]=(uchar)((((TEC_VO%1024)*10)%1024)*10/1024)+48;
+ 551   1      //     TEC_parameter[4]=0xa0;
+ 552   1      //     TEC_parameter[5]=0x56;
+ 553   1          return;
+ 554   1      }
+ 555          
+ 556          /**************************************************************************/
+ 557          
+ 558          /*****************************监测二极管电压******************************/
+ 559          void Pdiod_V_Check()
+ 560          {
+ 561   1          uchar kk=10;
+ 562   1          AD_inbuf[2]=0;
+ 563   1          AD_inbuf[3]=0;
+ 564   1          do
+ 565   1          {
+ 566   2            AD_code=AD_Convert(1);             //种子源激光二极管
+ 567   2            AD_inbuf[2]= AD_code+AD_inbuf[2];
+ 568   2      
+ 569   2            AD_code=AD_Convert(4);             //放大级激光二极管
+ 570   2            AD_inbuf[3]= AD_code+AD_inbuf[3];
+ 571   2            kk--;
+ 572   2          }while(kk);
+ 573   1      
+ 574   1           PDiode_V1= AD_inbuf[2]/10;
+*** ERROR C193 IN LINE 574 OF DUALDRIVER.C: '/': bad operand type
+ 575   1           PDiode_V2= AD_inbuf[3]/10;
+*** ERROR C193 IN LINE 575 OF DUALDRIVER.C: '/': bad operand type
+ 576   1           PDiode_V1=(PDiode_V1*5)/2;
+ 577   1           PDiode_V2=(PDiode_V2*5)/2;
+ 578   1          return;
+ 579   1      }
+ 580          /**************************************************************************/
+ 581          
+ 582          
+ 583          
+ 584          /*******************************设定温度值*************************************
+ 585          
+ 586          void Set_TEC_TEMP(uint tempture)
+ 587          {
+ 588               uint kt;
+ 589          
+ 590                kt=(uint)((tempture-15)*4096/35);
+ 591                DA_Convert(1,kt);
+ 592          
+ 593          
+ 594          
+ 595          
+ 596             return;
+ 597          }
+ 598          
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 11  
 
- 543   1      
- 544   1          AD_code=AD_inbuf[8];
- 545   1          a=(float)(AD_code);
- 546   1          a=a*2.5;
- 547   1          a=a/4096+0.02015;
- 548   1          b=a*a*117.314+275.543*a-0.806;
- 549   1      
- 550   1          Laser_Fed_power1=(uint)(b);
- 551   1          Laser_meds_power1=Laser_Fed_power1;
- 552   1      
- 553   1          if (Laser_Fed_power1<10)
- 554   1            { Power_parameter1[0]=Laser_Fed_power1+48;
- 555   2              Power_parameter1[1]=0x6d;
- 556   2              Power_parameter1[2]=0x77;
- 557   2              Power_parameter1[3]=0x20;
- 558   2              Power_parameter1[4]=0x20;
- 559   2              Power_parameter1[5]=0x20;
- 560   2      
- 561   2            } else if(Laser_Fed_power1<100)
- 562   1      
- 563   1            { Power_parameter1[0]=Laser_Fed_power1/10+48;
- 564   2              Power_parameter1[1]=Laser_Fed_power1 %10+48;
- 565   2              Power_parameter1[2]=0x6d;
- 566   2              Power_parameter1[3]=0x77;
- 567   2              Power_parameter1[4]=0x20;
- 568   2              Power_parameter1[5]=0x20;
- 569   2            } else if(Laser_Fed_power1<1000)
- 570   1      
- 571   1            { Power_parameter1[0]=Laser_Fed_power1 /100+48;
- 572   2              Power_parameter1[1]=(Laser_Fed_power1 %100)/10+48;
- 573   2              Power_parameter1[2]=Laser_Fed_power1 %10+48;
- 574   2              Power_parameter1[3]=0x6d;
- 575   2              Power_parameter1[4]=0x77;
- 576   2              Power_parameter1[5]=0x20;
- 577   2            }
- 578   1      
- 579   1          AD_code=AD_inbuf[9];
- 580   1          a=(float)(AD_code);
- 581   1          a=a*2.5;
- 582   1          a=a/4096+0.02015;
- 583   1          b=a*a*117.314+275.543*a-0.806;
- 584   1      
- 585   1          Laser_Fed_power2=(uint)(b);
- 586   1          Laser_meds_power2=Laser_Fed_power2;
- 587   1      
- 588   1          if (Laser_Fed_power2<10)
- 589   1            { Power_parameter2[0]=Laser_Fed_power2+48;
- 590   2              Power_parameter2[1]=0x6d;
- 591   2              Power_parameter2[2]=0x77;
- 592   2              Power_parameter2[3]=0x20;
- 593   2              Power_parameter2[4]=0x20;
- 594   2              Power_parameter2[5]=0x20;
- 595   2      
- 596   2            } else if(Laser_Fed_power2<100)
- 597   1      
- 598   1            { Power_parameter2[0]=Laser_Fed_power2/10+48;
- 599   2              Power_parameter2[1]=Laser_Fed_power2 %10+48;
- 600   2              Power_parameter2[2]=0x6d;
- 601   2              Power_parameter2[3]=0x77;
- 602   2              Power_parameter2[4]=0x20;
- 603   2              Power_parameter2[5]=0x20;
- 604   2            } else if(Laser_Fed_power2<1000)
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 11  
-
- 605   1      
- 606   1            { Power_parameter2[0]=Laser_Fed_power2 /100+48;
- 607   2              Power_parameter2[1]=(Laser_Fed_power2 %100)/10+48;
- 608   2              Power_parameter2[2]=Laser_Fed_power2 %10+48;
- 609   2              Power_parameter2[3]=0x6d;
- 610   2              Power_parameter2[4]=0x77;
- 611   2              Power_parameter2[5]=0x20;
- 612   2            }
- 613   1      
- 614   1          return;
+ 599          
+ 600          /******************************************************************************/
+ 601          
+ 602          /*****************************设定功率值**********************************/
+ 603          void Set_laser_power(uchar Channel,uint power)
+ 604          {
+ 605   1        float  u,v;
+ 606   1        uint   temp_p;
+ 607   1      
+ 608   1        if (power<3) power=3;
+ 609   1        if (power>600) power=600;
+ 610   1        u=(float)(power);
+ 611   1        v=(u*u/1000)*3.46;
+ 612   1        v=6.5068*u+29.61-v;
+ 613   1        temp_p=(uint)(v);
+ 614   1      
  615   1      
- 616   1      
- 617   1      
- 618   1      }
- 619          /**************************************************************************/
- 620          
- 621          
- 622          /*****************************当前冷却温度*********************************/
- 623          void TEC_Temp()
- 624          {
- 625   1          uint  tx1=0;
- 626   1          uint  tx2=0;
- 627   1          uchar kt=16;
- 628   1          AD_inbuf[6]=0;
- 629   1          AD_inbuf[7]=0;
- 630   1          do
- 631   1          {
- 632   2            AD_code=AD_Convert(2);        //种子源TEC温度
- 633   2            AD_inbuf[6]= AD_code+AD_inbuf[6];
- 634   2      
- 635   2            AD_code=AD_Convert(5);        //放大级TEC温度
- 636   2            AD_inbuf[7]= AD_code+AD_inbuf[7];
- 637   2            kt--;
- 638   2          }while(kt);
- 639   1      
- 640   1           AD_inbuf[6]=AD_inbuf[6]/16;
-*** ERROR C193 IN LINE 640 OF DUALDRIVER.C: '/': bad operand type
- 641   1           AD_inbuf[7]=AD_inbuf[7]/16;
-*** ERROR C193 IN LINE 641 OF DUALDRIVER.C: '/': bad operand type
- 642   1           TEC_meds_tempture1=AD_inbuf[6];
- 643   1           TEC_meds_tempture2=AD_inbuf[7];
+ 616   1        if(Channel==3)                                         //设定种子源功率
+ 617   1        {
+ 618   2      
+ 619   2          if(SHDN1)
+ 620   2           {
+ 621   3      
+ 622   3                DA_Convert(3,temp_p);
+ 623   3                _Nop();
+ 624   3                DA_Convert(3,temp_p);
+ 625   3           }
+ 626   2      
+ 627   2           Laser_Set_power1=power;
+ 628   2         }
+ 629   1      
+ 630   1      
+ 631   1          else if(Channel==0)
+ 632   1        {
+ 633   2      
+ 634   2          if(SHDN2)                                             //设定放大级功率
+ 635   2           {
+ 636   3      
+ 637   3                DA_Convert(0,temp_p);
+ 638   3                _Nop();
+ 639   3                DA_Convert(0,temp_p);
+ 640   3           }
+ 641   2      
+ 642   2           Laser_Set_power2=power;
+ 643   2         }
  644   1      
- 645   1           TEC_Fed_Tempture1=(float)( TEC_meds_tempture1)/23.6749+142.4;
- 646   1           TEC_Fed_Tempture2=(float)( TEC_meds_tempture2)/23.6749+142.4;
- 647   1           tx1= (uint)(TEC_Fed_Tempture1);
- 648   1           TEC_meds_tempture1=tx1;
- 649   1           tx2= (uint)(TEC_Fed_Tempture2);
- 650   1           TEC_meds_tempture2=tx2;
+ 645   1         else  _Nop();
+ 646   1      
+ 647   1         Laser_power_Check();
+ 648   1      
+ 649   1      
+ 650   1          return;
  651   1      
- 652   1           TEC_parameter1[0]=tx1 /100+48;
- 653   1           TEC_parameter1[1]=(tx1 /10)%10+48;
- 654   1           TEC_parameter1[2]=0x2e;
- 655   1           TEC_parameter1[3]=tx1 %10+48;
- 656   1      
- 657   1      
- 658   1           TEC_parameter2[0]=tx2 /100+48;
- 659   1           TEC_parameter2[1]=(tx2 /10)%10+48;
- 660   1           TEC_parameter2[2]=0x2e;
- 661   1           TEC_parameter2[3]=tx2 %10+48;
- 662   1      
+ 652   1      }
+ 653          
+ 654          
+ 655          /*************************************************************************/
+ 656          
+ 657          /*****************************设定电流值**********************************/
+ 658          
+ 659          void Set_laser_current(uchar Channel,uint current)
+ 660          {
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 12  
+
+ 661   1      
+ 662   1          uint tmp_c1;
  663   1      
- 664   1        return;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 12  
-
- 665   1      }
- 666          
- 667          /**************************************************************************/
- 668          
- 669          /*****************************当前TEC两端电压******************************/
- 670          void TEC_V_Check()                                                 //???????????????????????
- 671          {
- 672   1          uchar kk=20;
- 673   1          AD_inbuf[4]=0;
- 674   1          AD_inbuf[5]=0;
- 675   1          do
+ 664   1          if (current<30) current=30;
+ 665   1          if (current>900) current=900;
+ 666   1      
+ 667   1      
+ 668   1      
+ 669   1            tmp_c1=current*3+current*9/125;                     //R=1.5欧
+ 670   1      
+ 671   1      
+ 672   1      
+ 673   1      
+ 674   1      
+ 675   1          if(Channel==3)
  676   1          {
- 677   2            MCU_ADC(1);
- 678   2            AD_inbuf[4]= MCU_AD_code+ AD_inbuf[4];
- 679   2            MCU_ADC(2);
- 680   2            AD_inbuf[5]= MCU_AD_code+ AD_inbuf[5];
- 681   2            kk--;
- 682   2          }while(kk);
- 683   1      
- 684   1      
- 685   1           TEC_VO1=AD_inbuf[4]/20 ;
-*** ERROR C193 IN LINE 685 OF DUALDRIVER.C: '/': bad operand type
- 686   1           TEC_VO1=TEC_VO1*5;
- 687   1           TEC_VO2=AD_inbuf[4]/20 ;
-*** ERROR C193 IN LINE 687 OF DUALDRIVER.C: '/': bad operand type
- 688   1           TEC_VO2=TEC_VO2*5;
+ 677   2             if(SHDN1)
+ 678   2             {
+ 679   3      
+ 680   3                  DA_Convert(3,tmp_c1);
+ 681   3                  _Nop();
+ 682   3                  DA_Convert(3,tmp_c1);
+ 683   3      
+ 684   3                  Laser_Set_curent1=current;
+ 685   3             }
+ 686   2      
+ 687   2             _Nop();
+ 688   2          }
  689   1      
- 690   1      //     TEC_parameter[0]=(uchar)(TEC_VO/1024)+48;
- 691   1      //     TEC_parameter[1]=0x2e;
- 692   1      //     TEC_parameter[2]=(uchar)((TEC_VO%1024)*10/1024)+48;
- 693   1      //     TEC_parameter[3]=(uchar)((((TEC_VO%1024)*10)%1024)*10/1024)+48;
- 694   1      //     TEC_parameter[4]=0xa0;
- 695   1      //     TEC_parameter[5]=0x56;
- 696   1          return;
- 697   1      }
- 698          
- 699          /**************************************************************************/
- 700          
- 701          /*****************************监测二极管电压******************************/
- 702          void Pdiod_V_Check()
- 703          {
- 704   1          uchar kk=10;
- 705   1          AD_inbuf[2]=0;
- 706   1          AD_inbuf[3]=0;
- 707   1          do
- 708   1          {
- 709   2            AD_code=AD_Convert(1);             //种子源激光二极管
- 710   2            AD_inbuf[2]= AD_code+AD_inbuf[2];
- 711   2      
- 712   2            AD_code=AD_Convert(4);             //放大级激光二极管
- 713   2            AD_inbuf[3]= AD_code+AD_inbuf[3];
- 714   2            kk--;
- 715   2          }while(kk);
- 716   1      
- 717   1           PDiode_V1= AD_inbuf[2]/10;
-*** ERROR C193 IN LINE 717 OF DUALDRIVER.C: '/': bad operand type
- 718   1           PDiode_V2= AD_inbuf[3]/10;
-*** ERROR C193 IN LINE 718 OF DUALDRIVER.C: '/': bad operand type
- 719   1           PDiode_V1=(PDiode_V1*5)/2;
- 720   1           PDiode_V2=(PDiode_V2*5)/2;
- 721   1          return;
- 722   1      }
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 13  
+ 690   1          else if(Channel==0)
+ 691   1          {
+ 692   2             if(SHDN2)
+ 693   2             {
+ 694   3      
+ 695   3                  DA_Convert(0,tmp_c1);
+ 696   3                  _Nop();
+ 697   3                  DA_Convert(0,tmp_c1);
+ 698   3      
+ 699   3                  Laser_Set_curent2=current;
+ 700   3             }
+ 701   2      
+ 702   2             _Nop();
+ 703   2          }
+ 704   1      
+ 705   1      
+ 706   1      
+ 707   1      
+ 708   1      /*
+ 709   1        if (tmp_c1>tmp_c0)
+ 710   1          {
+ 711   1            do
+ 712   1            {
+ 713   1      
+ 714   1              while(!TMPGD)
+ 715   1              {
+ 716   1                TEC_Temp();
+ 717   1                if(tx>280)
+ 718   1              {
+ 719   1                uchar inbuf1[11]={'t','m','p','_','e','r','r',0x0d,0x0a};
+ 720   1                send_string_com(inbuf1,9);
+ 721   1                t=0;
+ 722   1                SHDN=0;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 13  
 
- 723          /**************************************************************************/
- 724          
- 725          
- 726          
- 727          /*******************************设定温度值*************************************
- 728          
- 729          void Set_TEC_TEMP(uint tempture)
- 730          {
- 731               uint kt;
- 732          
- 733                kt=(uint)((tempture-15)*4096/35);
- 734                DA_Convert(1,kt);
- 735          
- 736          
- 737          
- 738          
- 739             return;
- 740          }
- 741          
- 742          
- 743          /******************************************************************************/
- 744          
- 745          /*****************************设定功率值**********************************/
- 746          void Set_laser_power(uchar Channel,uint power)
- 747          {
- 748   1        float  u,v;
- 749   1        uint   temp_p;
- 750   1      
- 751   1        if (power<3) power=3;
- 752   1        if (power>600) power=600;
- 753   1        u=(float)(power);
- 754   1        v=(u*u/1000)*3.46;
- 755   1        v=6.5068*u+29.61-v;
- 756   1        temp_p=(uint)(v);
+ 723   1                tmp_c0=Laser_Set_curent*8+Laser_Set_curent*24/125;
+ 724   1                tmp_c1=246;
+ 725   1                Laser_Set_curent=30;
+ 726   1                 do
+ 727   1               {
+ 728   1                tmp_c0=tmp_c0-2;
+ 729   1                DA_Convert(0,tmp_c0);
+ 730   1                m++;
+ 731   1      
+ 732   1                 if(m==240)
+ 733   1                 {
+ 734   1                  Diode_curent_Check();
+ 735   1                  TEC_Temp();
+ 736   1                  chn_disp (tab6,6,0x80);
+ 737   1                  delayR(500);
+ 738   1                  chn_disp (Diode_parameter,6,0x83);
+ 739   1                  delayR(500);
+ 740   1                  chn_disp (tab7,4,0x90);
+ 741   1                  delayR(500);
+ 742   1                  chn_disp (TEC_parameter,4,0x92);
+ 743   1                  delayR(100);
+ 744   1                  chn_disp (tab11,2,0x94);
+ 745   1                  m=0;
+ 746   1                 }
+ 747   1                 delayR(10000);
+ 748   1                 }while(tmp_c0-tmp_c1);
+ 749   1                 chn_disp (inbuf1,7,0x96);
+ 750   1                 goto quit;
+ 751   1               }
+ 752   1              }
+ 753   1      
+ 754   1      
+ 755   1              
+ 756   1      
  757   1      
- 758   1      
- 759   1        if(Channel==3)                                         //设定种子源功率
- 760   1        {
- 761   2      
- 762   2          if(SHDN1)
- 763   2           {
- 764   3      
- 765   3                DA_Convert(3,temp_p);
- 766   3                _Nop();
- 767   3                DA_Convert(3,temp_p);
- 768   3           }
- 769   2      
- 770   2           Laser_Set_power1=power;
- 771   2         }
- 772   1      
+ 758   1           if(m==160)
+ 759   1          {
+ 760   1           TEC_Temp();
+ 761   1           Diode_curent_Check();
+ 762   1           chn_disp (tab6,6,0x80);
+ 763   1           delayR(500);
+ 764   1           chn_disp (Diode_parameter,6,0x83);
+ 765   1           delayR(500);
+ 766   1           chn_disp (tab7,4,0x90);
+ 767   1           delayR(500);
+ 768   1           chn_disp (TEC_parameter,4,0x92);
+ 769   1           delayR(100);
+ 770   1           chn_disp (tab11,2,0x94);
+ 771   1           m=0;
+ 772   1          }
  773   1      
- 774   1          else if(Channel==0)
- 775   1        {
- 776   2      
- 777   2          if(SHDN2)                                             //设定放大级功率
- 778   2           {
- 779   3      
- 780   3                DA_Convert(0,temp_p);
- 781   3                _Nop();
- 782   3                DA_Convert(0,temp_p);
- 783   3           }
- 784   2      
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 14  
+ 774   1      
+ 775   1      
+ 776   1      
+ 777   1      
+ 778   1      
+ 779   1      
+ 780   1             delayR(10000);
+ 781   1            }while((tmp_c1-tmp_c0)&& SHDN);
+ 782   1      
+ 783   1             delayR(180);
+ 784   1      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 14  
 
- 785   2           Laser_Set_power2=power;
- 786   2         }
+ 785   1          }
+ 786   1        else if(tmp_c1<tmp_c0)
  787   1      
- 788   1         else  _Nop();
- 789   1      
- 790   1         Laser_power_Check();
- 791   1      
- 792   1      
- 793   1          return;
- 794   1      
- 795   1      }
- 796          
- 797          
- 798          /*************************************************************************/
- 799          
- 800          /*****************************设定电流值**********************************/
- 801          
- 802          void Set_laser_current(uchar Channel,uint current)
- 803          {
- 804   1      
- 805   1          uint tmp_c1;
- 806   1      
- 807   1          if (current<30) current=30;
- 808   1          if (current>900) current=900;
+ 788   1          {
+ 789   1             do
+ 790   1            {
+ 791   1              
+ 792   1           if(m==160)
+ 793   1           {
+ 794   1           Diode_curent_Check();
+ 795   1           TEC_Temp();
+ 796   1           chn_disp (tab6,6,0x80);
+ 797   1           delayR(500);
+ 798   1           chn_disp (Diode_parameter,6,0x83);
+ 799   1           delayR(500);
+ 800   1           chn_disp (tab7,4,0x90);
+ 801   1           delayR(500);
+ 802   1           chn_disp (TEC_parameter,4,0x92);
+ 803   1           delayR(100);
+ 804   1           chn_disp (tab11,2,0x94);
+ 805   1           m=0;
+ 806   1           }
+ 807   1           delayR(10000);
+ 808   1            }while(tmp_c0-tmp_c1);
  809   1      
- 810   1      
+ 810   1           delay(100);
  811   1      
- 812   1            tmp_c1=current*3+current*9/125;                     //R=1.5欧
- 813   1      
+ 812   1          }        */
+ 813   1          Diode_curent_Check();
  814   1      
  815   1      
- 816   1      
+ 816   1          return;
  817   1      
- 818   1          if(Channel==3)
- 819   1          {
- 820   2             if(SHDN1)
- 821   2             {
- 822   3      
- 823   3                  DA_Convert(3,tmp_c1);
- 824   3                  _Nop();
- 825   3                  DA_Convert(3,tmp_c1);
- 826   3      
- 827   3                  Laser_Set_curent1=current;
- 828   3             }
- 829   2      
- 830   2             _Nop();
- 831   2          }
- 832   1      
- 833   1          else if(Channel==0)
- 834   1          {
- 835   2             if(SHDN2)
- 836   2             {
- 837   3      
- 838   3                  DA_Convert(0,tmp_c1);
- 839   3                  _Nop();
- 840   3                  DA_Convert(0,tmp_c1);
- 841   3      
- 842   3                  Laser_Set_curent2=current;
- 843   3             }
- 844   2      
- 845   2             _Nop();
- 846   2          }
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 15  
+ 818   1      }
+ 819          
+ 820          /***************************************************************************/
+ 821          
+ 822          /*****************************外部AD转换程序*******************************/
+ 823          uint AD_Convert(uchar Channel)
+ 824          {
+ 825   1         uchar i,Dath,Datl,temp,Contbit;
+ 826   1         uint Dat_ad;
+ 827   1         Dath=0;
+ 828   1         Datl=0;
+ 829   1         temp=0;
+ 830   1         Dat_ad=0;
+ 831   1         switch (Channel)                        //  内部REF
+ 832   1          {
+ 833   2              case 0:Contbit=0x00;break;
+ 834   2              case 1:Contbit=0x08;break;
+ 835   2              case 2:Contbit=0x10;break;
+ 836   2              case 3:Contbit=0x18;break;
+ 837   2              case 4:Contbit=0x20;break;
+ 838   2              case 5:Contbit=0x28;break;
+ 839   2              case 6:Contbit=0x30;break;
+ 840   2              case 7:Contbit=0x38;break;
+ 841   2              default: break;
+ 842   2          }
+ 843   1      
+ 844   1          CSAD=0;
+ 845   1          _Nop();
+ 846   1          DCLK=1;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 15  
 
  847   1      
- 848   1      
- 849   1      
- 850   1      
- 851   1      /*
- 852   1        if (tmp_c1>tmp_c0)
- 853   1          {
- 854   1            do
- 855   1            {
- 856   1      
- 857   1              while(!TMPGD)
- 858   1              {
- 859   1                TEC_Temp();
- 860   1                if(tx>280)
- 861   1              {
- 862   1                uchar inbuf1[11]={'t','m','p','_','e','r','r',0x0d,0x0a};
- 863   1                send_string_com(inbuf1,9);
- 864   1                t=0;
- 865   1                SHDN=0;
- 866   1                tmp_c0=Laser_Set_curent*8+Laser_Set_curent*24/125;
- 867   1                tmp_c1=246;
- 868   1                Laser_Set_curent=30;
- 869   1                 do
- 870   1               {
- 871   1                tmp_c0=tmp_c0-2;
- 872   1                DA_Convert(0,tmp_c0);
- 873   1                m++;
- 874   1      
- 875   1                 if(m==240)
- 876   1                 {
- 877   1                  Diode_curent_Check();
- 878   1                  TEC_Temp();
- 879   1                  chn_disp (tab6,6,0x80);
- 880   1                  delayR(500);
- 881   1                  chn_disp (Diode_parameter,6,0x83);
- 882   1                  delayR(500);
- 883   1                  chn_disp (tab7,4,0x90);
- 884   1                  delayR(500);
- 885   1                  chn_disp (TEC_parameter,4,0x92);
- 886   1                  delayR(100);
- 887   1                  chn_disp (tab11,2,0x94);
- 888   1                  m=0;
- 889   1                 }
- 890   1                 delayR(10000);
- 891   1                 }while(tmp_c0-tmp_c1);
- 892   1                 chn_disp (inbuf1,7,0x96);
- 893   1                 goto quit;
- 894   1               }
- 895   1              }
+ 848   1         for(i=0;i<8;i++)
+ 849   1         {
+ 850   2            ADIN=(bit)(Contbit&(0x80>>i));   //串行数据位
+ 851   2      
+ 852   2            DCLK=0;
+ 853   2            _Nop();
+ 854   2            DCLK=1;
+ 855   2            _Nop();
+ 856   2      
+ 857   2         }
+ 858   1      
+ 859   1          CSAD=1;
+ 860   1          _Nop();
+ 861   1      
+ 862   1          CSAD=0;
+ 863   1          _Nop();
+ 864   1      
+ 865   1          for(i=0;i<8;i++)                   //写入控制字，并读取高四位数据
+ 866   1          {
+ 867   2            ADIN=(bit)(Contbit&(0x80>>i));
+ 868   2      
+ 869   2            DCLK=0;
+ 870   2            _Nop();
+ 871   2            DCLK=1;
+ 872   2            _Nop();
+ 873   2            Dath=DOUT;
+ 874   2            Dath=Dath<<(7-i);
+ 875   2            temp=temp|Dath;
+ 876   2          }
+ 877   1      
+ 878   1           Dath=temp;
+ 879   1           temp=0;
+ 880   1          for(i=0;i<8;i++)
+ 881   1          {
+ 882   2            DCLK=0;
+ 883   2            _Nop();
+ 884   2            DCLK=1;
+ 885   2            Datl=DOUT;
+ 886   2            Datl=Datl<<(7-i);
+ 887   2            temp=temp|Datl;
+ 888   2            _Nop();
+ 889   2      
+ 890   2          }
+ 891   1      
+ 892   1           Datl=temp;
+ 893   1           Dat_ad=(Dath*256+Datl)&0x0fff;
+ 894   1      
+ 895   1           CSAD=1;
  896   1      
  897   1      
- 898   1              
- 899   1      
+ 898   1      
+ 899   1            _Nop();
  900   1      
- 901   1           if(m==160)
- 902   1          {
- 903   1           TEC_Temp();
- 904   1           Diode_curent_Check();
- 905   1           chn_disp (tab6,6,0x80);
- 906   1           delayR(500);
- 907   1           chn_disp (Diode_parameter,6,0x83);
- 908   1           delayR(500);
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 16  
+ 901   1            return(Dat_ad);
+ 902   1      }
+ 903          
+ 904          
+ 905          
+ 906          /**************************************************************************/
+ 907          /*****************************外部PWM设置程序*******************************/
+ 908          void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 16  
 
- 909   1           chn_disp (tab7,4,0x90);
- 910   1           delayR(500);
- 911   1           chn_disp (TEC_parameter,4,0x92);
- 912   1           delayR(100);
- 913   1           chn_disp (tab11,2,0x94);
- 914   1           m=0;
- 915   1          }
- 916   1      
- 917   1      
- 918   1      
- 919   1      
+ 909          { 
+ 910   1        //脉宽1单位为10NS
+ 911   1        //延迟1单位为10NS
+ 912   1        //频率1单位为1KHZ
+ 913   1      
+ 914   1        //
+ 915   1      }
+ 916          /**************************************************************************/
+ 917          /*****************************外部DA转换程序*******************************/
+ 918          void DA_Convert(uchar Channel, uint Dcode)
+ 919          {
  920   1      
- 921   1      
- 922   1      
- 923   1             delayR(10000);
- 924   1            }while((tmp_c1-tmp_c0)&& SHDN);
- 925   1      
- 926   1             delayR(180);
- 927   1      
- 928   1          }
- 929   1        else if(tmp_c1<tmp_c0)
- 930   1      
- 931   1          {
- 932   1             do
- 933   1            {
- 934   1              
- 935   1           if(m==160)
- 936   1           {
- 937   1           Diode_curent_Check();
- 938   1           TEC_Temp();
- 939   1           chn_disp (tab6,6,0x80);
- 940   1           delayR(500);
- 941   1           chn_disp (Diode_parameter,6,0x83);
- 942   1           delayR(500);
- 943   1           chn_disp (tab7,4,0x90);
- 944   1           delayR(500);
- 945   1           chn_disp (TEC_parameter,4,0x92);
- 946   1           delayR(100);
- 947   1           chn_disp (tab11,2,0x94);
- 948   1           m=0;
- 949   1           }
- 950   1           delayR(10000);
- 951   1            }while(tmp_c0-tmp_c1);
- 952   1      
- 953   1           delay(100);
- 954   1      
- 955   1          }        */
- 956   1          Diode_curent_Check();
- 957   1      
- 958   1      
- 959   1          return;
+ 921   1        uint  Comdat=0;
+ 922   1         uchar i;
+ 923   1         switch (Channel)
+ 924   1          {
+ 925   2              case 0:Comdat=Dcode+0x1000;break;
+ 926   2              case 1:Comdat=Dcode+0x5000;break;
+ 927   2              case 2:Comdat=Dcode+0x9000;break;
+ 928   2              case 3:Comdat=Dcode+0xd000;break;
+ 929   2              default: break;
+ 930   2          }
+ 931   1      
+ 932   1          LDAC=1;                               //数据刷新
+ 933   1          _Nop();
+ 934   1          CSDA=0;                               //片选有效
+ 935   1          FS=1;
+ 936   1          _Nop();
+ 937   1          FS=0;
+ 938   1         for(i=0;i<16;i++)
+ 939   1        {
+ 940   2             DINDA=(bit)(Comdat&0x8000);
+ 941   2             SCLK=1;
+ 942   2             Comdat=Comdat<<1;
+ 943   2             _Nop();
+ 944   2             SCLK=0;
+ 945   2      
+ 946   2         }
+ 947   1      
+ 948   1         LDAC=0;
+ 949   1         _Nop();
+ 950   1         CSDA=1;                             //片选无效
+ 951   1         Dcode=0;
+ 952   1        return;
+ 953   1      
+ 954   1      }
+ 955          /**************************************************************************/
+ 956          
+ 957          
+ 958          void Error_Process()
+ 959          {
  960   1      
- 961   1      }
- 962          
- 963          /***************************************************************************/
- 964          
- 965          /*****************************外部AD转换程序*******************************/
- 966          uint AD_Convert(uchar Channel)
- 967          {
- 968   1         uchar i,Dath,Datl,temp,Contbit;
- 969   1         uint Dat_ad;
- 970   1         Dath=0;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 17  
+ 961   1       _Nop();
+ 962   1       return;
+ 963   1      
+ 964   1      }
+ 965          
+ 966          
+ 967          
+ 968          /**************************以下是外部中断0程序************************/
+ 969           void INT_0() interrupt 0 using 0
+ 970           {
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 17  
 
- 971   1         Datl=0;
- 972   1         temp=0;
- 973   1         Dat_ad=0;
- 974   1         switch (Channel)                        //  内部REF
- 975   1          {
- 976   2              case 0:Contbit=0x00;break;
- 977   2              case 1:Contbit=0x08;break;
- 978   2              case 2:Contbit=0x10;break;
- 979   2              case 3:Contbit=0x18;break;
- 980   2              case 4:Contbit=0x20;break;
- 981   2              case 5:Contbit=0x28;break;
- 982   2              case 6:Contbit=0x30;break;
- 983   2              case 7:Contbit=0x38;break;
- 984   2              default: break;
- 985   2          }
- 986   1      
- 987   1          CSAD=0;
- 988   1          _Nop();
- 989   1          DCLK=1;
- 990   1      
- 991   1         for(i=0;i<8;i++)
- 992   1         {
- 993   2            ADIN=(bit)(Contbit&(0x80>>i));   //串行数据位
- 994   2      
- 995   2            DCLK=0;
- 996   2            _Nop();
- 997   2            DCLK=1;
- 998   2            _Nop();
- 999   2      
-1000   2         }
+ 971   1          if (!LIM1)
+ 972   1          Error_Process();
+ 973   1          else  _Nop();
+ 974   1      
+ 975   1          if (!LIM2)
+ 976   1          Error_Process();
+ 977   1          else  _Nop();
+ 978   1          return;
+ 979   1       }
+ 980          /*********************************************************************/
+ 981          
+ 982          /***************************以下是外部中断1程序***********************/
+ 983          void INT_1() interrupt 2 using 1
+ 984          {
+ 985   1        _Nop();
+ 986   1        chn_disp (tab16,20,0x80);
+ 987   1        delayR(10000);
+ 988   1        chn_disp (tab17,20,0x90);
+ 989   1        delay(1000);
+ 990   1      }
+ 991          /***********************************************************************/
+ 992          
+ 993          
+ 994          
+ 995          
+ 996          
+ 997          /*****************以下是串口中断程序*******************************/
+ 998          
+ 999          void RS232() interrupt 4 using 3
+1000          {
 1001   1      
-1002   1          CSAD=1;
-1003   1          _Nop();
-1004   1      
-1005   1          CSAD=0;
-1006   1          _Nop();
-1007   1      
-1008   1          for(i=0;i<8;i++)                   //写入控制字，并读取高四位数据
-1009   1          {
-1010   2            ADIN=(bit)(Contbit&(0x80>>i));
+1002   1         if(RI)
+1003   1         {
+1004   2              RI=0;
+1005   2      
+1006   2              if (SBUF==0x0A)
+1007   2              {
+1008   3                   read_flag=1;
+1009   3      
+1010   3                }
 1011   2      
-1012   2            DCLK=0;
-1013   2            _Nop();
-1014   2            DCLK=1;
-1015   2            _Nop();
-1016   2            Dath=DOUT;
-1017   2            Dath=Dath<<(7-i);
-1018   2            temp=temp|Dath;
-1019   2          }
-1020   1      
-1021   1           Dath=temp;
-1022   1           temp=0;
-1023   1          for(i=0;i<8;i++)
-1024   1          {
-1025   2            DCLK=0;
-1026   2            _Nop();
-1027   2            DCLK=1;
-1028   2            Datl=DOUT;
-1029   2            Datl=Datl<<(7-i);
-1030   2            temp=temp|Datl;
-1031   2            _Nop();
-1032   2      
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 18  
+1012   2              else
+1013   2              {
+1014   3      
+1015   3      
+1016   3                   inbuf[t]=SBUF;
+1017   3                   t++;
+1018   3      
+1019   3      
+1020   3      
+1021   3              }
+1022   2      
+1023   2         }
+1024   1      
+1025   1           return;
+1026   1      }
+1027          
+1028          /**********************************************************************/
+1029          
+1030          /*****************定时器中断程序*******************************/
+1031          
+1032          void tm0_isr() interrupt 1 using 1
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 18  
 
-1033   2          }
-1034   1      
-1035   1           Datl=temp;
-1036   1           Dat_ad=(Dath*256+Datl)&0x0fff;
-1037   1      
-1038   1           CSAD=1;
-1039   1      
-1040   1      
-1041   1      
-1042   1            _Nop();
-1043   1      
-1044   1            return(Dat_ad);
-1045   1      }
-1046          
-1047          
-1048          
-1049          /**************************************************************************/
-1050          /*****************************外部PWM设置程序*******************************/
-1051          void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
-1052          { 
-1053   1        //脉宽1单位为10NS
-1054   1        //延迟1单位为10NS
-1055   1        //频率1单位为1KHZ
-1056   1      
-1057   1        //
-1058   1      }
-1059          /**************************************************************************/
-1060          /*****************************外部DA转换程序*******************************/
-1061          void DA_Convert(uchar Channel, uint Dcode)
-1062          {
-1063   1      
-1064   1        uint  Comdat=0;
-1065   1         uchar i;
-1066   1         switch (Channel)
-1067   1          {
-1068   2              case 0:Comdat=Dcode+0x1000;break;
-1069   2              case 1:Comdat=Dcode+0x5000;break;
-1070   2              case 2:Comdat=Dcode+0x9000;break;
-1071   2              case 3:Comdat=Dcode+0xd000;break;
-1072   2              default: break;
-1073   2          }
-1074   1      
-1075   1          LDAC=1;                               //数据刷新
-1076   1          _Nop();
-1077   1          CSDA=0;                               //片选有效
-1078   1          FS=1;
-1079   1          _Nop();
-1080   1          FS=0;
-1081   1         for(i=0;i<16;i++)
-1082   1        {
-1083   2             DINDA=(bit)(Comdat&0x8000);
-1084   2             SCLK=1;
-1085   2             Comdat=Comdat<<1;
-1086   2             _Nop();
-1087   2             SCLK=0;
-1088   2      
-1089   2         }
-1090   1      
-1091   1         LDAC=0;
-1092   1         _Nop();
-1093   1         CSDA=1;                             //片选无效
-1094   1         Dcode=0;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 19  
+1033          {
+1034   1           TL0 = 0x30;   //设置定时初值
+1035   1           TH0 = 0xF8;   //设置定时初值
+1036   1           if (count-- == 0)               //1ms * 1000 -> 1s
+1037   1           {
+1038   2           count = 1000;               //reset counter
+1039   2           TEST_LED = ! TEST_LED;      //work LED flash
+1040   2           }
+1041   1      }
+1042          
+1043          /**********************************************************************/
+1044          
+1045          /***********以下是状态初始化程序*********************************/
+1046          void stat_initial()
+1047          {
+1048   1      
+1049   1           ADC_RES=0;
+1050   1           ADC_RESL=0;
+1051   1      
+1052   1           read_flag=0;          //读取标志清零
+1053   1           las_di_ok=0;
+1054   1           t=0;
+1055   1           set_flag=0;
+1056   1           Sys_mod=0;   //tang
+1057   1      
+1058   1           AD_code=0;
+1059   1      //     Laser_Set_curent=0;
+1060   1           Laser_Fed_curent1=0;
+1061   1           Laser_Fed_curent2=0;
+1062   1           Laser_Fed_power1=0;
+1063   1           Laser_Fed_power2=0;
+1064   1      
+1065   1      /**************DA引脚初始化*************************/
+1066   1           CSDA=1;
+1067   1           LDAC=1;
+1068   1           FS=0;
+1069   1           SCLK=0;
+1070   1           DINDA=0;
+1071   1      /**************************************************/
+1072   1           DA_Convert(2,1273);                          //设定种子源TEC温度为25度
+1073   1           _Nop();
+1074   1           DA_Convert(2,1273);
+1075   1           _Nop();
+1076   1           DA_Convert(1,1273);                          //设定放大级TEC温度为25度
+1077   1           _Nop();
+1078   1           DA_Convert(1,1273);
+1079   1      /**************************************************/
+1080   1        if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
+1081   1      
+1082   1      ///////////////////////////////////APC模式设定初始功率//////////////////////////////////////////
+1083   1       {
+1084   2        Laser_Set_power1=3;                        //记录种子源当前设定功率值
+1085   2        Laser_Set_power2=3;                        //记录放大级当前设定功率值
+1086   2      
+1087   2        DA_Convert(3,25);                          // 种子源
+1088   2         _Nop();
+1089   2        DA_Convert(3,25);
+1090   2      
+1091   2        DA_Convert(0,25);                          // 放大级
+1092   2         _Nop();
+1093   2        DA_Convert(0,25);
+1094   2       }
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 19  
 
-1095   1        return;
+1095   1      //////////////////////////////////////////////////////////////////////////////////////////////
 1096   1      
-1097   1      }
-1098          /**************************************************************************/
-1099          
-1100          
-1101          void Error_Process()
-1102          {
-1103   1      
-1104   1       _Nop();
-1105   1       return;
-1106   1      
-1107   1      }
-1108          
-1109          
-1110          
-1111          /**************************以下是外部中断0程序************************/
-1112           void INT_0() interrupt 0 using 0
-1113           {
-1114   1          if (!LIM1)
-1115   1          Error_Process();
-1116   1          else  _Nop();
-1117   1      
-1118   1          if (!LIM2)
-1119   1          Error_Process();
-1120   1          else  _Nop();
-1121   1          return;
-1122   1       }
-1123          /*********************************************************************/
-1124          
-1125          /***************************以下是外部中断1程序***********************/
-1126          void INT_1() interrupt 2 using 1
-1127          {
-1128   1        _Nop();
-1129   1        chn_disp (tab16,20,0x80);
-1130   1        delayR(10000);
-1131   1        chn_disp (tab17,20,0x90);
-1132   1        delay(1000);
-1133   1      }
-1134          /***********************************************************************/
-1135          
-1136          
-1137          
-1138          
-1139          
-1140          /*****************以下是串口中断程序*******************************/
-1141          
-1142          void RS232() interrupt 4 using 3
-1143          {
-1144   1      
-1145   1         if(RI)
-1146   1         {
-1147   2              RI=0;
-1148   2      
-1149   2              if (SBUF==0x0A)
-1150   2              {
-1151   3                   read_flag=1;
-1152   3      
-1153   3                }
-1154   2      
-1155   2              else
-1156   2              {
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 20  
+1097   1        else
+1098   1      //////////////////////////////////ACC模式设定初始电流//////////////////////////////////////////
+1099   1       {
+1100   2        Laser_Set_curent1=30;                          //记录种子源当前设定电流值
+1101   2        Laser_Set_curent2=30;                          //记录放大级当前设定电流值
+1102   2      
+1103   2        DA_Convert(3,init_current1);                            // 种子源
+1104   2         _Nop();
+1105   2        DA_Convert(3,init_current1);
+1106   2      
+1107   2        DA_Convert(0,init_current2);                            // 放大级
+1108   2        _Nop();
+1109   2        DA_Convert(0,init_current2);
+1110   2       }
+1111   1      //////////////////////////////////////////////////////////////////////////////////////////////
+1112   1      
+1113   1      
+1114   1      
+1115   1           P4SW=0x30;            //设定P4.4、P4.5为I/O功能
+1116   1           P1M1=0x07;
+1117   1           P1M0=0x00;
+1118   1      
+1119   1           CSAD=1;
+1120   1           DCLK=1;
+1121   1           DOUT=1;
+1122   1      
+1123   1      
+1124   1      
+1125   1      
+1126   1      
+1127   1      /*************TEC控制器初始化*********************/
+1128   1           SHDN1=1;
+1129   1      //   TMPGD1=1;
+1130   1           LIM1=1;
+1131   1      
+1132   1           SHDN2=1;
+1133   1      //   TMPGD2=1;
+1134   1           LIM2=1;
+1135   1      /*************************************************/
+1136   1      
+1137   1      /*    Power_parameter[0]='P';
+1138   1            Power_parameter[1]='O';
+1139   1            Power_parameter[2]='W';
+1140   1            Power_parameter[3]=':';
+1141   1      
+1142   1            Diode_parameter[0]='L';
+1143   1            Diode_parameter[1]='D';
+1144   1            Diode_parameter[2]='C';
+1145   1            Diode_parameter[3]=':';
+1146   1            Diode_parameter[8]=0x20;
+1147   1            Diode_parameter[9]=0x20;
+1148   1      
+1149   1            TEC_parameter[0]='T';
+1150   1            TEC_parameter[1]='E';
+1151   1            TEC_parameter[2]='C';
+1152   1            TEC_parameter[3]=':';
+1153   1      */
+1154   1      
+1155   1           TR0=0;
+1156   1           ET0=0;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 20  
 
-1157   3      
-1158   3      
-1159   3                   inbuf[t]=SBUF;
-1160   3                   t++;
-1161   3      
-1162   3      
-1163   3      
-1164   3              }
-1165   2      
-1166   2         }
-1167   1      
-1168   1           return;
-1169   1      }
-1170          
-1171          /**********************************************************************/
-1172          
-1173          /*****************定时器中断程序*******************************/
-1174          
-1175          void tm0_isr() interrupt 1 using 1
-1176          {
-1177   1           TL0 = 0x30;   //设置定时初值
-1178   1           TH0 = 0xF8;   //设置定时初值
-1179   1           if (count-- == 0)               //1ms * 1000 -> 1s
-1180   1           {
-1181   2           count = 1000;               //reset counter
-1182   2           TEST_LED = ! TEST_LED;      //work LED flash
-1183   2           }
-1184   1      }
-1185          
-1186          /**********************************************************************/
-1187          
-1188          /***********以下是状态初始化程序*********************************/
-1189          void stat_initial()
-1190          {
-1191   1      
-1192   1           ADC_RES=0;
-1193   1           ADC_RESL=0;
-1194   1      
-1195   1           read_flag=0;          //读取标志清零
-1196   1           las_di_ok=0;
-1197   1           t=0;
-1198   1           set_flag=0;
-1199   1           Sys_mod=0;   //tang
-1200   1      
-1201   1           AD_code=0;
-1202   1      //     Laser_Set_curent=0;
-1203   1           Laser_Fed_curent1=0;
-1204   1           Laser_Fed_curent2=0;
-1205   1           Laser_Fed_power1=0;
-1206   1           Laser_Fed_power2=0;
-1207   1      
-1208   1      /**************DA引脚初始化*************************/
-1209   1           CSDA=1;
-1210   1           LDAC=1;
-1211   1           FS=0;
-1212   1           SCLK=0;
-1213   1           DINDA=0;
-1214   1      /**************************************************/
-1215   1           DA_Convert(2,1273);                          //设定种子源TEC温度为25度
-1216   1           _Nop();
-1217   1           DA_Convert(2,1273);
-1218   1           _Nop();
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 21  
+1157   1           TR1=0;
+1158   1           ET1=0;
+1159   1           EX0=0;
+1160   1      
+1161   1           return;
+1162   1      }
+1163          
+1164          /***************************************************************/
+1165          
+1166          
+1167          /****************************操作指令执行***********************/
+1168          void command()
+1169          {
+1170   1      
+1171   1          ///////////////////////////板卡初始化指令////////////////////////////////////////////
+1172   1           if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='T')&&(inbuf[4]=='I'))
+1173   1              {
+1174   2                 stat_initial();
+1175   2                 serial_initial();
+1176   2                 setsucced();
+1177   2              }
+1178   1      
+1179   1      ///////////////////////////////////设定电流////////////////////////////////////////////
+1180   1             else if((inbuf[0]=='S')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='O')&&(inbuf[4]=='='))
+1181   1      
+1182   1                 {
+1183   2                     uint dio_cu;
+1184   2                     uchar CH;
+1185   2      
+1186   2                     if(inbuf[7]==0x0d)                                        //格式为SDIO=N
+1187   2                    {
+1188   3                       dio_cu=inbuf[6]-48;
+1189   3      
+1190   3      
+1191   3                    }
+1192   2                     else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
+1193   2                    {
+1194   3                       dio_cu=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
+1195   3      
+1196   3                    }
+1197   2                    else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
+1198   2                    {
+1199   3                       dio_cu=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
+1200   3      
+1201   3                    }
+1202   2      
+1203   2                    else                                                    //格式为SDIO=NNNN
+1204   2                    {
+1205   3                        setfault();
+1206   3                        goto setcf;
+1207   3                    }
+1208   2      
+1209   2                    if(inbuf[5]=='S')
+1210   2                    {
+1211   3                      CH=3;                                     //种子源SEED
+1212   3                      Set_laser_current(CH,dio_cu);
+1213   3                      setsucced();
+1214   3                    }
+1215   2                    else if(inbuf[5]=='A')
+1216   2                    {
+1217   3                      CH=0;                                    //放大级AMP
+1218   3                      Set_laser_current(CH,dio_cu);
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 21  
 
-1219   1           DA_Convert(1,1273);                          //设定放大级TEC温度为25度
-1220   1           _Nop();
-1221   1           DA_Convert(1,1273);
-1222   1      /**************************************************/
-1223   1        if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
-1224   1      
-1225   1      ///////////////////////////////////APC模式设定初始功率//////////////////////////////////////////
-1226   1       {
-1227   2        Laser_Set_power1=3;                        //记录种子源当前设定功率值
-1228   2        Laser_Set_power2=3;                        //记录放大级当前设定功率值
-1229   2      
-1230   2        DA_Convert(3,25);                          // 种子源
-1231   2         _Nop();
-1232   2        DA_Convert(3,25);
-1233   2      
-1234   2        DA_Convert(0,25);                          // 放大级
-1235   2         _Nop();
-1236   2        DA_Convert(0,25);
-1237   2       }
-1238   1      //////////////////////////////////////////////////////////////////////////////////////////////
-1239   1      
-1240   1        else
-1241   1      //////////////////////////////////ACC模式设定初始电流//////////////////////////////////////////
-1242   1       {
-1243   2        Laser_Set_curent1=30;                          //记录种子源当前设定电流值
-1244   2        Laser_Set_curent2=30;                          //记录放大级当前设定电流值
-1245   2      
-1246   2        DA_Convert(3,init_current1);                            // 种子源
-1247   2         _Nop();
-1248   2        DA_Convert(3,init_current1);
-1249   2      
-1250   2        DA_Convert(0,init_current2);                            // 放大级
-1251   2        _Nop();
-1252   2        DA_Convert(0,init_current2);
-1253   2       }
-1254   1      //////////////////////////////////////////////////////////////////////////////////////////////
-1255   1      
-1256   1      
-1257   1      
-1258   1           P4SW=0x30;            //设定P4.4、P4.5为I/O功能
-1259   1           P1M1=0x07;
-1260   1           P1M0=0x00;
-1261   1      
-1262   1           CSAD=1;
-1263   1           DCLK=1;
-1264   1           DOUT=1;
-1265   1      
-1266   1      
-1267   1      
-1268   1      
-1269   1      
-1270   1      /*************TEC控制器初始化*********************/
-1271   1           SHDN1=1;
-1272   1      //   TMPGD1=1;
-1273   1           LIM1=1;
-1274   1      
-1275   1           SHDN2=1;
-1276   1      //   TMPGD2=1;
-1277   1           LIM2=1;
-1278   1      /*************************************************/
-1279   1      
-1280   1      /*    Power_parameter[0]='P';
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 22  
-
-1281   1            Power_parameter[1]='O';
-1282   1            Power_parameter[2]='W';
-1283   1            Power_parameter[3]=':';
-1284   1      
-1285   1            Diode_parameter[0]='L';
-1286   1            Diode_parameter[1]='D';
-1287   1            Diode_parameter[2]='C';
-1288   1            Diode_parameter[3]=':';
-1289   1            Diode_parameter[8]=0x20;
-1290   1            Diode_parameter[9]=0x20;
-1291   1      
-1292   1            TEC_parameter[0]='T';
-1293   1            TEC_parameter[1]='E';
-1294   1            TEC_parameter[2]='C';
-1295   1            TEC_parameter[3]=':';
-1296   1      */
-1297   1      
-1298   1           TR0=0;
-1299   1           ET0=0;
-1300   1           TR1=0;
-1301   1           ET1=0;
-1302   1           EX0=0;
-1303   1      
-1304   1           return;
-1305   1      }
-1306          
-1307          /***************************************************************/
-1308          
-1309          
-1310          /**************************LCD初始化***************************/
-1311          void init_lcd (void)
-1312          {
-1313   1      
-1314   1        wr_lcd (comm,0x30);                    //设定工作方式\
-*** WARNING C329 IN LINE 1314 OF dualdriver.C: single-line comment contains line-continuation
-1315   1        delayR(50000);
-1316   1        wr_lcd (comm,0x01);                    //清屏
-1317   1        delayR(50000);
-1318   1        wr_lcd (comm,0x06);                    //光标的移动方向
-1319   1        delayR(50000);
-1320   1        wr_lcd (comm,0x0c);                    //开显示
-1321   1      }
-1322          
-1323          /*************************************************************/
-1324          
-1325          /****************************操作指令执行***********************/
-1326          void command()
-1327          {
-1328   1      
-1329   1          ///////////////////////////板卡初始化指令////////////////////////////////////////////
-1330   1           if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='T')&&(inbuf[4]=='I'))
-1331   1              {
-1332   2                 stat_initial();
-1333   2                 serial_initial();
-1334   2                 init_lcd ();
-1335   2                 delay(10);
-1336   2                 wr_lcd (comm,0x30);
-1337   2                 delay(50);
-1338   2                 clrram();
-1339   2                 setsucced();
-1340   2              }
-1341   1      
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 23  
-
-1342   1      ///////////////////////////////////设定电流////////////////////////////////////////////
-1343   1             else if((inbuf[0]=='S')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='O')&&(inbuf[4]=='='))
-1344   1      
-1345   1                 {
-1346   2                     uint dio_cu;
-1347   2                     uchar CH;
-1348   2      
-1349   2                     if(inbuf[7]==0x0d)                                        //格式为SDIO=N
-1350   2                    {
-1351   3                       dio_cu=inbuf[6]-48;
-1352   3      
-1353   3      
-1354   3                    }
-1355   2                     else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
-1356   2                    {
-1357   3                       dio_cu=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
-1358   3      
-1359   3                    }
-1360   2                    else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
-1361   2                    {
-1362   3                       dio_cu=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
-1363   3      
-1364   3                    }
-1365   2      
-1366   2                    else                                                    //格式为SDIO=NNNN
-1367   2                    {
-1368   3                        setfault();
-1369   3                        goto setcf;
-1370   3                    }
-1371   2      
-1372   2                    if(inbuf[5]=='S')
-1373   2                    {
-1374   3                      CH=3;                                     //种子源SEED
-1375   3                      Set_laser_current(CH,dio_cu);
-1376   3                      setsucced();
-1377   3                    }
-1378   2                    else if(inbuf[5]=='A')
-1379   2                    {
-1380   3                      CH=0;                                    //放大级AMP
-1381   3                      Set_laser_current(CH,dio_cu);
-1382   3                      setsucced();
-1383   3                    }
-1384   2                    else setfault();
-1385   2      
-1386   2      setcf:       _Nop();
-1387   2      
-1388   2                 }
-1389   1      
-1390   1      
-1391   1      ///////////////////////////////////设定初始电流////////////////////////////////////////////
-1392   1             else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
-1393   1      
-1394   1                 {
-1395   2                     uint init_current;
-1396   2                     uchar CH;
-1397   2      
-1398   2                     if(inbuf[7]==0x0d)                                        //格式为SDIO=N
-1399   2                    {
-1400   3                       init_current=inbuf[6]-48;
-1401   3      
-1402   3      
-1403   3                    }
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 24  
-
-1404   2                     else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
-1405   2                    {
-1406   3                       init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
-1407   3      
-1408   3                    }
-1409   2                    else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
-1410   2                    {
-1411   3                       init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
-1412   3      
-1413   3                    }
-1414   2      
-1415   2                    else                                                    //格式为SDIO=NNNN
-1416   2                    {
-1417   3                        setfault();
-1418   3                        goto seticf;
-1419   3                    }
-1420   2      
-1421   2                    if(inbuf[5]=='S')
-1422   2                    {
-1423   3                      init_current1=init_current;
-1424   3                    }
-1425   2                    else if(inbuf[5]=='A')
-1426   2                    {
-1427   3                      init_current2=init_current;
-1428   3                    }
-1429   2                    else setfault();
-1430   2      
-1431   2      seticf:       _Nop();
-1432   2      
-1433   2                 }
-1434   1      
-1435   1      
-1436   1      
-1437   1      ///////////////////////////////////设定初始化模式 0/1/2/3 /////////////////////////////////////////
+1219   3                      setsucced();
+1220   3                    }
+1221   2                    else setfault();
+1222   2      
+1223   2      setcf:       _Nop();
+1224   2      
+1225   2                 }
+1226   1      
+1227   1      
+1228   1      ///////////////////////////////////设定初始电流////////////////////////////////////////////
+1229   1             else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
+1230   1      
+1231   1                 {
+1232   2                     uint init_current;
+1233   2                     uchar CH;
+1234   2      
+1235   2                     if(inbuf[7]==0x0d)                                        //格式为SDIO=N
+1236   2                    {
+1237   3                       init_current=inbuf[6]-48;
+1238   3      
+1239   3      
+1240   3                    }
+1241   2                     else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
+1242   2                    {
+1243   3                       init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
+1244   3      
+1245   3                    }
+1246   2                    else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
+1247   2                    {
+1248   3                       init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
+1249   3      
+1250   3                    }
+1251   2      
+1252   2                    else                                                    //格式为SDIO=NNNN
+1253   2                    {
+1254   3                        setfault();
+1255   3                        goto seticf;
+1256   3                    }
+1257   2      
+1258   2                    if(inbuf[5]=='S')
+1259   2                    {
+1260   3                      init_current1=init_current;
+1261   3                    }
+1262   2                    else if(inbuf[5]=='A')
+1263   2                    {
+1264   3                      init_current2=init_current;
+1265   3                    }
+1266   2                    else setfault();
+1267   2      
+1268   2      seticf:       _Nop();
+1269   2      
+1270   2                 }
+1271   1      
+1272   1      
+1273   1      
+1274   1      ///////////////////////////////////设定初始化模式 0/1/2/3 /////////////////////////////////////////
              -///
-1438   1             else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='E')&&(inbuf[4]=='='))
-1439   1      
-1440   1                 {   
-1441   2                     uint init_flag_temp;
-1442   2                     uchar CH;
-1443   2      
-1444   2                     if(inbuf[6]==0x0d)                                        //格式为SDIO=N
-1445   2                    {
-1446   3                       init_flag_temp=inbuf[5]-48;
-1447   3                      if ((init_flag_temp<0)||(init_flag_temp>3))
-1448   3                        goto setief;
-1449   3                      else
-1450   3                        init_flag=init_flag_temp;
-1451   3                    }
-1452   2                    else                                                    //格式为SDIO=NNNN
-1453   2                    {
-1454   3                        setfault();
-1455   3                        goto setief;
-1456   3                    }
-1457   2      
-1458   2      setief:       _Nop();
-1459   2      
-1460   2                 }
-1461   1      
-1462   1      
-1463   1       //////////////////////////////设定功率//////////////////////////////////////////////////
-1464   1              else if((inbuf[0]=='S')&&(inbuf[1]=='P')&&(inbuf[2]=='O')&&(inbuf[3]=='W')&&(inbuf[4]=='='))
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 25  
+1275   1             else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='E')&&(inbuf[4]=='='))
+1276   1      
+1277   1                 {   
+1278   2                     uint init_flag_temp;
+1279   2                     uchar CH;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 22  
 
-1465   1                  {
-1466   2                     uint las_pow;
-1467   2                     uchar CHH;
-1468   2                     if(inbuf[6]==0x0d)                                        //格式为SPOW=N
-1469   2                    {
-1470   3                       las_pow=(uint)(inbuf[5]-48);
-1471   3      
-1472   3                    }
-1473   2                     else if(inbuf[7]==0x0d)                                   //格式为SPOW=NN
-1474   2                    {
-1475   3                       las_pow=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
-1476   3      
-1477   3                    }
-1478   2                    else if(inbuf[8]==0x0d)                                    //格式为SPOW=NNN
-1479   2                    {
-1480   3                       las_pow=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-1481   3      
-1482   3                    }
-1483   2      
-1484   2                    else                                                      //格式为SPOW=NNNN
-1485   2                    {
-1486   3                        setfault();
-1487   3                        goto setpf;
+1280   2      
+1281   2                     if(inbuf[6]==0x0d)                                        //格式为SDIO=N
+1282   2                    {
+1283   3                       init_flag_temp=inbuf[5]-48;
+1284   3                      if ((init_flag_temp<0)||(init_flag_temp>3))
+1285   3                        goto setief;
+1286   3                      else
+1287   3                        init_flag=init_flag_temp;
+1288   3                    }
+1289   2                    else                                                    //格式为SDIO=NNNN
+1290   2                    {
+1291   3                        setfault();
+1292   3                        goto setief;
+1293   3                    }
+1294   2      
+1295   2      setief:       _Nop();
+1296   2      
+1297   2                 }
+1298   1      
+1299   1      
+1300   1       //////////////////////////////设定功率//////////////////////////////////////////////////
+1301   1              else if((inbuf[0]=='S')&&(inbuf[1]=='P')&&(inbuf[2]=='O')&&(inbuf[3]=='W')&&(inbuf[4]=='='))
+1302   1                  {
+1303   2                     uint las_pow;
+1304   2                     uchar CHH;
+1305   2                     if(inbuf[6]==0x0d)                                        //格式为SPOW=N
+1306   2                    {
+1307   3                       las_pow=(uint)(inbuf[5]-48);
+1308   3      
+1309   3                    }
+1310   2                     else if(inbuf[7]==0x0d)                                   //格式为SPOW=NN
+1311   2                    {
+1312   3                       las_pow=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
+1313   3      
+1314   3                    }
+1315   2                    else if(inbuf[8]==0x0d)                                    //格式为SPOW=NNN
+1316   2                    {
+1317   3                       las_pow=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+1318   3      
+1319   3                    }
+1320   2      
+1321   2                    else                                                      //格式为SPOW=NNNN
+1322   2                    {
+1323   3                        setfault();
+1324   3                        goto setpf;
+1325   3                    }
+1326   2      
+1327   2                    if(inbuf[5]=='S')
+1328   2                    {
+1329   3                      CH=3;                                     //种子源SEED
+1330   3                      Set_laser_power(CHH,las_pow);
+1331   3                      setsucced();
+1332   3                    }
+1333   2                    else if(inbuf[5]=='A')
+1334   2                    {
+1335   3                      CH=0;                                    //放大级AMP
+1336   3                      Set_laser_power(CHH,las_pow);
+1337   3                      setsucced();
+1338   3                    }
+1339   2                    else setfault();
+1340   2      
+1341   2      setpf:       _Nop();
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 23  
+
+1342   2      
+1343   2      
+1344   2                  }
+1345   1       ////////////////////////////////////////////////////////////////////////////////////////
+1346   1       //////////////////////////////设定温度//////////////////////////////////////////////////
+1347   1              else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='P')&&(inbuf[4]=='='))
+1348   1                 {
+1349   2                    uint  tmp_tec=0;
+1350   2                    uint kt=0;
+1351   2                    if(inbuf[8]==0x0d)
+1352   2                    {
+1353   3                       tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
+1354   3      
+1355   3      
+1356   3      
+1357   3      
+1358   3                       kt=((tmp_tec-15)*691+180)/2000+(tmp_tec-15)*118+90;
+1359   3      
+1360   3                    }
+1361   2                    else if(inbuf[10]==0x0d)
+1362   2                    {
+1363   3                       tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
+1364   3      
+1365   3                       kt=((tmp_tec-15)*691+(inbuf[9]-48)*69+180)/2000+(tmp_tec-15)*118+(inbuf[9]-48)*59/5+90;
+1366   3      
+1367   3                    }
+1368   2      
+1369   2                    else
+1370   2                    {
+1371   3                       setfault();
+1372   3                       goto settf;
+1373   3                    }
+1374   2      
+1375   2                     if(inbuf[5]=='S')
+1376   2                    {
+1377   3                      DA_Convert(2,kt);                         //种子源SEED
+1378   3                      _Nop();
+1379   3                      DA_Convert(2,kt);
+1380   3                      setsucced();
+1381   3                    }
+1382   2                    else if(inbuf[5]=='A')
+1383   2                    {
+1384   3                      DA_Convert(1,kt);                         //放大级AMP
+1385   3                      _Nop();
+1386   3                      DA_Convert(1,kt);
+1387   3                      setsucced();
+1388   3                    }
+1389   2                    else setfault();
+1390   2      
+1391   2      settf:       _Nop();
+1392   2      
+1393   2      
+1394   2                 }
+1395   1      
+1396   1       ////////////////////////////////////////////////////////////////////////////////////////
+1397   1       //////////////////////////////设定PWM频率//////////////////////////////////////////////////
+1398   1              else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='R')&&(inbuf[3]=='A')&&(inbuf[4]=='='))
+1399   1               {
+1400   2                     uint pwm_pulserate;
+1401   2                   
+1402   2                     if(inbuf[6]==0x0d)                                        //格式为PURA=N
+1403   2                    {
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 24  
+
+1404   3                       pwm_pulserate=inbuf[5]-48;
+1405   3      
+1406   3      
+1407   3                    }
+1408   2                     else if(inbuf[7]==0x0d)                                   //格式为PURA=NN
+1409   2                    {
+1410   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+1411   3      
+1412   3                    }
+1413   2                    else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
+1414   2                    {
+1415   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+1416   3      
+1417   3                    }
+1418   2                    else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
+1419   2                    {
+1420   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+1421   3      
+1422   3                    }
+1423   2                    else                                                    //格式为PURA=NNNN
+1424   2                    {
+1425   3                        setfault();
+1426   3                        goto setprf;
+1427   3                    }
+1428   2                      Pwm_Set(1,1,1);
+1429   2                      setsucced();
+1430   2                  
+1431   2                    else setfault();
+1432   2      
+1433   2      setprf:       _Nop();
+1434   2      
+1435   2                 }
+1436   1                ////////////////////////////////////////////////////////////////////////////////////////
+1437   1       //////////////////////////////设定PWM脉宽//////////////////////////////////////////////////
+1438   1                     else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='=')
+             -)
+1439   1               {
+1440   2                     uint pwm_pulserate;
+1441   2                   
+1442   2                     if(inbuf[6]==0x0d)                                        //格式为PUWI=N
+1443   2                    {
+1444   3                       pwm_pulserate=inbuf[5]-48;
+1445   3      
+1446   3      
+1447   3                    }
+1448   2                     else if(inbuf[7]==0x0d)                                   //格式为PUWI=NN
+1449   2                    {
+1450   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+1451   3      
+1452   3                    }
+1453   2                    else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
+1454   2                    {
+1455   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+1456   3      
+1457   3                    }
+1458   2                    else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
+1459   2                    {
+1460   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+1461   3      
+1462   3                    }
+1463   2                    else                                                    //格式为PUWI=NNNN
+1464   2                    {
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 25  
+
+1465   3                        setfault();
+1466   3                        goto setpwf;
+1467   3                    }
+1468   2                        Pwm_Set(1,1,1);
+1469   2                      setsucced();
+1470   2                   
+1471   2                    else setfault();
+1472   2      
+1473   2      setpwf:       _Nop();
+1474   2      
+1475   2                 }
+1476   1      
+1477   1                 ////////////////////////////////////////////////////////////////////////////////////////
+1478   1       //////////////////////////////设定PWM延迟时间//////////////////////////////////////////////////
+1479   1                     else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='=')
+             -)
+1480   1               {
+1481   2                     uint pwm_pulserate;
+1482   2                   
+1483   2                     if(inbuf[6]==0x0d)                                        //格式为DELY=N
+1484   2                    {
+1485   3                       pwm_pulserate=inbuf[5]-48;
+1486   3      
+1487   3      
 1488   3                    }
-1489   2      
-1490   2                    if(inbuf[5]=='S')
-1491   2                    {
-1492   3                      CH=3;                                     //种子源SEED
-1493   3                      Set_laser_power(CHH,las_pow);
-1494   3                      setsucced();
-1495   3                    }
-1496   2                    else if(inbuf[5]=='A')
-1497   2                    {
-1498   3                      CH=0;                                    //放大级AMP
-1499   3                      Set_laser_power(CHH,las_pow);
-1500   3                      setsucced();
-1501   3                    }
+1489   2                     else if(inbuf[7]==0x0d)                                   //格式为DELY=NN
+1490   2                    {
+1491   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+1492   3      
+1493   3                    }
+1494   2                    else                                                    //格式为DELY=NNNN
+1495   2                    {
+1496   3                        setfault();
+1497   3                        goto setpdf;
+1498   3                    }
+1499   2                      Pwm_Set(1,1,1);
+1500   2                      setsucced();
+1501   2      
 1502   2                    else setfault();
 1503   2      
-1504   2      setpf:       _Nop();
+1504   2      setpdf:       _Nop();
 1505   2      
-1506   2      
-1507   2                  }
-1508   1       ////////////////////////////////////////////////////////////////////////////////////////
-1509   1       //////////////////////////////设定温度//////////////////////////////////////////////////
-1510   1              else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='P')&&(inbuf[4]=='='))
+1506   2                 }
+1507   1      
+1508   1      /////////////////////////////////关闭或开启TEC控制器////////////////////////////////
+1509   1             else if((inbuf[0]=='S')&&(inbuf[1]=='H')&&(inbuf[2]=='D')&&(inbuf[3]=='N')&&(inbuf[4]=='='))
+1510   1      
 1511   1                 {
-1512   2                    uint  tmp_tec=0;
-1513   2                    uint kt=0;
-1514   2                    if(inbuf[8]==0x0d)
-1515   2                    {
-1516   3                       tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
-1517   3      
-1518   3      
-1519   3      
-1520   3      
-1521   3                       kt=((tmp_tec-15)*691+180)/2000+(tmp_tec-15)*118+90;
-1522   3      
-1523   3                    }
-1524   2                    else if(inbuf[10]==0x0d)
-1525   2                    {
-1526   3                       tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 26  
+1512   2                    if((inbuf[5]=='S')&&(inbuf[7]==0x0d))             //种子源TEC
+1513   2                    {
+1514   3                       SHDN1=(bit)((inbuf[6]-48)&0x01);
+1515   3                       setsucced();
+1516   3                    }
+1517   2                    else if((inbuf[5]=='A')&&(inbuf[7]==0x0d))        //放大级TEC
+1518   2                    {
+1519   3                       SHDN2=(bit)((inbuf[6]-48)&0x01);
+1520   3                       setsucced();
+1521   3                    }
+1522   2                    setfault();
+1523   2      
+1524   2                 }
+1525   1      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 26  
 
-1527   3      
-1528   3                       kt=((tmp_tec-15)*691+(inbuf[9]-48)*69+180)/2000+(tmp_tec-15)*118+(inbuf[9]-48)*59/5+90;
-1529   3      
-1530   3                    }
-1531   2      
-1532   2                    else
-1533   2                    {
-1534   3                       setfault();
-1535   3                       goto settf;
-1536   3                    }
-1537   2      
-1538   2                     if(inbuf[5]=='S')
-1539   2                    {
-1540   3                      DA_Convert(2,kt);                         //种子源SEED
-1541   3                      _Nop();
-1542   3                      DA_Convert(2,kt);
-1543   3                      setsucced();
-1544   3                    }
-1545   2                    else if(inbuf[5]=='A')
-1546   2                    {
-1547   3                      DA_Convert(1,kt);                         //放大级AMP
-1548   3                      _Nop();
-1549   3                      DA_Convert(1,kt);
-1550   3                      setsucced();
-1551   3                    }
-1552   2                    else setfault();
-1553   2      
-1554   2      settf:       _Nop();
-1555   2      
-1556   2      
-1557   2                 }
-1558   1      
-1559   1       ////////////////////////////////////////////////////////////////////////////////////////
-1560   1       //////////////////////////////设定PWM频率//////////////////////////////////////////////////
-1561   1              else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='R')&&(inbuf[3]=='A')&&(inbuf[4]=='='))
-1562   1               {
-1563   2                     uint pwm_pulserate;
-1564   2                   
-1565   2                     if(inbuf[6]==0x0d)                                        //格式为PURA=N
-1566   2                    {
-1567   3                       pwm_pulserate=inbuf[5]-48;
-1568   3      
-1569   3      
-1570   3                    }
-1571   2                     else if(inbuf[7]==0x0d)                                   //格式为PURA=NN
-1572   2                    {
-1573   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
-1574   3      
-1575   3                    }
-1576   2                    else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
-1577   2                    {
-1578   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-1579   3      
-1580   3                    }
-1581   2                    else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
-1582   2                    {
-1583   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-1584   3      
-1585   3                    }
-1586   2                    else                                                    //格式为PURA=NNNN
-1587   2                    {
-1588   3                        setfault();
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 27  
+1526   1       //////////////////////////////////强制关电流///////////////////////////////////////
+1527   1      
+1528   1            else if((inbuf[0]=='D')&&(inbuf[1]=='L')&&(inbuf[2]=='I')&&(inbuf[3]=='M')&&(inbuf[4]=='='))
+1529   1      
+1530   1                 {
+1531   2                    if(inbuf[7]==0x0d)
+1532   2                    {
+1533   3                       if(inbuf[5]=='S')
+1534   3                         LIM1=(bit)((inbuf[6]-48)&0x01);
+1535   3                       else  if(inbuf[5]=='A')
+1536   3                         LIM2=(bit)((inbuf[6]-48)&0x01);
+1537   3                       else
+1538   3                        {
+1539   4                         setfault();
+1540   4                         goto setdf;
+1541   4                        }
+1542   3                       if (!LIM1)
+1543   3                       {
+1544   4                         Set_laser_current(3,50);
+1545   4                         setsucced();
+1546   4                        }
+1547   3                       else if(!LIM2)
+1548   3                       {
+1549   4                         Set_laser_current(0,50);
+1550   4                         setsucced();
+1551   4                        }
+1552   3                       else
+1553   3                        {
+1554   4                         setfault();
+1555   4                         goto setdf;
+1556   4                        }
+1557   3                    }
+1558   2                    else
+1559   2                       setfault();
+1560   2      setdf:       _Nop();
+1561   2                 }
+1562   1       //////////////////////////////////查询当前实际电流/////////////////////////////////
+1563   1            else if((inbuf[0]=='D')&&(inbuf[1]=='I')&&(inbuf[2]=='O')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
+1564   1      
+1565   1                 {
+1566   2      
+1567   2                    if(Laser_Fed_curent1<10)
+1568   2                    {
+1569   3                      inbuf[4]='S';
+1570   3                      inbuf[5]='=';
+1571   3                      inbuf[6]=(uchar)(Laser_Fed_curent1)+48;
+1572   3                      inbuf[7]=0x0d;
+1573   3                      inbuf[8]=0x0a;
+1574   3                      send_string_com(inbuf,9);
+1575   3                    }else if (Laser_Fed_curent1<100)
+1576   2                    {
+1577   3                      inbuf[4]='S';
+1578   3                      inbuf[5]='=';
+1579   3                      inbuf[6]=(uchar)(Laser_Fed_curent1 /10)+48;
+1580   3                      inbuf[7]=(uchar)(Laser_Fed_curent1 %10)+48;
+1581   3                      inbuf[8]=0x0d;
+1582   3                      inbuf[9]=0x0a;
+1583   3                      send_string_com(inbuf,10);
+1584   3                    }else if (Laser_Fed_curent1<1000)
+1585   2                    {
+1586   3                      inbuf[4]='S';
+1587   3                      inbuf[5]='=';
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 27  
 
-1589   3                        goto setprf;
-1590   3                    }
-1591   2                      Pwm_Set(1,1,1);
-1592   2                      setsucced();
-1593   2                  
-1594   2                    else setfault();
-1595   2      
-1596   2      setprf:       _Nop();
-1597   2      
-1598   2                 }
-1599   1                ////////////////////////////////////////////////////////////////////////////////////////
-1600   1       //////////////////////////////设定PWM脉宽//////////////////////////////////////////////////
-1601   1                     else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='=')
-             -)
-1602   1               {
-1603   2                     uint pwm_pulserate;
-1604   2                   
-1605   2                     if(inbuf[6]==0x0d)                                        //格式为PUWI=N
-1606   2                    {
-1607   3                       pwm_pulserate=inbuf[5]-48;
-1608   3      
-1609   3      
-1610   3                    }
-1611   2                     else if(inbuf[7]==0x0d)                                   //格式为PUWI=NN
-1612   2                    {
-1613   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
-1614   3      
-1615   3                    }
-1616   2                    else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
-1617   2                    {
-1618   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-1619   3      
-1620   3                    }
-1621   2                    else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
-1622   2                    {
-1623   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-1624   3      
+1588   3                      inbuf[6]=(uchar)(Laser_Fed_curent1 /100)+48;
+1589   3                      inbuf[7]=(uchar)((Laser_Fed_curent1 /10)%10)+48;
+1590   3                      inbuf[8]=(uchar)(Laser_Fed_curent1 %10)+48;
+1591   3                      inbuf[9]=0x0d;
+1592   3                      inbuf[10]=0x0a;
+1593   3                      send_string_com(inbuf,11);
+1594   3                    }
+1595   2                    else
+1596   2                      setfault();
+1597   2       //////////////////////////////////////////////////////////
+1598   2                     if(Laser_Fed_curent2<10)
+1599   2                    {
+1600   3                      inbuf[4]='A';
+1601   3                      inbuf[5]='=';
+1602   3                      inbuf[6]=(uchar)(Laser_Fed_curent2)+48;
+1603   3                      inbuf[7]=0x0d;
+1604   3                      inbuf[8]=0x0a;
+1605   3                      send_string_com(inbuf,9);
+1606   3                    }else if (Laser_Fed_curent2<100)
+1607   2                    {
+1608   3                      inbuf[4]='A';
+1609   3                      inbuf[5]='=';
+1610   3                      inbuf[6]=(uchar)(Laser_Fed_curent2 /10)+48;
+1611   3                      inbuf[7]=(uchar)(Laser_Fed_curent2 %10)+48;
+1612   3                      inbuf[8]=0x0d;
+1613   3                      inbuf[9]=0x0a;
+1614   3                      send_string_com(inbuf,10);
+1615   3                    }else if (Laser_Fed_curent2<1000)
+1616   2                    {
+1617   3                      inbuf[4]='A';
+1618   3                      inbuf[5]='=';
+1619   3                      inbuf[6]=(uchar)(Laser_Fed_curent2 /100)+48;
+1620   3                      inbuf[7]=(uchar)((Laser_Fed_curent2 /10)%10)+48;
+1621   3                      inbuf[8]=(uchar)(Laser_Fed_curent2 %10)+48;
+1622   3                      inbuf[9]=0x0d;
+1623   3                      inbuf[10]=0x0a;
+1624   3                      send_string_com(inbuf,11);
 1625   3                    }
-1626   2                    else                                                    //格式为PUWI=NNNN
-1627   2                    {
-1628   3                        setfault();
-1629   3                        goto setpwf;
-1630   3                    }
-1631   2                        Pwm_Set(1,1,1);
-1632   2                      setsucced();
-1633   2                   
-1634   2                    else setfault();
-1635   2      
-1636   2      setpwf:       _Nop();
-1637   2      
-1638   2                 }
-1639   1      
-1640   1                 ////////////////////////////////////////////////////////////////////////////////////////
-1641   1       //////////////////////////////设定PWM延迟时间//////////////////////////////////////////////////
-1642   1                     else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='=')
-             -)
-1643   1               {
-1644   2                     uint pwm_pulserate;
-1645   2                   
-1646   2                     if(inbuf[6]==0x0d)                                        //格式为DELY=N
-1647   2                    {
-1648   3                       pwm_pulserate=inbuf[5]-48;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 28  
+1626   2                    else
+1627   2                      setfault();
+1628   2      
+1629   2                 }
+1630   1      
+1631   1      
+1632   1       //////////////////////////////////查询当前实际功率/////////////////////////////////
+1633   1            else if((inbuf[0]=='L')&&(inbuf[1]=='A')&&(inbuf[2]=='P')&&(inbuf[3]=='O')&&(inbuf[4]=='?'))
+1634   1      
+1635   1                 {
+1636   2      
+1637   2                    if(Laser_Fed_power1<10)
+1638   2                    {
+1639   3                      inbuf[4]='S';
+1640   3                      inbuf[5]='=';
+1641   3                      inbuf[6]=(uchar)(Laser_Fed_power1)+48;
+1642   3                      inbuf[7]=0x0d;
+1643   3                      inbuf[8]=0x0a;
+1644   3                      send_string_com(inbuf,9);
+1645   3                    }else if (Laser_Fed_power1<100)
+1646   2                    {
+1647   3                      inbuf[4]='S';
+1648   3                      inbuf[5]='=';
+1649   3                      inbuf[6]=(uchar)(Laser_Fed_power1 /10)+48;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 28  
 
-1649   3      
-1650   3      
-1651   3                    }
-1652   2                     else if(inbuf[7]==0x0d)                                   //格式为DELY=NN
-1653   2                    {
-1654   3                       pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
-1655   3      
-1656   3                    }
-1657   2                    else                                                    //格式为DELY=NNNN
-1658   2                    {
-1659   3                        setfault();
-1660   3                        goto setpdf;
-1661   3                    }
-1662   2                      Pwm_Set(1,1,1);
-1663   2                      setsucced();
-1664   2      
-1665   2                    else setfault();
-1666   2      
-1667   2      setpdf:       _Nop();
-1668   2      
-1669   2                 }
-1670   1      
-1671   1      /////////////////////////////////关闭或开启TEC控制器////////////////////////////////
-1672   1             else if((inbuf[0]=='S')&&(inbuf[1]=='H')&&(inbuf[2]=='D')&&(inbuf[3]=='N')&&(inbuf[4]=='='))
-1673   1      
-1674   1                 {
-1675   2                    if((inbuf[5]=='S')&&(inbuf[7]==0x0d))             //种子源TEC
-1676   2                    {
-1677   3                       SHDN1=(bit)((inbuf[6]-48)&0x01);
-1678   3                       setsucced();
-1679   3                    }
-1680   2                    else if((inbuf[5]=='A')&&(inbuf[7]==0x0d))        //放大级TEC
-1681   2                    {
-1682   3                       SHDN2=(bit)((inbuf[6]-48)&0x01);
-1683   3                       setsucced();
-1684   3                    }
-1685   2                    setfault();
-1686   2      
-1687   2                 }
-1688   1      
-1689   1       //////////////////////////////////强制关电流///////////////////////////////////////
-1690   1      
-1691   1            else if((inbuf[0]=='D')&&(inbuf[1]=='L')&&(inbuf[2]=='I')&&(inbuf[3]=='M')&&(inbuf[4]=='='))
-1692   1      
-1693   1                 {
-1694   2                    if(inbuf[7]==0x0d)
-1695   2                    {
-1696   3                       if(inbuf[5]=='S')
-1697   3                         LIM1=(bit)((inbuf[6]-48)&0x01);
-1698   3                       else  if(inbuf[5]=='A')
-1699   3                         LIM2=(bit)((inbuf[6]-48)&0x01);
-1700   3                       else
-1701   3                        {
-1702   4                         setfault();
-1703   4                         goto setdf;
-1704   4                        }
-1705   3                       if (!LIM1)
-1706   3                       {
-1707   4                         Set_laser_current(3,50);
-1708   4                         setsucced();
-1709   4                        }
-1710   3                       else if(!LIM2)
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 29  
+1650   3                      inbuf[7]=(uchar)(Laser_Fed_power1 %10)+48;
+1651   3                      inbuf[8]=0x0d;
+1652   3                      inbuf[9]=0x0a;
+1653   3                      send_string_com(inbuf,10);
+1654   3                    }else if (Laser_Fed_power1<1000)
+1655   2                    {
+1656   3                      inbuf[4]='S';
+1657   3                      inbuf[5]='=';
+1658   3                      inbuf[6]=(uchar)(Laser_Fed_power1 /100)+48;
+1659   3                      inbuf[7]=(uchar)((Laser_Fed_power1 /10)%10)+48;
+1660   3                      inbuf[8]=(uchar)(Laser_Fed_power1 %10)+48;
+1661   3                      inbuf[9]=0x0d;
+1662   3                      inbuf[10]=0x0a;
+1663   3                      send_string_com(inbuf,11);
+1664   3                    }
+1665   2                    else
+1666   2                      setfault();
+1667   2      
+1668   2                     if(Laser_Fed_power2<10)
+1669   2                    {
+1670   3                      inbuf[4]='A';
+1671   3                      inbuf[5]='=';
+1672   3                      inbuf[6]=(uchar)(Laser_Fed_power2)+48;
+1673   3                      inbuf[7]=0x0d;
+1674   3                      inbuf[8]=0x0a;
+1675   3                      send_string_com(inbuf,9);
+1676   3                    }else if (Laser_Fed_power2<100)
+1677   2                    {
+1678   3                      inbuf[4]='A';
+1679   3                      inbuf[5]='=';
+1680   3                      inbuf[6]=(uchar)(Laser_Fed_power2 /10)+48;
+1681   3                      inbuf[7]=(uchar)(Laser_Fed_power2 %10)+48;
+1682   3                      inbuf[8]=0x0d;
+1683   3                      inbuf[9]=0x0a;
+1684   3                      send_string_com(inbuf,10);
+1685   3                    }else if (Laser_Fed_power2<1000)
+1686   2                    {
+1687   3                      inbuf[4]='A';
+1688   3                      inbuf[5]='=';
+1689   3                      inbuf[6]=(uchar)(Laser_Fed_power2 /100)+48;
+1690   3                      inbuf[7]=(uchar)((Laser_Fed_power2 /10)%10)+48;
+1691   3                      inbuf[8]=(uchar)(Laser_Fed_power2 %10)+48;
+1692   3                      inbuf[9]=0x0d;
+1693   3                      inbuf[10]=0x0a;
+1694   3                      send_string_com(inbuf,11);
+1695   3                    }
+1696   2                    else
+1697   2                      setfault();
+1698   2      
+1699   2                 }
+1700   1      
+1701   1      ///////////////////////////////////查询当前冷却温度////////////////////////////////
+1702   1            else if((inbuf[0]=='T')&&(inbuf[1]=='E')&&(inbuf[2]=='C')&&(inbuf[3]=='P')&&(inbuf[4]=='?'))
+1703   1      
+1704   1                 {
+1705   2      
+1706   2                    uint ky;
+1707   2      //              TEC_Temp();
+1708   2      
+1709   2                    ky=(uint)(TEC_Fed_Tempture1);
+1710   2      
+1711   2                    if (ky<1000)
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 29  
 
-1711   3                       {
-1712   4                         Set_laser_current(0,50);
-1713   4                         setsucced();
-1714   4                        }
-1715   3                       else
-1716   3                        {
-1717   4                         setfault();
-1718   4                         goto setdf;
-1719   4                        }
-1720   3                    }
-1721   2                    else
-1722   2                       setfault();
-1723   2      setdf:       _Nop();
-1724   2                 }
-1725   1       //////////////////////////////////查询当前实际电流/////////////////////////////////
-1726   1            else if((inbuf[0]=='D')&&(inbuf[1]=='I')&&(inbuf[2]=='O')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
-1727   1      
-1728   1                 {
-1729   2      
-1730   2                    if(Laser_Fed_curent1<10)
-1731   2                    {
-1732   3                      inbuf[4]='S';
-1733   3                      inbuf[5]='=';
-1734   3                      inbuf[6]=(uchar)(Laser_Fed_curent1)+48;
-1735   3                      inbuf[7]=0x0d;
-1736   3                      inbuf[8]=0x0a;
-1737   3                      send_string_com(inbuf,9);
-1738   3                    }else if (Laser_Fed_curent1<100)
-1739   2                    {
-1740   3                      inbuf[4]='S';
-1741   3                      inbuf[5]='=';
-1742   3                      inbuf[6]=(uchar)(Laser_Fed_curent1 /10)+48;
-1743   3                      inbuf[7]=(uchar)(Laser_Fed_curent1 %10)+48;
-1744   3                      inbuf[8]=0x0d;
-1745   3                      inbuf[9]=0x0a;
-1746   3                      send_string_com(inbuf,10);
-1747   3                    }else if (Laser_Fed_curent1<1000)
-1748   2                    {
-1749   3                      inbuf[4]='S';
-1750   3                      inbuf[5]='=';
-1751   3                      inbuf[6]=(uchar)(Laser_Fed_curent1 /100)+48;
-1752   3                      inbuf[7]=(uchar)((Laser_Fed_curent1 /10)%10)+48;
-1753   3                      inbuf[8]=(uchar)(Laser_Fed_curent1 %10)+48;
-1754   3                      inbuf[9]=0x0d;
-1755   3                      inbuf[10]=0x0a;
-1756   3                      send_string_com(inbuf,11);
-1757   3                    }
-1758   2                    else
-1759   2                      setfault();
-1760   2       //////////////////////////////////////////////////////////
-1761   2                     if(Laser_Fed_curent2<10)
-1762   2                    {
-1763   3                      inbuf[4]='A';
-1764   3                      inbuf[5]='=';
-1765   3                      inbuf[6]=(uchar)(Laser_Fed_curent2)+48;
-1766   3                      inbuf[7]=0x0d;
-1767   3                      inbuf[8]=0x0a;
-1768   3                      send_string_com(inbuf,9);
-1769   3                    }else if (Laser_Fed_curent2<100)
-1770   2                    {
-1771   3                      inbuf[4]='A';
-1772   3                      inbuf[5]='=';
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 30  
+1712   2                    {
+1713   3                      inbuf[4]='S';
+1714   3                      inbuf[5]='=';
+1715   3                      inbuf[6]=ky/100+48;
+1716   3                      inbuf[7]=(ky/10)%10+48;
+1717   3                      inbuf[8]='.';
+1718   3                      inbuf[9]=ky%10+48;
+1719   3                      inbuf[10]=0x0d;
+1720   3                      inbuf[11]=0x0a;
+1721   3                      send_string_com(inbuf,12);
+1722   3                    }
+1723   2                    else
+1724   2                     alarm();
+1725   2      
+1726   2                   ky=(uint)(TEC_Fed_Tempture2);
+1727   2      
+1728   2                    if (ky<1000)
+1729   2                    {
+1730   3                      inbuf[4]='A';
+1731   3                      inbuf[5]='=';
+1732   3                      inbuf[6]=ky/100+48;
+1733   3                      inbuf[7]=(ky/10)%10+48;
+1734   3                      inbuf[8]='.';
+1735   3                      inbuf[9]=ky%10+48;
+1736   3                      inbuf[10]=0x0d;
+1737   3                      inbuf[11]=0x0a;
+1738   3                      send_string_com(inbuf,12);
+1739   3                    }
+1740   2                    else
+1741   2                     alarm();
+1742   2      
+1743   2                 }
+1744   1      ///////////////////////////////////查询当前监测二极管反馈电压/////////////////////
+1745   1            else if((inbuf[0]=='P')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
+1746   1      
+1747   1                 {
+1748   2                    inbuf[6]=(uchar)(PDiode_V1/4095);
+1749   2                    inbuf[8]=(uchar)((PDiode_V1 %4095)*10/4095);
+1750   2                    inbuf[9]=(uchar)((((PDiode_V1 % 4095)*10)%4095)*10/4095);
+1751   2      
+1752   2                    inbuf[4]='S';
+1753   2                    inbuf[5]='=';
+1754   2                    inbuf[6]=inbuf[6]+48;
+1755   2                    inbuf[7]='.';
+1756   2                    inbuf[8]=inbuf[8]+48;
+1757   2                    inbuf[9]=inbuf[9]+48;
+1758   2                    inbuf[10]=0x0d;
+1759   2                    inbuf[11]=0x0a;
+1760   2      
+1761   2                    send_string_com(inbuf,12);
+1762   2      
+1763   2                    inbuf[6]=(uchar)(PDiode_V2/4095);
+1764   2                    inbuf[8]=(uchar)((PDiode_V2 %4095)*10/4095);
+1765   2                    inbuf[9]=(uchar)((((PDiode_V2 % 4095)*10)%4095)*10/4095);
+1766   2      
+1767   2                    inbuf[4]='A';
+1768   2                    inbuf[5]='=';
+1769   2                    inbuf[6]=inbuf[6]+48;
+1770   2                    inbuf[7]='.';
+1771   2                    inbuf[8]=inbuf[8]+48;
+1772   2                    inbuf[9]=inbuf[9]+48;
+1773   2                    inbuf[10]=0x0d;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 30  
 
-1773   3                      inbuf[6]=(uchar)(Laser_Fed_curent2 /10)+48;
-1774   3                      inbuf[7]=(uchar)(Laser_Fed_curent2 %10)+48;
-1775   3                      inbuf[8]=0x0d;
-1776   3                      inbuf[9]=0x0a;
-1777   3                      send_string_com(inbuf,10);
-1778   3                    }else if (Laser_Fed_curent2<1000)
-1779   2                    {
-1780   3                      inbuf[4]='A';
-1781   3                      inbuf[5]='=';
-1782   3                      inbuf[6]=(uchar)(Laser_Fed_curent2 /100)+48;
-1783   3                      inbuf[7]=(uchar)((Laser_Fed_curent2 /10)%10)+48;
-1784   3                      inbuf[8]=(uchar)(Laser_Fed_curent2 %10)+48;
-1785   3                      inbuf[9]=0x0d;
-1786   3                      inbuf[10]=0x0a;
-1787   3                      send_string_com(inbuf,11);
-1788   3                    }
-1789   2                    else
-1790   2                      setfault();
+1774   2                    inbuf[11]=0x0a;
+1775   2      
+1776   2                    send_string_com(inbuf,12);
+1777   2      
+1778   2      
+1779   2                 }
+1780   1      
+1781   1      ///////////////////////////////////查询当前TEC两端的电压//////////////////////////
+1782   1            else if((inbuf[0]=='V')&&(inbuf[1]=='O')&&(inbuf[2]=='T')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
+1783   1      
+1784   1                 {
+1785   2      
+1786   2      
+1787   2      
+1788   2                    inbuf[6]=(uchar)(TEC_VO1 /1024);
+1789   2                    inbuf[8]=(uchar)((TEC_VO1 %1024)*10/1024);
+1790   2                    inbuf[9]=(uchar)((((TEC_VO1 %1024)*10)%1024)*10/1024);
 1791   2      
-1792   2                 }
-1793   1      
-1794   1      
-1795   1       //////////////////////////////////查询当前实际功率/////////////////////////////////
-1796   1            else if((inbuf[0]=='L')&&(inbuf[1]=='A')&&(inbuf[2]=='P')&&(inbuf[3]=='O')&&(inbuf[4]=='?'))
-1797   1      
-1798   1                 {
-1799   2      
-1800   2                    if(Laser_Fed_power1<10)
-1801   2                    {
-1802   3                      inbuf[4]='S';
-1803   3                      inbuf[5]='=';
-1804   3                      inbuf[6]=(uchar)(Laser_Fed_power1)+48;
-1805   3                      inbuf[7]=0x0d;
-1806   3                      inbuf[8]=0x0a;
-1807   3                      send_string_com(inbuf,9);
-1808   3                    }else if (Laser_Fed_power1<100)
-1809   2                    {
-1810   3                      inbuf[4]='S';
-1811   3                      inbuf[5]='=';
-1812   3                      inbuf[6]=(uchar)(Laser_Fed_power1 /10)+48;
-1813   3                      inbuf[7]=(uchar)(Laser_Fed_power1 %10)+48;
-1814   3                      inbuf[8]=0x0d;
-1815   3                      inbuf[9]=0x0a;
-1816   3                      send_string_com(inbuf,10);
-1817   3                    }else if (Laser_Fed_power1<1000)
-1818   2                    {
-1819   3                      inbuf[4]='S';
-1820   3                      inbuf[5]='=';
-1821   3                      inbuf[6]=(uchar)(Laser_Fed_power1 /100)+48;
-1822   3                      inbuf[7]=(uchar)((Laser_Fed_power1 /10)%10)+48;
-1823   3                      inbuf[8]=(uchar)(Laser_Fed_power1 %10)+48;
-1824   3                      inbuf[9]=0x0d;
-1825   3                      inbuf[10]=0x0a;
-1826   3                      send_string_com(inbuf,11);
-1827   3                    }
-1828   2                    else
-1829   2                      setfault();
-1830   2      
-1831   2                     if(Laser_Fed_power2<10)
-1832   2                    {
-1833   3                      inbuf[4]='A';
-1834   3                      inbuf[5]='=';
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 31  
+1792   2                    inbuf[4]='S';
+1793   2                    inbuf[5]='=';
+1794   2                    inbuf[6]=inbuf[6]+48;
+1795   2                    inbuf[7]='.';
+1796   2                    inbuf[8]=inbuf[8]+48;
+1797   2                    inbuf[9]=inbuf[9]+48;
+1798   2                    inbuf[10]=0x0d;
+1799   2                    inbuf[11]=0x0a;
+1800   2      
+1801   2                    send_string_com(inbuf,12);
+1802   2      
+1803   2                    inbuf[6]=(uchar)(TEC_VO2 /1024);
+1804   2                    inbuf[8]=(uchar)((TEC_VO2 %1024)*10/1024);
+1805   2                    inbuf[9]=(uchar)((((TEC_VO2 %1024)*10)%1024)*10/1024);
+1806   2      
+1807   2                    inbuf[4]='A';
+1808   2                    inbuf[5]='=';
+1809   2                    inbuf[6]=inbuf[6]+48;
+1810   2                    inbuf[7]='.';
+1811   2                    inbuf[8]=inbuf[8]+48;
+1812   2                    inbuf[9]=inbuf[9]+48;
+1813   2                    inbuf[10]=0x0d;
+1814   2                    inbuf[11]=0x0a;
+1815   2      
+1816   2                    send_string_com(inbuf,12);
+1817   2      
+1818   2                 }
+1819   1      //////////////////////////////////查询当前TEC温度是否OK//////////////////////////
+1820   1            else if((inbuf[0]=='T')&&(inbuf[1]=='P')&&(inbuf[2]=='G')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
+1821   1      
+1822   1                 {
+1823   2                    if (TMPGD1)
+1824   2                    {
+1825   3                      inbuf[4]='S';
+1826   3                      inbuf[5]=' ';
+1827   3                      inbuf[6]='O';
+1828   3                      inbuf[7]='K';
+1829   3                      inbuf[8]=0x0d;
+1830   3                      inbuf[9]=0x0a;
+1831   3                      send_string_com(inbuf,10);
+1832   3                    }
+1833   2      
+1834   2                    else
+1835   2                    {
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 31  
 
-1835   3                      inbuf[6]=(uchar)(Laser_Fed_power2)+48;
-1836   3                      inbuf[7]=0x0d;
-1837   3                      inbuf[8]=0x0a;
-1838   3                      send_string_com(inbuf,9);
-1839   3                    }else if (Laser_Fed_power2<100)
-1840   2                    {
-1841   3                      inbuf[4]='A';
-1842   3                      inbuf[5]='=';
-1843   3                      inbuf[6]=(uchar)(Laser_Fed_power2 /10)+48;
-1844   3                      inbuf[7]=(uchar)(Laser_Fed_power2 %10)+48;
-1845   3                      inbuf[8]=0x0d;
-1846   3                      inbuf[9]=0x0a;
-1847   3                      send_string_com(inbuf,10);
-1848   3                    }else if (Laser_Fed_power2<1000)
-1849   2                    {
-1850   3                      inbuf[4]='A';
-1851   3                      inbuf[5]='=';
-1852   3                      inbuf[6]=(uchar)(Laser_Fed_power2 /100)+48;
-1853   3                      inbuf[7]=(uchar)((Laser_Fed_power2 /10)%10)+48;
-1854   3                      inbuf[8]=(uchar)(Laser_Fed_power2 %10)+48;
-1855   3                      inbuf[9]=0x0d;
-1856   3                      inbuf[10]=0x0a;
-1857   3                      send_string_com(inbuf,11);
-1858   3                    }
-1859   2                    else
-1860   2                      setfault();
-1861   2      
-1862   2                 }
-1863   1      
-1864   1      ///////////////////////////////////查询当前冷却温度////////////////////////////////
-1865   1            else if((inbuf[0]=='T')&&(inbuf[1]=='E')&&(inbuf[2]=='C')&&(inbuf[3]=='P')&&(inbuf[4]=='?'))
-1866   1      
-1867   1                 {
-1868   2      
-1869   2                    uint ky;
-1870   2      //              TEC_Temp();
-1871   2      
-1872   2                    ky=(uint)(TEC_Fed_Tempture1);
-1873   2      
-1874   2                    if (ky<1000)
-1875   2                    {
-1876   3                      inbuf[4]='S';
-1877   3                      inbuf[5]='=';
-1878   3                      inbuf[6]=ky/100+48;
-1879   3                      inbuf[7]=(ky/10)%10+48;
-1880   3                      inbuf[8]='.';
-1881   3                      inbuf[9]=ky%10+48;
-1882   3                      inbuf[10]=0x0d;
-1883   3                      inbuf[11]=0x0a;
-1884   3                      send_string_com(inbuf,12);
+1836   3                      inbuf[4]='S';
+1837   3                      inbuf[5]=' ';
+1838   3                      inbuf[6]='N';
+1839   3                      inbuf[7]='O';
+1840   3                      inbuf[8]=0x0d;
+1841   3                      inbuf[9]=0x0a;
+1842   3                      send_string_com(inbuf,10);
+1843   3                    }
+1844   2      
+1845   2                    if (TMPGD2)
+1846   2                    {
+1847   3                      inbuf[4]='A';
+1848   3                      inbuf[5]=' ';
+1849   3                      inbuf[6]='O';
+1850   3                      inbuf[7]='K';
+1851   3                      inbuf[8]=0x0d;
+1852   3                      inbuf[9]=0x0a;
+1853   3                      send_string_com(inbuf,10);
+1854   3                    }
+1855   2      
+1856   2                    else
+1857   2                    {
+1858   3                      inbuf[4]='A';
+1859   3                      inbuf[5]=' ';
+1860   3                      inbuf[6]='N';
+1861   3                      inbuf[7]='O';
+1862   3                      inbuf[8]=0x0d;
+1863   3                      inbuf[9]=0x0a;
+1864   3                      send_string_com(inbuf,10);
+1865   3                    }
+1866   2      
+1867   2                 }
+1868   1      
+1869   1      ///////////////////////////////////查询TEC控制器是否关闭//////////////////////////
+1870   1            else if((inbuf[0]=='U')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
+1871   1      
+1872   1                 {
+1873   2                    if (SHDN1)
+1874   2                    {
+1875   3                      inbuf[0]='T';
+1876   3                      inbuf[1]='E';
+1877   3                      inbuf[2]='C';
+1878   3                      inbuf[3]='1';
+1879   3                      inbuf[4]=' ';
+1880   3                      inbuf[5]='O';
+1881   3                      inbuf[6]='N';
+1882   3                      inbuf[7]=0x0d;
+1883   3                      inbuf[8]=0x0a;
+1884   3                      send_string_com(inbuf,9);
 1885   3                    }
-1886   2                    else
-1887   2                     alarm();
-1888   2      
-1889   2                   ky=(uint)(TEC_Fed_Tempture2);
-1890   2      
-1891   2                    if (ky<1000)
-1892   2                    {
-1893   3                      inbuf[4]='A';
-1894   3                      inbuf[5]='=';
-1895   3                      inbuf[6]=ky/100+48;
-1896   3                      inbuf[7]=(ky/10)%10+48;
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 32  
+1886   2      
+1887   2                    else
+1888   2                    {
+1889   3                      inbuf[0]='T';
+1890   3                      inbuf[1]='E';
+1891   3                      inbuf[2]='C';
+1892   3                      inbuf[3]='1';
+1893   3                      inbuf[4]=' ';
+1894   3                      inbuf[5]='O';
+1895   3                      inbuf[6]='F';
+1896   3                      inbuf[7]='F';
+1897   3                      inbuf[8]=0x0d;
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 32  
 
-1897   3                      inbuf[8]='.';
-1898   3                      inbuf[9]=ky%10+48;
-1899   3                      inbuf[10]=0x0d;
-1900   3                      inbuf[11]=0x0a;
-1901   3                      send_string_com(inbuf,12);
-1902   3                    }
-1903   2                    else
-1904   2                     alarm();
-1905   2      
-1906   2                 }
-1907   1      ///////////////////////////////////查询当前监测二极管反馈电压/////////////////////
-1908   1            else if((inbuf[0]=='P')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
-1909   1      
-1910   1                 {
-1911   2                    inbuf[6]=(uchar)(PDiode_V1/4095);
-1912   2                    inbuf[8]=(uchar)((PDiode_V1 %4095)*10/4095);
-1913   2                    inbuf[9]=(uchar)((((PDiode_V1 % 4095)*10)%4095)*10/4095);
-1914   2      
-1915   2                    inbuf[4]='S';
-1916   2                    inbuf[5]='=';
-1917   2                    inbuf[6]=inbuf[6]+48;
-1918   2                    inbuf[7]='.';
-1919   2                    inbuf[8]=inbuf[8]+48;
-1920   2                    inbuf[9]=inbuf[9]+48;
-1921   2                    inbuf[10]=0x0d;
-1922   2                    inbuf[11]=0x0a;
-1923   2      
-1924   2                    send_string_com(inbuf,12);
-1925   2      
-1926   2                    inbuf[6]=(uchar)(PDiode_V2/4095);
-1927   2                    inbuf[8]=(uchar)((PDiode_V2 %4095)*10/4095);
-1928   2                    inbuf[9]=(uchar)((((PDiode_V2 % 4095)*10)%4095)*10/4095);
-1929   2      
-1930   2                    inbuf[4]='A';
-1931   2                    inbuf[5]='=';
-1932   2                    inbuf[6]=inbuf[6]+48;
-1933   2                    inbuf[7]='.';
-1934   2                    inbuf[8]=inbuf[8]+48;
-1935   2                    inbuf[9]=inbuf[9]+48;
-1936   2                    inbuf[10]=0x0d;
-1937   2                    inbuf[11]=0x0a;
-1938   2      
-1939   2                    send_string_com(inbuf,12);
-1940   2      
-1941   2      
-1942   2                 }
-1943   1      
-1944   1      ///////////////////////////////////查询当前TEC两端的电压//////////////////////////
-1945   1            else if((inbuf[0]=='V')&&(inbuf[1]=='O')&&(inbuf[2]=='T')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
-1946   1      
-1947   1                 {
-1948   2      
-1949   2      
-1950   2      
-1951   2                    inbuf[6]=(uchar)(TEC_VO1 /1024);
-1952   2                    inbuf[8]=(uchar)((TEC_VO1 %1024)*10/1024);
-1953   2                    inbuf[9]=(uchar)((((TEC_VO1 %1024)*10)%1024)*10/1024);
-1954   2      
-1955   2                    inbuf[4]='S';
-1956   2                    inbuf[5]='=';
-1957   2                    inbuf[6]=inbuf[6]+48;
-1958   2                    inbuf[7]='.';
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 33  
+1898   3                      inbuf[9]=0x0a;
+1899   3                      send_string_com(inbuf,10);
+1900   3                    }
+1901   2      
+1902   2                    if (SHDN2)
+1903   2                    {
+1904   3                      inbuf[0]='T';
+1905   3                      inbuf[1]='E';
+1906   3                      inbuf[2]='C';
+1907   3                      inbuf[3]='2';
+1908   3                      inbuf[4]=' ';
+1909   3                      inbuf[5]='O';
+1910   3                      inbuf[6]='N';
+1911   3                      inbuf[7]=0x0d;
+1912   3                      inbuf[8]=0x0a;
+1913   3                      send_string_com(inbuf,9);
+1914   3                    }
+1915   2      
+1916   2                    else
+1917   2                    {
+1918   3                      inbuf[0]='T';
+1919   3                      inbuf[1]='E';
+1920   3                      inbuf[2]='C';
+1921   3                      inbuf[3]='2';
+1922   3                      inbuf[4]=' ';
+1923   3                      inbuf[5]='O';
+1924   3                      inbuf[6]='F';
+1925   3                      inbuf[7]='F';
+1926   3                      inbuf[8]=0x0d;
+1927   3                      inbuf[9]=0x0a;
+1928   3                      send_string_com(inbuf,10);
+1929   3                    }
+1930   2                 }
+1931   1      
+1932   1      ///////////////////////////////////////////////////////////////////////////////////
+1933   1      
+1934   1      ///////////////////////////////////控制模式查询////////////////////////////////////
+1935   1             else if((inbuf[0]=='C')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
+1936   1      
+1937   1                 {
+1938   2                    if (CONT_MOD)
+1939   2                    {
+1940   3                      inbuf[0]='M';
+1941   3                      inbuf[1]='O';
+1942   3                      inbuf[2]='D';
+1943   3                      inbuf[3]='=';
+1944   3                      inbuf[4]='A';
+1945   3                      inbuf[5]='P';
+1946   3                      inbuf[6]='C';
+1947   3                      inbuf[7]=0x0d;
+1948   3                      inbuf[8]=0x0a;
+1949   3                      send_string_com(inbuf,9);
+1950   3                    }
+1951   2      
+1952   2                    else
+1953   2                    {
+1954   3                      inbuf[0]='M';
+1955   3                      inbuf[1]='O';
+1956   3                      inbuf[2]='D';
+1957   3                      inbuf[3]='=';
+1958   3                      inbuf[4]='A';
+1959   3                      inbuf[5]='C';
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 33  
 
-1959   2                    inbuf[8]=inbuf[8]+48;
-1960   2                    inbuf[9]=inbuf[9]+48;
-1961   2                    inbuf[10]=0x0d;
-1962   2                    inbuf[11]=0x0a;
-1963   2      
-1964   2                    send_string_com(inbuf,12);
-1965   2      
-1966   2                    inbuf[6]=(uchar)(TEC_VO2 /1024);
-1967   2                    inbuf[8]=(uchar)((TEC_VO2 %1024)*10/1024);
-1968   2                    inbuf[9]=(uchar)((((TEC_VO2 %1024)*10)%1024)*10/1024);
-1969   2      
-1970   2                    inbuf[4]='A';
-1971   2                    inbuf[5]='=';
-1972   2                    inbuf[6]=inbuf[6]+48;
-1973   2                    inbuf[7]='.';
-1974   2                    inbuf[8]=inbuf[8]+48;
-1975   2                    inbuf[9]=inbuf[9]+48;
-1976   2                    inbuf[10]=0x0d;
-1977   2                    inbuf[11]=0x0a;
-1978   2      
-1979   2                    send_string_com(inbuf,12);
-1980   2      
-1981   2                 }
-1982   1      //////////////////////////////////查询当前TEC温度是否OK//////////////////////////
-1983   1            else if((inbuf[0]=='T')&&(inbuf[1]=='P')&&(inbuf[2]=='G')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
+1960   3                      inbuf[6]='C';
+1961   3                      inbuf[7]=0x0d;
+1962   3                      inbuf[8]=0x0a;
+1963   3                      send_string_com(inbuf,9);
+1964   3                    }
+1965   2                 }
+1966   1      
+1967   1      
+1968   1      /////////////////////////////////////系统工作模式切换////////////////////////////////////////////
+1969   1            else if((inbuf[0]=='S')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='='))
+1970   1            {
+1971   2                 if(inbuf[6]==0x0d)
+1972   2                    {
+1973   3                       Sys_mod=(bit)((inbuf[5]-48)&0x01);        //1:主动模式，0：系统采集模式
+1974   3                       setsucced();
+1975   3                    }
+1976   2                 else
+1977   2                    setfault();
+1978   2            }
+1979   1      ////////////////////////////////////////////////////////////////////////////////////////////////
+1980   1      
+1981   1            else
+1982   1             setfault();                              //设置错误
+1983   1      
 1984   1      
-1985   1                 {
-1986   2                    if (TMPGD1)
-1987   2                    {
-1988   3                      inbuf[4]='S';
-1989   3                      inbuf[5]=' ';
-1990   3                      inbuf[6]='O';
-1991   3                      inbuf[7]='K';
-1992   3                      inbuf[8]=0x0d;
-1993   3                      inbuf[9]=0x0a;
-1994   3                      send_string_com(inbuf,10);
-1995   3                    }
-1996   2      
-1997   2                    else
-1998   2                    {
-1999   3                      inbuf[4]='S';
-2000   3                      inbuf[5]=' ';
-2001   3                      inbuf[6]='N';
-2002   3                      inbuf[7]='O';
-2003   3                      inbuf[8]=0x0d;
-2004   3                      inbuf[9]=0x0a;
-2005   3                      send_string_com(inbuf,10);
-2006   3                    }
-2007   2      
-2008   2                    if (TMPGD2)
-2009   2                    {
-2010   3                      inbuf[4]='A';
-2011   3                      inbuf[5]=' ';
-2012   3                      inbuf[6]='O';
-2013   3                      inbuf[7]='K';
-2014   3                      inbuf[8]=0x0d;
-2015   3                      inbuf[9]=0x0a;
-2016   3                      send_string_com(inbuf,10);
-2017   3                    }
-2018   2      
-2019   2                    else
-2020   2                    {
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 34  
+1985   1      
+1986   1           return;
+1987   1      
+1988   1      }
+1989          /*******************************************************************************/
+1990          
+1991          /************************主程序*******************************/
+1992          void main()
+1993          {
+1994   1         uchar  i=10;
+1995   1         uchar  tmp0=0;
+1996   1      
+1997   1         stat_initial();                               //状态初始划
+1998   1         serial_initial();                             //串口初始化
+1999   1      
+2000   1      /*   if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
+2001   1      
+2002   1      ///////////////////////////////////APC模式设定初始功率//////////////////////////////////////////
+2003   1       {
+2004   1        Laser_Set_power1=3;                        //记录种子源当前设定功率值
+2005   1        Laser_Set_power2=3;                        //记录放大级当前设定功率值
+2006   1      
+2007   1        DA_Convert(3,25);                          // 种子源
+2008   1         _Nop();
+2009   1        DA_Convert(3,25);
+2010   1      
+2011   1        DA_Convert(0,25);                          // 放大级
+2012   1         _Nop();
+2013   1        DA_Convert(0,25);
+2014   1       }
+2015   1      //////////////////////////////////////////////////////////////////////////////////////////////
+2016   1      
+2017   1        else
+2018   1      //////////////////////////////////ACC模式设定初始电流//////////////////////////////////////////
+2019   1       {
+2020   1        Laser_Set_curent1=30;                          //记录种子源当前设定电流值
+2021   1        Laser_Set_curent2=30;                          //记录放大级当前设定电流值
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 34  
 
-2021   3                      inbuf[4]='A';
-2022   3                      inbuf[5]=' ';
-2023   3                      inbuf[6]='N';
-2024   3                      inbuf[7]='O';
-2025   3                      inbuf[8]=0x0d;
-2026   3                      inbuf[9]=0x0a;
-2027   3                      send_string_com(inbuf,10);
-2028   3                    }
-2029   2      
-2030   2                 }
-2031   1      
-2032   1      ///////////////////////////////////查询TEC控制器是否关闭//////////////////////////
-2033   1            else if((inbuf[0]=='U')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
-2034   1      
-2035   1                 {
-2036   2                    if (SHDN1)
-2037   2                    {
-2038   3                      inbuf[0]='T';
-2039   3                      inbuf[1]='E';
-2040   3                      inbuf[2]='C';
-2041   3                      inbuf[3]='1';
-2042   3                      inbuf[4]=' ';
-2043   3                      inbuf[5]='O';
-2044   3                      inbuf[6]='N';
-2045   3                      inbuf[7]=0x0d;
-2046   3                      inbuf[8]=0x0a;
-2047   3                      send_string_com(inbuf,9);
-2048   3                    }
-2049   2      
-2050   2                    else
-2051   2                    {
-2052   3                      inbuf[0]='T';
-2053   3                      inbuf[1]='E';
-2054   3                      inbuf[2]='C';
-2055   3                      inbuf[3]='1';
-2056   3                      inbuf[4]=' ';
-2057   3                      inbuf[5]='O';
-2058   3                      inbuf[6]='F';
-2059   3                      inbuf[7]='F';
-2060   3                      inbuf[8]=0x0d;
-2061   3                      inbuf[9]=0x0a;
-2062   3                      send_string_com(inbuf,10);
-2063   3                    }
-2064   2      
-2065   2                    if (SHDN2)
-2066   2                    {
-2067   3                      inbuf[0]='T';
-2068   3                      inbuf[1]='E';
-2069   3                      inbuf[2]='C';
-2070   3                      inbuf[3]='2';
-2071   3                      inbuf[4]=' ';
-2072   3                      inbuf[5]='O';
-2073   3                      inbuf[6]='N';
-2074   3                      inbuf[7]=0x0d;
-2075   3                      inbuf[8]=0x0a;
-2076   3                      send_string_com(inbuf,9);
-2077   3                    }
-2078   2      
-2079   2                    else
-2080   2                    {
-2081   3                      inbuf[0]='T';
-2082   3                      inbuf[1]='E';
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 35  
+2022   1      
+2023   1        DA_Convert(3,88);                            // 种子源
+2024   1         _Nop();
+2025   1        DA_Convert(3,88);
+2026   1      
+2027   1        DA_Convert(0,88);                            // 放大级
+2028   1        _Nop();
+2029   1        DA_Convert(0,88);
+2030   1       }
+2031   1      //////////////////////////////////////////////////////////////////////////////////////////////*/
+2032   1      ///////////////////////////////////上电开始显示///////////////////////////////////////////////
+2033   1         init_lcd ();
+2034   1         delay(5);
+2035   1         wr_lcd (comm,0x30);
+2036   1         delay(30);                                    //需要足够的等待延时
+2037   1         chn_disp (tab1,14,0x80);
+2038   1         delay(5);
+2039   1         chn_disp (tab2,20,0x90);
+2040   1         delay(5);
+2041   1         clrram();
+2042   1         delay(5);
+2043   1         chn_disp (tab3,10,0x80);
+2044   1         chn_disp (tab4,12,0x90);
+2045   1      
+2046   1         clrram();
+2047   1         delay(10);
+2048   1         chn_disp (tab5,10,0x80);
+2049   1         delay(5);
+2050   1      /////////////////////////////////////////////////////////////////////////////////////////////
+2051   1      
+2052   1      
+2053   1      
+2054   1        do
+2055   1         {
+2056   2      
+2057   2           delay(1);
+2058   2      
+2059   2           if(read_flag)
+2060   2            {
+2061   3              command();                        //指令识别
+2062   3              read_flag=0;                      //取数标志清0
+2063   3              t=0;
+2064   3            }
+2065   2      
+2066   2           _Nop();
+2067   2      
+2068   2      
+2069   2          if(Sys_mod)
+2070   2       {
+2071   3      
+2072   3      
+2073   3      /***************************检查按键**************************************/
+2074   3      
+2075   3       // Key_Button();  tang
+2076   3      
+2077   3      
+2078   3      ///////////////////////////////////////////////////////////////////////////
+2079   3      
+2080   3      /***************************检查当前实际功率值****************************/
+2081   3       //Laser_power_Check(); tang
+2082   3      
+2083   3      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 35  
 
-2083   3                      inbuf[2]='C';
-2084   3                      inbuf[3]='2';
-2085   3                      inbuf[4]=' ';
-2086   3                      inbuf[5]='O';
-2087   3                      inbuf[6]='F';
-2088   3                      inbuf[7]='F';
-2089   3                      inbuf[8]=0x0d;
-2090   3                      inbuf[9]=0x0a;
-2091   3                      send_string_com(inbuf,10);
-2092   3                    }
-2093   2                 }
-2094   1      
-2095   1      ///////////////////////////////////////////////////////////////////////////////////
-2096   1      
-2097   1      ///////////////////////////////////控制模式查询////////////////////////////////////
-2098   1             else if((inbuf[0]=='C')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='?'))
-2099   1      
-2100   1                 {
-2101   2                    if (CONT_MOD)
-2102   2                    {
-2103   3                      inbuf[0]='M';
-2104   3                      inbuf[1]='O';
-2105   3                      inbuf[2]='D';
-2106   3                      inbuf[3]='=';
-2107   3                      inbuf[4]='A';
-2108   3                      inbuf[5]='P';
-2109   3                      inbuf[6]='C';
-2110   3                      inbuf[7]=0x0d;
-2111   3                      inbuf[8]=0x0a;
-2112   3                      send_string_com(inbuf,9);
-2113   3                    }
-2114   2      
-2115   2                    else
-2116   2                    {
-2117   3                      inbuf[0]='M';
-2118   3                      inbuf[1]='O';
-2119   3                      inbuf[2]='D';
-2120   3                      inbuf[3]='=';
-2121   3                      inbuf[4]='A';
-2122   3                      inbuf[5]='C';
-2123   3                      inbuf[6]='C';
-2124   3                      inbuf[7]=0x0d;
-2125   3                      inbuf[8]=0x0a;
-2126   3                      send_string_com(inbuf,9);
-2127   3                    }
-2128   2                 }
-2129   1      
-2130   1      
-2131   1      /////////////////////////////////////系统工作模式切换////////////////////////////////////////////
-2132   1            else if((inbuf[0]=='S')&&(inbuf[1]=='M')&&(inbuf[2]=='O')&&(inbuf[3]=='D')&&(inbuf[4]=='='))
-2133   1            {
-2134   2                 if(inbuf[6]==0x0d)
-2135   2                    {
-2136   3                       Sys_mod=(bit)((inbuf[5]-48)&0x01);        //1:主动模式，0：系统采集模式
-2137   3                       setsucced();
-2138   3                    }
-2139   2                 else
-2140   2                    setfault();
-2141   2            }
-2142   1      ////////////////////////////////////////////////////////////////////////////////////////////////
-2143   1      
-2144   1            else
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 36  
+2084   3      /*************************************************************************/
+2085   3      /***************************检测当前实际电流值****************************/
+2086   3      
+2087   3       Diode_curent_Check();
+2088   3      
+2089   3      
+2090   3      
+2091   3      
+2092   3      ///////////////////////////////////////////////////////////////////////////
+2093   3      
+2094   3      
+2095   3      /***************************检测当前冷却温度******************************/
+2096   3         TEC_Temp();
+2097   3      
+2098   3      
+2099   3      
+2100   3         if(TEC_meds_tempture1>280)
+2101   3      
+2102   3         {
+2103   4      
+2104   4           uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
+2105   4           if(CONT_MOD)
+2106   4           {
+2107   5           Set_laser_power(0,3);       //tang
+2108   5           Set_laser_power(3,3);
+2109   5           }
+2110   4           else
+2111   4           {
+2112   5           Set_laser_current(0,30);
+2113   5           Set_laser_current(3,30);
+2114   5           }
+2115   4           SHDN1=0;
+2116   4           SHDN2=0;
+2117   4           send_string_com(inbuf1,9);
+2118   4           t=0;
+2119   4           chn_disp (inbuf1,7,0x86);
+2120   4         }
+2121   3      
+2122   3         if(TEC_meds_tempture2>280)
+2123   3      
+2124   3         {
+2125   4      
+2126   4           uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
+2127   4           if(CONT_MOD)
+2128   4           {
+2129   5           Set_laser_power(0,3);       //tang
+2130   5           Set_laser_power(3,3);
+2131   5           }
+2132   4           else
+2133   4           {
+2134   5           Set_laser_current(0,30);
+2135   5           Set_laser_current(3,30);
+2136   5           }
+2137   4           SHDN1=0;
+2138   4           
+2139   4           SHDN2=0;
+2140   4           send_string_com(inbuf1,9);
+2141   4           t=0;
+2142   4           chn_disp (inbuf1,7,0x96);
+2143   4         }
+2144   3      //////////////////////////////////////////////////////////////////////////
+2145   3      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 36  
 
-2145   1             setfault();                              //设置错误
-2146   1      
-2147   1      
-2148   1      
-2149   1           return;
-2150   1      
-2151   1      }
-2152          /*******************************************************************************/
-2153          
-2154          /************************主程序*******************************/
-2155          void main()
-2156          {
-2157   1         uchar  i=10;
-2158   1         uchar  tmp0=0;
-2159   1      
-2160   1         stat_initial();                               //状态初始划
-2161   1         serial_initial();                             //串口初始化
-2162   1      
-2163   1      /*   if(CONT_MOD)                                  //CONT_MOD: 1 APC, 0 ACC
-2164   1      
-2165   1      ///////////////////////////////////APC模式设定初始功率//////////////////////////////////////////
-2166   1       {
-2167   1        Laser_Set_power1=3;                        //记录种子源当前设定功率值
-2168   1        Laser_Set_power2=3;                        //记录放大级当前设定功率值
-2169   1      
-2170   1        DA_Convert(3,25);                          // 种子源
-2171   1         _Nop();
-2172   1        DA_Convert(3,25);
-2173   1      
-2174   1        DA_Convert(0,25);                          // 放大级
-2175   1         _Nop();
-2176   1        DA_Convert(0,25);
-2177   1       }
-2178   1      //////////////////////////////////////////////////////////////////////////////////////////////
-2179   1      
-2180   1        else
-2181   1      //////////////////////////////////ACC模式设定初始电流//////////////////////////////////////////
-2182   1       {
-2183   1        Laser_Set_curent1=30;                          //记录种子源当前设定电流值
-2184   1        Laser_Set_curent2=30;                          //记录放大级当前设定电流值
-2185   1      
-2186   1        DA_Convert(3,88);                            // 种子源
-2187   1         _Nop();
-2188   1        DA_Convert(3,88);
-2189   1      
-2190   1        DA_Convert(0,88);                            // 放大级
-2191   1        _Nop();
-2192   1        DA_Convert(0,88);
-2193   1       }
-2194   1      //////////////////////////////////////////////////////////////////////////////////////////////*/
-2195   1      ///////////////////////////////////上电开始显示///////////////////////////////////////////////
-2196   1         init_lcd ();
-2197   1         delay(5);
-2198   1         wr_lcd (comm,0x30);
-2199   1         delay(30);                                    //需要足够的等待延时
-2200   1         chn_disp (tab1,14,0x80);
-2201   1         delay(5);
-2202   1         chn_disp (tab2,20,0x90);
-2203   1         delay(5);
-2204   1         clrram();
-2205   1         delay(5);
-2206   1         chn_disp (tab3,10,0x80);
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 37  
+2146   3      
+2147   3      /***************************检测监测二极管反馈电压************************/
+2148   3      
+2149   3       Pdiod_V_Check();
+2150   3      
+2151   3      
+2152   3      
+2153   3      //////////////////////////////////////////////////////////////////////////
+2154   3      
+2155   3      
+2156   3      /***************************检测TEC温控是否完成**************************/
+2157   3      
+2158   3      
+2159   3      
+2160   3      
+2161   3      
+2162   3      /////////////////////////////////////////////////////////////////////////
+2163   3      
+2164   3      
+2165   3      /***************************检测TEC两端电压是否正常*********************/
+2166   3      
+2167   3        TEC_V_Check();
+2168   3      
+2169   3        if( TEC_VO1>3.1) Error_Process();
+2170   3        if( TEC_VO2>3.1) Error_Process();
+2171   3      
+2172   3      ////////////////////////////////////////////////////////////////////////
+2173   3      
+2174   3      
+2175   3      /****************************LCD显示***********************************/
+2176   3      
+2177   3      
+2178   3           chn_disp (tab6,4,0x80);
+2179   3           delayR(50);
+2180   3           chn_disp (Diode_parameter1,6,0x82);      //显示种子源电流
+2181   3           delayR(50);
+2182   3           chn_disp (TEC_parameter1,4,0x85);        //显示种子源TEC温度
+2183   3      
+2184   3      
+2185   3           chn_disp (tab7,4,0x90);
+2186   3           delayR(50);
+2187   3           chn_disp (Diode_parameter2,6,0x92);      //显示放大级电流
+2188   3           delayR(50);
+2189   3           chn_disp (TEC_parameter2,4,0x95);        //显示放大级TEC温度
+2190   3      
+2191   3      
+2192   3      
+2193   3      
+2194   3      
+2195   3           if(CONT_MOD)
+2196   3           {
+2197   4              chn_disp (tab14,6,0x87);
+2198   4              delayR(50);
+2199   4              chn_disp (tab14,6,0x97);
+2200   4            }
+2201   3           else
+2202   3           {
+2203   4              chn_disp (tab15,6,0x87);
+2204   4              delayR(50);
+2205   4              chn_disp (tab15,6,0x97);
+2206   4           }
+2207   3      
+C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:51:42 PAGE 37  
 
-2207   1         chn_disp (tab4,12,0x90);
-2208   1      
-2209   1         clrram();
-2210   1         delay(10);
-2211   1         chn_disp (tab5,10,0x80);
-2212   1         delay(5);
-2213   1      /////////////////////////////////////////////////////////////////////////////////////////////
-2214   1      
-2215   1      
-2216   1      
-2217   1        do
-2218   1         {
-2219   2      
-2220   2           delay(1);
-2221   2      
-2222   2           if(read_flag)
-2223   2            {
-2224   3              command();                        //指令识别
-2225   3              read_flag=0;                      //取数标志清0
-2226   3              t=0;
-2227   3            }
-2228   2      
-2229   2           _Nop();
-2230   2      
-2231   2      
-2232   2          if(Sys_mod)
-2233   2       {
-2234   3      
-2235   3      
-2236   3      /***************************检查按键**************************************/
-2237   3      
-2238   3       // Key_Button();  tang
-2239   3      
-2240   3      
-2241   3      ///////////////////////////////////////////////////////////////////////////
-2242   3      
-2243   3      /***************************检查当前实际功率值****************************/
-2244   3       //Laser_power_Check(); tang
-2245   3      
-2246   3      
-2247   3      /*************************************************************************/
-2248   3      /***************************检测当前实际电流值****************************/
-2249   3      
-2250   3       Diode_curent_Check();
-2251   3      
-2252   3      
-2253   3      
-2254   3      
-2255   3      ///////////////////////////////////////////////////////////////////////////
-2256   3      
-2257   3      
-2258   3      /***************************检测当前冷却温度******************************/
-2259   3         TEC_Temp();
-2260   3      
-2261   3      
-2262   3      
-2263   3         if(TEC_meds_tempture1>280)
-2264   3      
-2265   3         {
-2266   4      
-2267   4           uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
-2268   4           if(CONT_MOD)
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 38  
+2208   3      ///////////////////////////////////////////////////////////////////////
+2209   3      }
+2210   2      
+2211   2      else
+2212   2      {
+2213   3           chn_disp (tab16,20,0x80);
+2214   3           delayR(10000);
+2215   3           chn_disp (tab17,20,0x90);
+2216   3      } 
+2217   2      
+2218   2          }while(1);
+2219   1      
+2220   1      
+2221   1       }
 
-2269   4           {
-2270   5           Set_laser_power(0,3);       //tang
-2271   5           Set_laser_power(3,3);
-2272   5           }
-2273   4           else
-2274   4           {
-2275   5           Set_laser_current(0,30);
-2276   5           Set_laser_current(3,30);
-2277   5           }
-2278   4           SHDN1=0;
-2279   4           SHDN2=0;
-2280   4           send_string_com(inbuf1,9);
-2281   4           t=0;
-2282   4           chn_disp (inbuf1,7,0x86);
-2283   4         }
-2284   3      
-2285   3         if(TEC_meds_tempture2>280)
-2286   3      
-2287   3         {
-2288   4      
-2289   4           uchar inbuf1[9]={'t','m','p','_','e','r','r',0x0d,0x0a};
-2290   4           if(CONT_MOD)
-2291   4           {
-2292   5           Set_laser_power(0,3);       //tang
-2293   5           Set_laser_power(3,3);
-2294   5           }
-2295   4           else
-2296   4           {
-2297   5           Set_laser_current(0,30);
-2298   5           Set_laser_current(3,30);
-2299   5           }
-2300   4           SHDN1=0;
-2301   4           
-2302   4           SHDN2=0;
-2303   4           send_string_com(inbuf1,9);
-2304   4           t=0;
-2305   4           chn_disp (inbuf1,7,0x96);
-2306   4         }
-2307   3      //////////////////////////////////////////////////////////////////////////
-2308   3      
-2309   3      
-2310   3      /***************************检测监测二极管反馈电压************************/
-2311   3      
-2312   3       Pdiod_V_Check();
-2313   3      
-2314   3      
-2315   3      
-2316   3      //////////////////////////////////////////////////////////////////////////
-2317   3      
-2318   3      
-2319   3      /***************************检测TEC温控是否完成**************************/
-2320   3      
-2321   3      
-2322   3      
-2323   3      
-2324   3      
-2325   3      /////////////////////////////////////////////////////////////////////////
-2326   3      
-2327   3      
-2328   3      /***************************检测TEC两端电压是否正常*********************/
-2329   3      
-2330   3        TEC_V_Check();
-C51 COMPILER V7.02b   DUALDRIVER                                                           12/02/2013 13:34:12 PAGE 39  
-
-2331   3      
-2332   3        if( TEC_VO1>3.1) Error_Process();
-2333   3        if( TEC_VO2>3.1) Error_Process();
-2334   3      
-2335   3      ////////////////////////////////////////////////////////////////////////
-2336   3      
-2337   3      
-2338   3      /****************************LCD显示***********************************/
-2339   3      
-2340   3      
-2341   3           chn_disp (tab6,4,0x80);
-2342   3           delayR(50);
-2343   3           chn_disp (Diode_parameter1,6,0x82);      //显示种子源电流
-2344   3           delayR(50);
-2345   3           chn_disp (TEC_parameter1,4,0x85);        //显示种子源TEC温度
-2346   3      
-2347   3      
-2348   3           chn_disp (tab7,4,0x90);
-2349   3           delayR(50);
-2350   3           chn_disp (Diode_parameter2,6,0x92);      //显示放大级电流
-2351   3           delayR(50);
-2352   3           chn_disp (TEC_parameter2,4,0x95);        //显示放大级TEC温度
-2353   3      
-2354   3      
-2355   3      
-2356   3      
-2357   3      
-2358   3           if(CONT_MOD)
-2359   3           {
-2360   4              chn_disp (tab14,6,0x87);
-2361   4              delayR(50);
-2362   4              chn_disp (tab14,6,0x97);
-2363   4            }
-2364   3           else
-2365   3           {
-2366   4              chn_disp (tab15,6,0x87);
-2367   4              delayR(50);
-2368   4              chn_disp (tab15,6,0x97);
-2369   4           }
-2370   3      
-2371   3      ///////////////////////////////////////////////////////////////////////
-2372   3      }
-2373   2      
-2374   2      else
-2375   2      {
-2376   3           chn_disp (tab16,20,0x80);
-2377   3           delayR(10000);
-2378   3           chn_disp (tab17,20,0x90);
-2379   3      } 
-2380   2      
-2381   2          }while(1);
-2382   1      
-2383   1      
-2384   1       }
-
-C51 COMPILATION COMPLETE.  2 WARNING(S),  13 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  13 ERROR(S)
