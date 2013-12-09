@@ -437,42 +437,42 @@ void command()
         }
 
 ///////////////////////////////////设定电流////////////////////////////////////////////
-       else if((inbuf[0]=='L')&&(inbuf[1]=='D')&&((inbuf[2]=='1')||(inbuf[2]=='2'))&&(inbuf[3]=='='))
+       else if((inbuf[0]=='S')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='O')&&(inbuf[4]=='='))
 
            {
                uint dio_cu;
                uchar CH;
 
-               if(inbuf[5]==0x0d)                                        //格式为LD1(2)=N
+               if(inbuf[7]==0x0d)                                        //格式为SDIO=N
               {
-                 dio_cu=inbuf[4]-48;
+                 dio_cu=inbuf[6]-48;
 
 
               }
-               else if(inbuf[6]==0x0d)                                   //格式为LD1(2)=NN
+               else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
               {
-                 dio_cu=(uint)((inbuf[4]-48)*10+(inbuf[5]-48));
+                 dio_cu=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
-              else if(inbuf[7]==0x0d)                                    //格式为LD1(2)=NNN
+              else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
               {
-                 dio_cu=(uint)((inbuf[4]-48)*100+(inbuf[5]-48)*10+(inbuf[6]-48));
+                 dio_cu=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
 
               }
 
-              else                                                    //格式为LD1(2)=NNNN
+              else                                                    //格式为SDIO=NNNN
               {
                   setfault();
                   goto setcf;
               }
 
-              if(inbuf[2]=='1')
+              if(inbuf[5]=='S')
               {
                 CH=3;                                     //种子源SEED
                 Set_laser_current(CH,dio_cu);
                 setsucced();
               }
-              else if(inbuf[2]=='2')
+              else if(inbuf[5]=='A')
               {
                 CH=0;                                    //放大级AMP
                 Set_laser_current(CH,dio_cu);
@@ -492,24 +492,24 @@ setcf:       _Nop();
                uint init_current;
                uchar CH;
 
-               if(inbuf[7]==0x0d)                                        //格式为INIC=N
+               if(inbuf[7]==0x0d)                                        //格式为SDIO=N
               {
                  init_current=inbuf[6]-48;
 
 
               }
-               else if(inbuf[8]==0x0d)                                   //格式为INIC=NN
+               else if(inbuf[8]==0x0d)                                   //格式为SDIO=NN
               {
                  init_current=(uint)((inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
-              else if(inbuf[9]==0x0d)                                    //格式为INIC=NNN
+              else if(inbuf[9]==0x0d)                                    //格式为SDIO=NNN
               {
                  init_current=(uint)((inbuf[6]-48)*100+(inbuf[7]-48)*10+(inbuf[8]-48));
 
               }
 
-              else                                                    //格式为INIC=NNNN
+              else                                                    //格式为SDIO=NNNN
               {
                   setfault();
                   goto seticf;
@@ -538,7 +538,7 @@ seticf:       _Nop();
                uint init_flag_temp;
                uchar CH;
 
-               if(inbuf[6]==0x0d)                                        
+               if(inbuf[6]==0x0d)                                        //格式为SDIO=N
               {
                  init_flag_temp=inbuf[5]-48;
                 if ((init_flag_temp<0)||(init_flag_temp>3))
@@ -546,7 +546,7 @@ seticf:       _Nop();
                 else
                   init_flag=init_flag_temp;
               }
-              else                                                    
+              else                                                    //格式为SDIO=NNNN
               {
                   setfault();
                   goto setief;
@@ -558,39 +558,39 @@ setief:       _Nop();
 
 
  //////////////////////////////设定功率//////////////////////////////////////////////////
-        else if((inbuf[0]=='P')&&((inbuf[1]=='1')||(inbuf[1]=='2'))&&(inbuf[2]=='='))
+        else if((inbuf[0]=='S')&&(inbuf[1]=='P')&&(inbuf[2]=='O')&&(inbuf[3]=='W')&&(inbuf[4]=='='))
             {
                uint las_pow;
                uchar CHH;
-               if(inbuf[4]==0x0d)                                        //格式为P1(2)=N
+               if(inbuf[6]==0x0d)                                        //格式为SPOW=N
               {
-                 las_pow=(uint)(inbuf[3]-48);
+                 las_pow=(uint)(inbuf[5]-48);
 
               }
-               else if(inbuf[5]==0x0d)                                   //格式为P1(2)=NN
+               else if(inbuf[7]==0x0d)                                   //格式为SPOW=NN
               {
-                 las_pow=(uint)((inbuf[3]-48)*10+(inbuf[4]-48));
+                 las_pow=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
 
               }
-              else if(inbuf[6]==0x0d)                                    //格式为P1(2)=NNN
+              else if(inbuf[8]==0x0d)                                    //格式为SPOW=NNN
               {
-                 las_pow=(uint)((inbuf[3]-48)*100+(inbuf[4]-48)*10+(inbuf[5]-48));
+                 las_pow=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
 
-              else                                                      //格式为P1(2)=NNNN
+              else                                                      //格式为SPOW=NNNN
               {
                   setfault();
                   goto setpf;
               }
 
-              if(inbuf[2]=='1')
+              if(inbuf[5]=='S')
               {
                 CH=3;                                     //种子源SEED
                 Set_laser_power(CHH,las_pow);
                 setsucced();
               }
-              else if(inbuf[2]=='2')
+              else if(inbuf[5]=='A')
               {
                 CH=0;                                    //放大级AMP
                 Set_laser_power(CHH,las_pow);
@@ -604,13 +604,13 @@ setpf:       _Nop();
             }
  ////////////////////////////////////////////////////////////////////////////////////////
  //////////////////////////////设定温度//////////////////////////////////////////////////
-        else if((inbuf[0]=='T')&&((inbuf[1]=='1')||(inbuf[1]=='2'))&&(inbuf[2]=='='))
+        else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&(inbuf[2]=='E')&&(inbuf[3]=='P')&&(inbuf[4]=='='))
            {
               uint  tmp_tec=0;
               uint kt=0;
-              if(inbuf[5]==0x0d)
+              if(inbuf[8]==0x0d)
               {
-                 tmp_tec=(inbuf[3]-48)*10+(inbuf[4]-48);
+                 tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
 
 
 
@@ -618,11 +618,11 @@ setpf:       _Nop();
                  kt=((tmp_tec-15)*691+180)/2000+(tmp_tec-15)*118+90;
 
               }
-              else if(inbuf[7]==0x0d)
+              else if(inbuf[10]==0x0d)
               {
-                 tmp_tec=(inbuf[3]-48)*10+(inbuf[4]-48);
+                 tmp_tec=(inbuf[6]-48)*10+(inbuf[7]-48);
 
-                 kt=((tmp_tec-15)*691+(inbuf[6]-48)*69+180)/2000+(tmp_tec-15)*118+(inbuf[6]-48)*59/5+90;
+                 kt=((tmp_tec-15)*691+(inbuf[9]-48)*69+180)/2000+(tmp_tec-15)*118+(inbuf[9]-48)*59/5+90;
 
               }
 
@@ -632,14 +632,14 @@ setpf:       _Nop();
                  goto settf;
               }
 
-               if(inbuf[1]=='1')
+               if(inbuf[5]=='S')
               {
                 DA_Convert(2,kt);                         //种子源SEED
                 _Nop();
                 DA_Convert(2,kt);
                 setsucced();
               }
-              else if(inbuf[1]=='2')
+              else if(inbuf[5]=='A')
               {
                 DA_Convert(1,kt);                         //放大级AMP
                 _Nop();
@@ -810,390 +810,188 @@ setpdf:       _Nop();
                  setfault();
 setdf:       _Nop();
            }
-//////////////////////////////////总查询（电流、温度、功率）/////////////////////////////////
-      else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&((inbuf[2]=='A')&&(inbuf[3]=='T'))&&(inbuf[4]=='?'))
- {
-              uint ky;
-//              TEC_Temp();
-              inbuf[0]= 0x0d;
-              send_string_com(inbuf,1);
-                inbuf[0] ='L';
-                inbuf[1] ='D';
-                inbuf[2] ='1';
-                inbuf[3] ='=';
-            if(Laser_Fed_curent1<10)
-              { inbuf[4]=(uchar)(Laser_Fed_curent1)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_curent1<100)
-              { 
-                inbuf[4]=(uchar)(Laser_Fed_curent1 /10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_curent1 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }else if (Laser_Fed_curent1<1000)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent1 /100)+48;
-                inbuf[5]=(uchar)((Laser_Fed_curent1 /10)%10)+48;
-                inbuf[6]=(uchar)(Laser_Fed_curent1 %10)+48;
-                inbuf[7]=0x0d;
-                inbuf[8]=0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-                setfault();
-
-                inbuf[0] ='L';
-                inbuf[1] ='D';
-                inbuf[2] ='2';
-                inbuf[3] ='=';
-            if(Laser_Fed_curent2<10)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_curent2<100)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2 /10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_curent2 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }else if (Laser_Fed_curent2<1000)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2 /100)+48;
-                inbuf[5]=(uchar)((Laser_Fed_curent2 /10)%10)+48;
-                inbuf[6]=(uchar)(Laser_Fed_curent2 %10)+48;
-                inbuf[7]=0x0d;
-                inbuf[8]=0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-                setfault();
-              inbuf[0]= 0x0d;
-              send_string_com(inbuf,1);
-                inbuf[0] ='P';
-                inbuf[1] ='1';
-                inbuf[2] ='=';
-          if(Laser_Fed_power1<10)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power1)+48;
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }else if (Laser_Fed_power1<100)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power1 /10)+48;
-                inbuf[4]=(uchar)(Laser_Fed_power1 %10)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_power1<1000)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power1 /100)+48;
-                inbuf[4]=(uchar)((Laser_Fed_power1 /10)%10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_power1 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }
-              else
-                setfault();
-                
-                inbuf[0] ='P';
-                inbuf[1] ='2';
-                inbuf[2] ='=';
-              if(Laser_Fed_power2<10)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power2)+48;
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }else if (Laser_Fed_power2<100)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power2 /10)+48;
-                inbuf[4]=(uchar)(Laser_Fed_power2 %10)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_power2<1000)
-              {
-                inbuf[3]=(uchar)(Laser_Fed_power2 /100)+48;
-                inbuf[4]=(uchar)((Laser_Fed_power2 /10)%10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_power2 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }
-              else
-                setfault();
-
-                inbuf[0]= 0x0d;
-                send_string_com(inbuf,1);
-                ky=(uint)(TEC_Fed_Tempture1);
-                inbuf[0] ='T';
-                inbuf[1] ='1';
-                inbuf[2] ='=';
-              if (ky<1000)
-              {
-                inbuf[3]  =ky/100+48;
-                inbuf[4]  =(ky/10)%10+48;
-                inbuf[5]  ='.';
-                inbuf[6]  =ky%10+48;
-                inbuf[7] =0x0d;
-                inbuf[8] =0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-               alarm();
-            
-               
-                ky=(uint)(TEC_Fed_Tempture2);
-                inbuf[0] ='T';
-                inbuf[1] ='2';
-                inbuf[2] ='=';
-              if (ky<1000)
-              {
-                inbuf[3]  =ky/100+48;
-                inbuf[4]  =(ky/10)%10+48;
-                inbuf[5]  ='.';
-                inbuf[6]  =ky%10+48;
-                inbuf[7] =0x0d;
-                inbuf[8] =0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-               alarm();
-               inbuf[0]= 0x0d;
-              send_string_com(inbuf,1);
-             if (TMPGD1)
-              {
-                inbuf[0]='T';
-                inbuf[1]='1';
-                inbuf[2]='O';
-                inbuf[3]='K';
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }
-
-              else
-              {
-                inbuf[0]='T';
-                inbuf[1]='1';
-                inbuf[2]='N';
-                inbuf[3]='O';
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }
-
-              if (TMPGD2)
-              {
-                inbuf[0]='T';
-                inbuf[1]='2';
-                inbuf[2]='O';
-                inbuf[3]='K';
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }
-
-              else
-              {
-                inbuf[0]='T';
-                inbuf[1]='2';
-                inbuf[2]='N';
-                inbuf[3]='O';
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
-              }
-}
-
-
-
  //////////////////////////////////查询当前实际电流/////////////////////////////////
-      else if((inbuf[0]=='L')&&(inbuf[1]=='D')&&((inbuf[2]=='1')||(inbuf[2]=='2'))&&(inbuf[3]=='?'))
+      else if((inbuf[0]=='D')&&(inbuf[1]=='I')&&(inbuf[2]=='O')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
+
            {
-            if(inbuf[2]=='1')
-            {   inbuf[0] ='L';
-                inbuf[1] ='D';
-                inbuf[2] ='1';
-                inbuf[3] ='=';
-            if(Laser_Fed_curent1<10)
-              { inbuf[4]=(uchar)(Laser_Fed_curent1)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_curent1<100)
-              { 
-                inbuf[4]=(uchar)(Laser_Fed_curent1 /10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_curent1 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }else if (Laser_Fed_curent1<1000)
+
+              if(Laser_Fed_curent1<10)
               {
-                inbuf[4]=(uchar)(Laser_Fed_curent1 /100)+48;
-                inbuf[5]=(uchar)((Laser_Fed_curent1 /10)%10)+48;
-                inbuf[6]=(uchar)(Laser_Fed_curent1 %10)+48;
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent1)+48;
                 inbuf[7]=0x0d;
                 inbuf[8]=0x0a;
                 send_string_com(inbuf,9);
+              }else if (Laser_Fed_curent1<100)
+              {
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent1 /10)+48;
+                inbuf[7]=(uchar)(Laser_Fed_curent1 %10)+48;
+                inbuf[8]=0x0d;
+                inbuf[9]=0x0a;
+                send_string_com(inbuf,10);
+              }else if (Laser_Fed_curent1<1000)
+              {
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent1 /100)+48;
+                inbuf[7]=(uchar)((Laser_Fed_curent1 /10)%10)+48;
+                inbuf[8]=(uchar)(Laser_Fed_curent1 %10)+48;
+                inbuf[9]=0x0d;
+                inbuf[10]=0x0a;
+                send_string_com(inbuf,11);
+              }
+              else
+                setfault();
+ //////////////////////////////////////////////////////////
+               if(Laser_Fed_curent2<10)
+              {
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent2)+48;
+                inbuf[7]=0x0d;
+                inbuf[8]=0x0a;
+                send_string_com(inbuf,9);
+              }else if (Laser_Fed_curent2<100)
+              {
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent2 /10)+48;
+                inbuf[7]=(uchar)(Laser_Fed_curent2 %10)+48;
+                inbuf[8]=0x0d;
+                inbuf[9]=0x0a;
+                send_string_com(inbuf,10);
+              }else if (Laser_Fed_curent2<1000)
+              {
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_curent2 /100)+48;
+                inbuf[7]=(uchar)((Laser_Fed_curent2 /10)%10)+48;
+                inbuf[8]=(uchar)(Laser_Fed_curent2 %10)+48;
+                inbuf[9]=0x0d;
+                inbuf[10]=0x0a;
+                send_string_com(inbuf,11);
               }
               else
                 setfault();
 
-               }
- //////////////////////////////////////////////////////////
-            else if(inbuf[2]=='2')
-              {  inbuf[0] ='L';
-                inbuf[1] ='D';
-                inbuf[2] ='2';
-                inbuf[3] ='=';
-            if(Laser_Fed_curent2<10)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
-              }else if (Laser_Fed_curent2<100)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2 /10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_curent2 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
-              }else if (Laser_Fed_curent2<1000)
-              {
-                inbuf[4]=(uchar)(Laser_Fed_curent2 /100)+48;
-                inbuf[5]=(uchar)((Laser_Fed_curent2 /10)%10)+48;
-                inbuf[6]=(uchar)(Laser_Fed_curent2 %10)+48;
-                inbuf[7]=0x0d;
-                inbuf[8]=0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-                setfault();
            }
-         }
 
 
  //////////////////////////////////查询当前实际功率/////////////////////////////////
-      else if((inbuf[0]=='P')&&((inbuf[1]=='1')||(inbuf[1]=='2'))&&(inbuf[2]=='?'))
+      else if((inbuf[0]=='L')&&(inbuf[1]=='A')&&(inbuf[2]=='P')&&(inbuf[3]=='O')&&(inbuf[4]=='?'))
 
            {
-            if(inbuf[1]=='1')
-              {
-               inbuf[0] ='P';
-                inbuf[1] ='1';
-                inbuf[2] ='=';
+
               if(Laser_Fed_power1<10)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power1)+48;
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power1)+48;
+                inbuf[7]=0x0d;
+                inbuf[8]=0x0a;
+                send_string_com(inbuf,9);
               }else if (Laser_Fed_power1<100)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power1 /10)+48;
-                inbuf[4]=(uchar)(Laser_Fed_power1 %10)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power1 /10)+48;
+                inbuf[7]=(uchar)(Laser_Fed_power1 %10)+48;
+                inbuf[8]=0x0d;
+                inbuf[9]=0x0a;
+                send_string_com(inbuf,10);
               }else if (Laser_Fed_power1<1000)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power1 /100)+48;
-                inbuf[4]=(uchar)((Laser_Fed_power1 /10)%10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_power1 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power1 /100)+48;
+                inbuf[7]=(uchar)((Laser_Fed_power1 /10)%10)+48;
+                inbuf[8]=(uchar)(Laser_Fed_power1 %10)+48;
+                inbuf[9]=0x0d;
+                inbuf[10]=0x0a;
+                send_string_com(inbuf,11);
               }
               else
                 setfault();
-                
-              }
-              else if(inbuf[1]=='2')
-               {
-                inbuf[0] ='P';
-                inbuf[1] ='2';
-                inbuf[2] ='=';
-              if(Laser_Fed_power2<10)
+
+               if(Laser_Fed_power2<10)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power2)+48;
-                inbuf[4]=0x0d;
-                inbuf[5]=0x0a;
-                send_string_com(inbuf,6);
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power2)+48;
+                inbuf[7]=0x0d;
+                inbuf[8]=0x0a;
+                send_string_com(inbuf,9);
               }else if (Laser_Fed_power2<100)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power2 /10)+48;
-                inbuf[4]=(uchar)(Laser_Fed_power2 %10)+48;
-                inbuf[5]=0x0d;
-                inbuf[6]=0x0a;
-                send_string_com(inbuf,7);
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power2 /10)+48;
+                inbuf[7]=(uchar)(Laser_Fed_power2 %10)+48;
+                inbuf[8]=0x0d;
+                inbuf[9]=0x0a;
+                send_string_com(inbuf,10);
               }else if (Laser_Fed_power2<1000)
               {
-                inbuf[3]=(uchar)(Laser_Fed_power2 /100)+48;
-                inbuf[4]=(uchar)((Laser_Fed_power2 /10)%10)+48;
-                inbuf[5]=(uchar)(Laser_Fed_power2 %10)+48;
-                inbuf[6]=0x0d;
-                inbuf[7]=0x0a;
-                send_string_com(inbuf,8);
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=(uchar)(Laser_Fed_power2 /100)+48;
+                inbuf[7]=(uchar)((Laser_Fed_power2 /10)%10)+48;
+                inbuf[8]=(uchar)(Laser_Fed_power2 %10)+48;
+                inbuf[9]=0x0d;
+                inbuf[10]=0x0a;
+                send_string_com(inbuf,11);
               }
               else
                 setfault();
-            }
+
            }
 
 ///////////////////////////////////查询当前冷却温度////////////////////////////////
-      else if((inbuf[0]=='T')&&((inbuf[1]=='1')||(inbuf[1]=='2'))&&(inbuf[2]=='?'))
+      else if((inbuf[0]=='T')&&(inbuf[1]=='E')&&(inbuf[2]=='C')&&(inbuf[3]=='P')&&(inbuf[4]=='?'))
+
            {
 
               uint ky;
 //              TEC_Temp();
-              if (inbuf[1]=='1')
-              {  ky=(uint)(TEC_Fed_Tempture1);
-                inbuf[0] ='T';
-                inbuf[1] ='1';
-                inbuf[2] ='=';
+
+              ky=(uint)(TEC_Fed_Tempture1);
+
               if (ky<1000)
               {
-                inbuf[3]  =ky/100+48;
-                inbuf[4]  =(ky/10)%10+48;
-                inbuf[5]  ='.';
-                inbuf[6]  =ky%10+48;
-                inbuf[7] =0x0d;
-                inbuf[8] =0x0a;
-                send_string_com(inbuf,9);
-              }
-              else
-               alarm();  
-              }
-            else if (inbuf[1]=='2')
-              { 
-                ky=(uint)(TEC_Fed_Tempture2);
-                inbuf[0] ='T';
-                inbuf[1] ='2';
-                inbuf[2] ='=';
-              if (ky<1000)
-              {
-                inbuf[3]  =ky/100+48;
-                inbuf[4]  =(ky/10)%10+48;
-                inbuf[5]  ='.';
-                inbuf[6]  =ky%10+48;
-                inbuf[7] =0x0d;
-                inbuf[8] =0x0a;
-                send_string_com(inbuf,9);
+                inbuf[4]='S';
+                inbuf[5]='=';
+                inbuf[6]=ky/100+48;
+                inbuf[7]=(ky/10)%10+48;
+                inbuf[8]='.';
+                inbuf[9]=ky%10+48;
+                inbuf[10]=0x0d;
+                inbuf[11]=0x0a;
+                send_string_com(inbuf,12);
               }
               else
                alarm();
+
+             ky=(uint)(TEC_Fed_Tempture2);
+
+              if (ky<1000)
+              {
+                inbuf[4]='A';
+                inbuf[5]='=';
+                inbuf[6]=ky/100+48;
+                inbuf[7]=(ky/10)%10+48;
+                inbuf[8]='.';
+                inbuf[9]=ky%10+48;
+                inbuf[10]=0x0d;
+                inbuf[11]=0x0a;
+                send_string_com(inbuf,12);
+              }
+              else
+               alarm();
+
            }
-         }
 ///////////////////////////////////查询当前监测二极管反馈电压/////////////////////
       else if((inbuf[0]=='P')&&(inbuf[1]=='D')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
 
