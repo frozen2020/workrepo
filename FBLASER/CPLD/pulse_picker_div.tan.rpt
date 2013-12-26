@@ -1,0 +1,691 @@
+Classic Timing Analyzer report for pulse_picker_div
+Thu Dec 19 17:11:17 2013
+Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Timing Analyzer Settings
+  4. Clock Settings Summary
+  5. Parallel Compilation
+  6. Clock Setup: 'ENABLE'
+  7. Clock Setup: 'PD_CLK_IN'
+  8. Clock Setup: 'CLK'
+  9. tsu
+ 10. tco
+ 11. tpd
+ 12. th
+ 13. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                        ;
++------------------------------+-------+---------------+----------------------------------+------------------------------------+---------+------------+-----------+--------------+
+; Type                         ; Slack ; Required Time ; Actual Time                      ; From                               ; To      ; From Clock ; To Clock  ; Failed Paths ;
++------------------------------+-------+---------------+----------------------------------+------------------------------------+---------+------------+-----------+--------------+
+; Worst-case tsu               ; N/A   ; None          ; 3.600 ns                         ; RS[0]                              ; switch  ; --         ; ENABLE    ; 0            ;
+; Worst-case tco               ; N/A   ; None          ; 9.400 ns                         ; tmp_c1                             ; PWM_OUT ; CLK        ; --        ; 0            ;
+; Worst-case tpd               ; N/A   ; None          ; 6.000 ns                         ; GATE                               ; PWM_OUT ; --         ; --        ; 0            ;
+; Worst-case th                ; N/A   ; None          ; -0.700 ns                        ; DATA[0]                            ; switch  ; --         ; ENABLE    ; 0            ;
+; Clock Setup: 'CLK'           ; N/A   ; None          ; 36.90 MHz ( period = 27.100 ns ) ; lpm_counter:delaytmp_rtl_2|dffs[1] ; tmp_c1  ; CLK        ; CLK       ; 0            ;
+; Clock Setup: 'PD_CLK_IN'     ; N/A   ; None          ; 55.56 MHz ( period = 18.000 ns ) ; flagtmp                            ; flagtmp ; PD_CLK_IN  ; PD_CLK_IN ; 0            ;
+; Clock Setup: 'ENABLE'        ; N/A   ; None          ; 136.99 MHz ( period = 7.300 ns ) ; mode                               ; mode    ; ENABLE     ; ENABLE    ; 0            ;
+; Total number of failed paths ;       ;               ;                                  ;                                    ;         ;            ;           ; 0            ;
++------------------------------+-------+---------------+----------------------------------+------------------------------------+---------+------------+-----------+--------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                                           ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                              ; Setting            ; From ; To ; Entity Name ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                                         ; EPM7128SLC84-6     ;      ;    ;             ;
+; Timing Models                                                       ; Final              ;      ;    ;             ;
+; Default hold multicycle                                             ; Same as Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains                           ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                              ; Off                ;      ;    ;             ;
+; Cut off feedback from I/O pins                                      ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                                    ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                               ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements                             ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                                    ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                                ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                                       ; Off                ;      ;    ;             ;
+; Number of source nodes to report per destination node               ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                               ; 10                 ;      ;    ;             ;
+; Number of paths to report                                           ; 200                ;      ;    ;             ;
+; Minimum tpd to report                                               ; 0 ns               ;      ;    ;             ;
+; Report Minimum Timing Checks                                        ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                              ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                                          ; Off                ;      ;    ;             ;
+; Perform Multicorner Analysis                                        ; Off                ;      ;    ;             ;
+; Reports the worst-case path for each clock domain and analysis      ; Off                ;      ;    ;             ;
+; Removes common clock path pessimism (CCPP) during slack computation ; Off                ;      ;    ;             ;
+; Output I/O Timing Endpoint                                          ; Near End           ;      ;    ;             ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; ENABLE          ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
+; PD_CLK_IN       ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
+; CLK             ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2 processors           ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'ENABLE'                                                                                                                                                  ;
++-------+----------------------------------+--------+--------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack ; Actual fmax (period)             ; From   ; To     ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-------+----------------------------------+--------+--------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A   ; 136.99 MHz ( period = 7.300 ns ) ; mode   ; mode   ; ENABLE     ; ENABLE   ; None                        ; None                      ; 4.900 ns                ;
+; N/A   ; 147.06 MHz ( period = 6.800 ns ) ; switch ; switch ; ENABLE     ; ENABLE   ; None                        ; None                      ; 4.400 ns                ;
++-------+----------------------------------+--------+--------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'PD_CLK_IN'                                                                                                                                                  ;
++-------+----------------------------------+---------+---------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+; Slack ; Actual fmax (period)             ; From    ; To      ; From Clock ; To Clock  ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-------+----------------------------------+---------+---------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+; N/A   ; 55.56 MHz ( period = 18.000 ns ) ; flagtmp ; flagtmp ; PD_CLK_IN  ; PD_CLK_IN ; None                        ; None                      ; 15.600 ns               ;
++-------+----------------------------------+---------+---------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'CLK'                                                                                                                                                                                                                                                                  ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack                                   ; Actual fmax (period)                                ; From                               ; To                                 ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[5] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[4] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[3] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[2] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 36.90 MHz ( period = 27.100 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[1] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 24.700 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[13] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[12] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[11] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[10] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[9]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[8]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[15] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:ratetmp_rtl_0|dffs[14] ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[7]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[6]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[5]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[4]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[3]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[2]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[1]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; lpm_counter:widetmp_rtl_1|dffs[0]  ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[0] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[6] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; N/A                                     ; 42.74 MHz ( period = 23.400 ns )                    ; lpm_counter:delaytmp_rtl_2|dffs[7] ; tmp_c1                             ; CLK        ; CLK      ; None                        ; None                      ; 21.000 ns               ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                    ;                                    ;            ;          ;                             ;                           ;                         ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++------------------------------------------------------------------------+
+; tsu                                                                    ;
++-------+--------------+------------+---------+---------------+----------+
+; Slack ; Required tsu ; Actual tsu ; From    ; To            ; To Clock ;
++-------+--------------+------------+---------+---------------+----------+
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[0]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[1]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[2]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[3]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[4]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[5]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[6]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsewide[7]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[0] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[1] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[2] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[3] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[4] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[5] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[6] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulsedelay[7] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[8]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[9]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[10] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[11] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[12] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[13] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[14] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; pulserate[15] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[1]   ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[0]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[1]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[2]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[3]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[4]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[5]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[6]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsewide[7]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[0] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[1] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[2] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[3] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[4] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[5] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[6] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulsedelay[7] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[8]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[9]  ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[10] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[11] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[12] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[13] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[14] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; pulserate[15] ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.600 ns   ; RS[0]   ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[7] ; pulsewide[7]  ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[7] ; pulsedelay[7] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[7] ; pulserate[15] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[7] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[7] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[6] ; pulsewide[6]  ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[6] ; pulsedelay[6] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[6] ; pulserate[14] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[6] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[6] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[5] ; pulsewide[5]  ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[5] ; pulsedelay[5] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[5] ; pulserate[13] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[5] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[5] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[4] ; pulsewide[4]  ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[4] ; pulsedelay[4] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[4] ; pulserate[12] ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[4] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.500 ns   ; DATA[4] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[3] ; pulsewide[3]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[3] ; pulsedelay[3] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[3] ; pulserate[11] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[3] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[3] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[2] ; pulsewide[2]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[2] ; pulsedelay[2] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[2] ; pulserate[10] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[2] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[2] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[1] ; pulsewide[1]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[1] ; pulsedelay[1] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[1] ; pulserate[9]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[1] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[1] ; switch        ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[0] ; pulsewide[0]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[0] ; pulsedelay[0] ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[0] ; pulserate[8]  ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[0] ; mode          ; ENABLE   ;
+; N/A   ; None         ; 3.400 ns   ; DATA[0] ; switch        ; ENABLE   ;
++-------+--------------+------------+---------+---------------+----------+
+
+
++-------------------------------------------------------------------+
+; tco                                                               ;
++-------+--------------+------------+--------+---------+------------+
+; Slack ; Required tco ; Actual tco ; From   ; To      ; From Clock ;
++-------+--------------+------------+--------+---------+------------+
+; N/A   ; None         ; 9.400 ns   ; tmp_c1 ; PWM_OUT ; CLK        ;
+; N/A   ; None         ; 4.000 ns   ; switch ; RF_ON   ; ENABLE     ;
++-------+--------------+------------+--------+---------+------------+
+
+
++--------------------------------------------------------------+
+; tpd                                                          ;
++-------+-------------------+-----------------+------+---------+
+; Slack ; Required P2P Time ; Actual P2P Time ; From ; To      ;
++-------+-------------------+-----------------+------+---------+
+; N/A   ; None              ; 6.000 ns        ; GATE ; PWM_OUT ;
++-------+-------------------+-----------------+------+---------+
+
+
++------------------------------------------------------------------------------+
+; th                                                                           ;
++---------------+-------------+-----------+---------+---------------+----------+
+; Minimum Slack ; Required th ; Actual th ; From    ; To            ; To Clock ;
++---------------+-------------+-----------+---------+---------------+----------+
+; N/A           ; None        ; -0.700 ns ; DATA[3] ; pulsewide[3]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[3] ; pulsedelay[3] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[3] ; pulserate[11] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[3] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[3] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[2] ; pulsewide[2]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[2] ; pulsedelay[2] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[2] ; pulserate[10] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[2] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[2] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[1] ; pulsewide[1]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[1] ; pulsedelay[1] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[1] ; pulserate[9]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[1] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[1] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[0] ; pulsewide[0]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[0] ; pulsedelay[0] ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[0] ; pulserate[8]  ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[0] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.700 ns ; DATA[0] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[7] ; pulsewide[7]  ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[7] ; pulsedelay[7] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[7] ; pulserate[15] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[7] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[7] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[6] ; pulsewide[6]  ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[6] ; pulsedelay[6] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[6] ; pulserate[14] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[6] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[6] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[5] ; pulsewide[5]  ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[5] ; pulsedelay[5] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[5] ; pulserate[13] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[5] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[5] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[4] ; pulsewide[4]  ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[4] ; pulsedelay[4] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[4] ; pulserate[12] ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[4] ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.800 ns ; DATA[4] ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[0]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[1]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[2]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[3]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[4]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[5]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[6]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsewide[7]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[0] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[1] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[2] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[3] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[4] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[5] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[6] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulsedelay[7] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[8]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[9]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[10] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[11] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[12] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[13] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[14] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; pulserate[15] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[1]   ; switch        ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[0]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[1]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[2]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[3]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[4]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[5]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[6]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsewide[7]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[0] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[1] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[2] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[3] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[4] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[5] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[6] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulsedelay[7] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[8]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[9]  ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[10] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[11] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[12] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[13] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[14] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; pulserate[15] ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; mode          ; ENABLE   ;
+; N/A           ; None        ; -0.900 ns ; RS[0]   ; switch        ; ENABLE   ;
++---------------+-------------+-----------+---------+---------------+----------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Classic Timing Analyzer
+    Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
+    Info: Processing started: Thu Dec 19 17:11:17 2013
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off pulse_picker_div -c pulse_picker_div
+Info: Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info: Started post-fitting delay annotation
+Info: Delay annotation completed successfully
+Warning: Timing Analysis does not support the analysis of latches as synchronous elements for the currently selected device family
+Warning: Found combinational loop of 1 nodes
+    Warning: Node "delayflag[1]~19"
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "ENABLE" is an undefined clock
+    Info: Assuming node "PD_CLK_IN" is an undefined clock
+    Info: Assuming node "CLK" is an undefined clock
+Info: Clock "ENABLE" has Internal fmax of 136.99 MHz between source register "mode" and destination register "mode" (period= 7.3 ns)
+    Info: + Longest register to register delay is 4.900 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC81; Fanout = 63; REG Node = 'mode'
+        Info: 2: + IC(1.900 ns) + CELL(3.000 ns) = 4.900 ns; Loc. = LC81; Fanout = 63; REG Node = 'mode'
+        Info: Total cell delay = 3.000 ns ( 61.22 % )
+        Info: Total interconnect delay = 1.900 ns ( 38.78 % )
+    Info: - Smallest clock skew is 0.000 ns
+        Info: + Shortest clock path from clock "ENABLE" to destination register is 2.200 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_83; Fanout = 26; CLK Node = 'ENABLE'
+            Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC81; Fanout = 63; REG Node = 'mode'
+            Info: Total cell delay = 2.200 ns ( 100.00 % )
+        Info: - Longest clock path from clock "ENABLE" to source register is 2.200 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_83; Fanout = 26; CLK Node = 'ENABLE'
+            Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC81; Fanout = 63; REG Node = 'mode'
+            Info: Total cell delay = 2.200 ns ( 100.00 % )
+    Info: + Micro clock to output delay of source is 1.400 ns
+    Info: + Micro setup delay of destination is 1.000 ns
+Info: Clock "PD_CLK_IN" has Internal fmax of 55.56 MHz between source register "flagtmp" and destination register "flagtmp" (period= 18.0 ns)
+    Info: + Longest register to register delay is 15.600 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC39; Fanout = 12; REG Node = 'flagtmp'
+        Info: 2: + IC(1.400 ns) + CELL(4.000 ns) = 5.400 ns; Loc. = LC38; Fanout = 2; COMB Node = 'delayflag[1]~7'
+        Info: 3: + IC(0.000 ns) + CELL(5.400 ns) = 10.800 ns; Loc. = LC35; Fanout = 50; COMB LOOP Node = 'delayflag[1]~19'
+            Info: Loc. = LC35; Node "delayflag[1]~19"
+        Info: 4: + IC(1.800 ns) + CELL(3.000 ns) = 15.600 ns; Loc. = LC39; Fanout = 12; REG Node = 'flagtmp'
+        Info: Total cell delay = 12.400 ns ( 79.49 % )
+        Info: Total interconnect delay = 3.200 ns ( 20.51 % )
+    Info: - Smallest clock skew is 0.000 ns
+        Info: + Shortest clock path from clock "PD_CLK_IN" to destination register is 4.700 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.200 ns) = 0.200 ns; Loc. = PIN_24; Fanout = 1; CLK Node = 'PD_CLK_IN'
+            Info: 2: + IC(1.400 ns) + CELL(3.100 ns) = 4.700 ns; Loc. = LC39; Fanout = 12; REG Node = 'flagtmp'
+            Info: Total cell delay = 3.300 ns ( 70.21 % )
+            Info: Total interconnect delay = 1.400 ns ( 29.79 % )
+        Info: - Longest clock path from clock "PD_CLK_IN" to source register is 4.700 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.200 ns) = 0.200 ns; Loc. = PIN_24; Fanout = 1; CLK Node = 'PD_CLK_IN'
+            Info: 2: + IC(1.400 ns) + CELL(3.100 ns) = 4.700 ns; Loc. = LC39; Fanout = 12; REG Node = 'flagtmp'
+            Info: Total cell delay = 3.300 ns ( 70.21 % )
+            Info: Total interconnect delay = 1.400 ns ( 29.79 % )
+    Info: + Micro clock to output delay of source is 1.400 ns
+    Info: + Micro setup delay of destination is 1.000 ns
+Info: Clock "CLK" has Internal fmax of 36.9 MHz between source register "lpm_counter:delaytmp_rtl_2|dffs[5]" and destination register "lpm_counter:ratetmp_rtl_0|dffs[13]" (period= 27.1 ns)
+    Info: + Longest register to register delay is 24.700 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC45; Fanout = 5; REG Node = 'lpm_counter:delaytmp_rtl_2|dffs[5]'
+        Info: 2: + IC(1.400 ns) + CELL(3.700 ns) = 5.100 ns; Loc. = SEXP38; Fanout = 5; COMB Node = 'LessThan0~26'
+        Info: 3: + IC(0.000 ns) + CELL(4.000 ns) = 9.100 ns; Loc. = LC34; Fanout = 1; COMB Node = 'LessThan0~36'
+        Info: 4: + IC(1.400 ns) + CELL(4.000 ns) = 14.500 ns; Loc. = LC38; Fanout = 2; COMB Node = 'delayflag[1]~7'
+        Info: 5: + IC(0.000 ns) + CELL(5.400 ns) = 19.900 ns; Loc. = LC35; Fanout = 50; COMB LOOP Node = 'delayflag[1]~19'
+            Info: Loc. = LC35; Node "delayflag[1]~19"
+        Info: 6: + IC(1.800 ns) + CELL(3.000 ns) = 24.700 ns; Loc. = LC56; Fanout = 6; REG Node = 'lpm_counter:ratetmp_rtl_0|dffs[13]'
+        Info: Total cell delay = 20.100 ns ( 81.38 % )
+        Info: Total interconnect delay = 4.600 ns ( 18.62 % )
+    Info: - Smallest clock skew is 0.000 ns
+        Info: + Shortest clock path from clock "CLK" to destination register is 2.200 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_2; Fanout = 33; CLK Node = 'CLK'
+            Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC56; Fanout = 6; REG Node = 'lpm_counter:ratetmp_rtl_0|dffs[13]'
+            Info: Total cell delay = 2.200 ns ( 100.00 % )
+        Info: - Longest clock path from clock "CLK" to source register is 2.200 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_2; Fanout = 33; CLK Node = 'CLK'
+            Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC45; Fanout = 5; REG Node = 'lpm_counter:delaytmp_rtl_2|dffs[5]'
+            Info: Total cell delay = 2.200 ns ( 100.00 % )
+    Info: + Micro clock to output delay of source is 1.400 ns
+    Info: + Micro setup delay of destination is 1.000 ns
+Info: tsu for register "pulsewide[0]" (data pin = "RS[1]", clock pin = "ENABLE") is 3.600 ns
+    Info: + Longest pin to register delay is 4.800 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.200 ns) = 0.200 ns; Loc. = PIN_81; Fanout = 27; PIN Node = 'RS[1]'
+        Info: 2: + IC(1.600 ns) + CELL(3.000 ns) = 4.800 ns; Loc. = LC82; Fanout = 1; REG Node = 'pulsewide[0]'
+        Info: Total cell delay = 3.200 ns ( 66.67 % )
+        Info: Total interconnect delay = 1.600 ns ( 33.33 % )
+    Info: + Micro setup delay of destination is 1.000 ns
+    Info: - Shortest clock path from clock "ENABLE" to destination register is 2.200 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_83; Fanout = 26; CLK Node = 'ENABLE'
+        Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC82; Fanout = 1; REG Node = 'pulsewide[0]'
+        Info: Total cell delay = 2.200 ns ( 100.00 % )
+Info: tco from clock "CLK" to destination pin "PWM_OUT" through register "tmp_c1" is 9.400 ns
+    Info: + Longest clock path from clock "CLK" to source register is 2.200 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_2; Fanout = 33; CLK Node = 'CLK'
+        Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC22; Fanout = 5; REG Node = 'tmp_c1'
+        Info: Total cell delay = 2.200 ns ( 100.00 % )
+    Info: + Micro clock to output delay of source is 1.400 ns
+    Info: + Longest register to pin delay is 5.800 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC22; Fanout = 5; REG Node = 'tmp_c1'
+        Info: 2: + IC(1.400 ns) + CELL(4.000 ns) = 5.400 ns; Loc. = LC17; Fanout = 1; COMB Node = 'PWM_OUT~2'
+        Info: 3: + IC(0.000 ns) + CELL(0.400 ns) = 5.800 ns; Loc. = PIN_22; Fanout = 0; PIN Node = 'PWM_OUT'
+        Info: Total cell delay = 4.400 ns ( 75.86 % )
+        Info: Total interconnect delay = 1.400 ns ( 24.14 % )
+Info: Longest tpd from source pin "GATE" to destination pin "PWM_OUT" is 6.000 ns
+    Info: 1: + IC(0.000 ns) + CELL(0.200 ns) = 0.200 ns; Loc. = PIN_37; Fanout = 1; PIN Node = 'GATE'
+    Info: 2: + IC(1.400 ns) + CELL(4.000 ns) = 5.600 ns; Loc. = LC17; Fanout = 1; COMB Node = 'PWM_OUT~2'
+    Info: 3: + IC(0.000 ns) + CELL(0.400 ns) = 6.000 ns; Loc. = PIN_22; Fanout = 0; PIN Node = 'PWM_OUT'
+    Info: Total cell delay = 4.600 ns ( 76.67 % )
+    Info: Total interconnect delay = 1.400 ns ( 23.33 % )
+Info: th for register "pulsewide[3]" (data pin = "DATA[3]", clock pin = "ENABLE") is -0.700 ns
+    Info: + Longest clock path from clock "ENABLE" to destination register is 2.200 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.600 ns) = 1.600 ns; Loc. = PIN_83; Fanout = 26; CLK Node = 'ENABLE'
+        Info: 2: + IC(0.000 ns) + CELL(0.600 ns) = 2.200 ns; Loc. = LC87; Fanout = 2; REG Node = 'pulsewide[3]'
+        Info: Total cell delay = 2.200 ns ( 100.00 % )
+    Info: + Micro hold delay of destination is 1.700 ns
+    Info: - Shortest pin to register delay is 4.600 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.200 ns) = 0.200 ns; Loc. = PIN_28; Fanout = 7; PIN Node = 'DATA[3]'
+        Info: 2: + IC(1.400 ns) + CELL(3.000 ns) = 4.600 ns; Loc. = LC87; Fanout = 2; REG Node = 'pulsewide[3]'
+        Info: Total cell delay = 3.200 ns ( 69.57 % )
+        Info: Total interconnect delay = 1.400 ns ( 30.43 % )
+Info: Quartus II Classic Timing Analyzer was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 130 megabytes
+    Info: Processing ended: Thu Dec 19 17:11:17 2013
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

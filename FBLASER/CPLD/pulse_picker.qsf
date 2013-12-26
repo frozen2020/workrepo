@@ -38,32 +38,11 @@
 
 set_global_assignment -name FAMILY MAX3000A
 set_global_assignment -name DEVICE "EPM3064ATC44-4"
-set_global_assignment -name TOP_LEVEL_ENTITY pulse_picker
+set_global_assignment -name TOP_LEVEL_ENTITY pulse_picker_div
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 9.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:42:43  OCTOBER 28, 2013"
 set_global_assignment -name LAST_QUARTUS_VERSION 9.0
-set_global_assignment -name VHDL_FILE pulse_picker_nondelay.vhd
-set_global_assignment -name VHDL_FILE pulse_picker_div.vhd
-set_location_assignment PIN_35 -to out
-set_location_assignment PIN_44 -to AA
-set_location_assignment PIN_2 -to OO
-set_location_assignment PIN_22 -to WIDTH5
-set_location_assignment PIN_22 -to WIDTH[5]
-set_location_assignment PIN_21 -to WIDTH4
-set_location_assignment PIN_21 -to WIDTH[4]
-set_location_assignment PIN_20 -to WIDTH3
-set_location_assignment PIN_20 -to WIDTH[3]
-set_location_assignment PIN_19 -to WIDTH2
-set_location_assignment PIN_19 -to WIDTH[2]
-set_location_assignment PIN_18 -to WIDTH1
-set_location_assignment PIN_18 -to WIDTH[1]
-set_location_assignment PIN_15 -to WIDTH0
-set_location_assignment PIN_15 -to WIDTH[0]
-set_location_assignment PIN_10 -to Trig
-set_location_assignment PIN_6 -to clk
-set_location_assignment PIN_14 -to LOCK
-set_location_assignment PIN_13 -to GATE
-set_location_assignment PIN_33 -to PD_clk
+set_location_assignment PIN_5 -to GATE
 set_global_assignment -name CUT_OFF_IO_PIN_FEEDBACK ON
 set_global_assignment -name CUT_OFF_CLEAR_AND_PRESET_PATHS ON
 set_global_assignment -name SECURITY_BIT OFF
@@ -116,4 +95,32 @@ set_global_assignment -name START_TIME "0 ns"
 set_global_assignment -name EXCLUDE_TPD_PATHS_LESS_THAN "0 ns"
 set_global_assignment -name NUMBER_OF_SOURCES_PER_DESTINATION_TO_REPORT 10
 set_global_assignment -name CUT_OFF_READ_DURING_WRITE_PATHS OFF
+set_global_assignment -name MISC_FILE "D:/github/workrepo/FBLASER/CPLD/pulse_picker.dpf"
+set_global_assignment -name MAX7000_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_location_assignment PIN_31 -to RF_ON
+set_global_assignment -name VHDL_FILE pulse_picker_div.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE pulse_picker.vwf
+set_global_assignment -name BDF_FILE pulse_picker.bdf
+set_location_assignment PIN_6 -to CLK
+set_location_assignment PIN_25 -to DATA[7]
+set_location_assignment PIN_23 -to DATA[6]
+set_location_assignment PIN_22 -to DATA[5]
+set_location_assignment PIN_21 -to DATA[4]
+set_location_assignment PIN_20 -to DATA[3]
+set_location_assignment PIN_19 -to DATA[2]
+set_location_assignment PIN_18 -to DATA[1]
+set_location_assignment PIN_15 -to DATA[0]
+set_location_assignment PIN_14 -to ENABLE
+set_location_assignment PIN_33 -to PD_CLK_IN
+set_location_assignment PIN_44 -to PWM_OUT
+set_location_assignment PIN_12 -to RS[0]
+set_global_assignment -name FMAX_REQUIREMENT "80 MHz"
+set_global_assignment -name FMAX_REQUIREMENT "80 MHz" -section_id clock
+set_instance_assignment -name CLOCK_SETTINGS clock -to PD_CLK_IN
+set_instance_assignment -name CLOCK_SETTINGS clock -to CLK
+set_instance_assignment -name CLOCK_SETTINGS clock -to ENABLE
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+set_location_assignment PIN_13 -to RS[1]
+set_instance_assignment -name POWER_UP_LEVEL HIGH -to pulserate[11]
+set_instance_assignment -name POWER_UP_LEVEL HIGH -to pulsewide[0]

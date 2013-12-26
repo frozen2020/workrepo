@@ -1,5 +1,5 @@
 Assembler report for pulse_picker
-Thu Oct 31 17:02:28 2013
+Wed Dec 25 17:17:07 2013
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -10,7 +10,7 @@ Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: F:/dual FBlaser driver 单片机程序/CPLD/pulse_picker.pof
+  5. Assembler Device Options: D:/github/workrepo/FBLASER/CPLD/pulse_picker.pof
   6. Assembler Messages
 
 
@@ -37,9 +37,9 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Oct 31 17:02:28 2013 ;
+; Assembler Status      ; Successful - Wed Dec 25 17:17:07 2013 ;
 ; Revision Name         ; pulse_picker                          ;
-; Top-level Entity Name ; pulse_picker                          ;
+; Top-level Entity Name ; pulse_picker_div                      ;
 ; Family                ; MAX3000A                              ;
 ; Device                ; EPM3064ATC44-4                        ;
 +-----------------------+---------------------------------------+
@@ -72,24 +72,24 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------+----------+---------------+
 
 
-+---------------------------------------------------------+
-; Assembler Generated Files                               ;
-+---------------------------------------------------------+
-; File Name                                               ;
-+---------------------------------------------------------+
-; F:/dual FBlaser driver 单片机程序/CPLD/pulse_picker.pof ;
-+---------------------------------------------------------+
++--------------------------------------------------+
+; Assembler Generated Files                        ;
++--------------------------------------------------+
+; File Name                                        ;
++--------------------------------------------------+
+; D:/github/workrepo/FBLASER/CPLD/pulse_picker.pof ;
++--------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------+
-; Assembler Device Options: F:/dual FBlaser driver 单片机程序/CPLD/pulse_picker.pof ;
-+----------------+------------------------------------------------------------------+
-; Option         ; Setting                                                          ;
-+----------------+------------------------------------------------------------------+
-; Device         ; EPM3064ATC44-4                                                   ;
-; JTAG usercode  ; 0x00000000                                                       ;
-; Checksum       ; 0x000E1F0D                                                       ;
-+----------------+------------------------------------------------------------------+
++----------------------------------------------------------------------------+
+; Assembler Device Options: D:/github/workrepo/FBLASER/CPLD/pulse_picker.pof ;
++----------------+-----------------------------------------------------------+
+; Option         ; Setting                                                   ;
++----------------+-----------------------------------------------------------+
+; Device         ; EPM3064ATC44-4                                            ;
+; JTAG usercode  ; 0x00000000                                                ;
+; Checksum       ; 0x000C7A6B                                                ;
++----------------+-----------------------------------------------------------+
 
 
 +--------------------+
@@ -98,12 +98,12 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II Assembler
     Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
-    Info: Processing started: Thu Oct 31 17:02:26 2013
+    Info: Processing started: Wed Dec 25 17:17:05 2013
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off pulse_picker -c pulse_picker
 Info: Assembler is generating device programming files
 Info: Quartus II Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 144 megabytes
-    Info: Processing ended: Thu Oct 31 17:02:28 2013
+    Info: Processing ended: Wed Dec 25 17:17:07 2013
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 

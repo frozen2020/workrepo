@@ -811,7 +811,7 @@ setpdf:       _Nop();
 setdf:       _Nop();
            }
 //////////////////////////////////总查询（电流、温度、功率）/////////////////////////////////
-      else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&((inbuf[2]=='A')&&(inbuf[3]=='T'))&&(inbuf[4]=='?'))
+      else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&((inbuf[2]=='A')&&(inbuf[3]=='T'))&&(inbuf[4]=='E')&&(inbuf[5]=='?'))
  {
               uint ky;
 //              TEC_Temp();
@@ -2490,7 +2490,7 @@ void main()
 
 
 
-   if(TEC_meds_tempture1>280)
+   if(TEC_meds_tempture1>350)
 
    {
 
@@ -2512,7 +2512,7 @@ void main()
      chn_disp (inbuf1,7,0x86);
    }
 
-   if(TEC_meds_tempture2>280)
+   if(TEC_meds_tempture2>350)
 
    {
 

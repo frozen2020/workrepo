@@ -2,13 +2,23 @@
 Timing Analyzer Summary
 --------------------------------------------------------------------------------------
 
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 1.600 ns
+From           : RS[0]
+To             : mode
+From Clock     : --
+To Clock       : ENABLE
+Failed Paths   : 0
+
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 7.600 ns
-From           : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5]
-To             : AA
-From Clock     : PD_clk
+Actual Time    : 7.700 ns
+From           : tmp_c1
+To             : PWM_OUT
+From Clock     : CLK
 To Clock       : --
 Failed Paths   : 0
 
@@ -16,20 +26,80 @@ Type           : Worst-case tpd
 Slack          : N/A
 Required Time  : None
 Actual Time    : 4.500 ns
-From           : clk
-To             : out
+From           : GATE
+To             : PWM_OUT
 From Clock     : --
 To Clock       : --
 Failed Paths   : 0
 
-Type           : Clock Setup: 'PD_clk'
+Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 217.39 MHz ( period = 4.600 ns )
-From           : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[2]
-To             : pulse_picker_nondelay:64|lpm_counter:tmp2_rtl_0|dffs[5]
-From Clock     : PD_clk
-To Clock       : PD_clk
+Actual Time    : 0.600 ns
+From           : DATA[4]
+To             : mode
+From Clock     : --
+To Clock       : ENABLE
+Failed Paths   : 0
+
+Type           : Clock Setup: 'CLK'
+Slack          : -2.400 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : 67.11 MHz ( period = 14.900 ns )
+From           : lpm_counter:delaytmp_rtl_2|dffs[0]
+To             : lpm_counter:ratetmp_rtl_0|dffs[1]
+From Clock     : CLK
+To Clock       : CLK
+Failed Paths   : 164
+
+Type           : Clock Setup: 'PD_CLK_IN'
+Slack          : -0.500 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : 76.92 MHz ( period = 13.000 ns )
+From           : lpm_counter:delaytmp_rtl_2|dffs[0]
+To             : flagtmp
+From Clock     : CLK
+To Clock       : PD_CLK_IN
+Failed Paths   : 7
+
+Type           : Clock Setup: 'ENABLE'
+Slack          : 7.700 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : 208.33 MHz ( period = 4.800 ns )
+From           : mode
+To             : mode
+From Clock     : ENABLE
+To Clock       : ENABLE
+Failed Paths   : 0
+
+Type           : Clock Hold: 'CLK'
+Slack          : 2.400 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : N/A
+From           : flagtmp
+To             : lpm_counter:delaytmp_rtl_2|dffs[0]
+From Clock     : PD_CLK_IN
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Clock Hold: 'ENABLE'
+Slack          : 2.600 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : N/A
+From           : mode
+To             : mode
+From Clock     : ENABLE
+To Clock       : ENABLE
+Failed Paths   : 0
+
+Type           : Clock Hold: 'PD_CLK_IN'
+Slack          : 2.700 ns
+Required Time  : 80.00 MHz ( period = 12.500 ns )
+Actual Time    : N/A
+From           : flagtmp
+To             : flagtmp
+From Clock     : PD_CLK_IN
+To Clock       : PD_CLK_IN
 Failed Paths   : 0
 
 Type           : Total number of failed paths
@@ -40,7 +110,7 @@ From           :
 To             : 
 From Clock     : 
 To Clock       : 
-Failed Paths   : 0
+Failed Paths   : 171
 
 --------------------------------------------------------------------------------------
 

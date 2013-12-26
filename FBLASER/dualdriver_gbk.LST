@@ -1,4 +1,4 @@
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 1   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 1   
 
 
 C51 COMPILER V7.02b, COMPILATION OF MODULE DUALDRIVER_GBK
@@ -62,7 +62,7 @@ stmt level    source
   53          uint   idata Laser_Set_curent2;             //设定放大级激光二极管电流值
   54          uint   idata Laser_Fed_curent1;             //实际种子源激光二极管电流值
   55          uint   idata Laser_Fed_curent2;             //实际放大级激光二极管电流值
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 2   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 2   
 
   56          uint   idata Laser_meds_curent1;            //种子源中间设定电流
   57          uint   idata Laser_meds_curent2;            //放大级中间设定电流 
@@ -126,7 +126,7 @@ stmt level    source
  115          sbit RS=P4^1;                        //LCD选通信号 ，H－date，L－instruction
  116          sbit LIM1=P3^5;                      //激光二极管过流中断信号
  117          sbit LIM2=P2^5;                      //激光二极管过流中断信号
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 3   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 3   
 
  118          //sbit INT1=P3^3;                    //外部中断信号1（备用）
  119          sbit DCLK=P1^7;                      //AD时钟信号
@@ -190,7 +190,7 @@ stmt level    source
  177          void serial_initial()
  178          {
  179   1      
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 4   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 4   
 
  180   1      
  181   1            PCON |= 0x80;             //使能波特率倍速位SMOD
@@ -254,7 +254,7 @@ stmt level    source
  239   1      /**************************************************/
  240   1           DA_Convert(2,1273);                          //设定种子源TEC温度为25度
  241   1           _Nop();
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 5   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 5   
 
  242   1           DA_Convert(2,1273);
  243   1           _Nop();
@@ -318,7 +318,7 @@ stmt level    source
  301   1      //   TMPGD2=1;
  302   1           LIM2=1;
  303   1      /*************************************************/
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 6   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 6   
 
  304   1      
  305   1      /*    Power_parameter[0]='P';
@@ -382,7 +382,7 @@ stmt level    source
  363          
  364          
  365          /***************************清DDRAM***************************/
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 7   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 7   
 
  366          void clrram (void)
  367          {
@@ -446,7 +446,7 @@ stmt level    source
  425          /************************************************************/
  426          
  427          /****************************操作指令执行***********************/
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 8   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 8   
 
  428          void command()
  429          {
@@ -510,7 +510,7 @@ stmt level    source
  487   1      
  488   1      ///////////////////////////////////设定初始电流////////////////////////////////////////////
  489   1             else if((inbuf[0]=='I')&&(inbuf[1]=='N')&&(inbuf[2]=='I')&&(inbuf[3]=='C')&&(inbuf[4]=='='))
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 9   
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 9   
 
  490   1      
  491   1                 {
@@ -574,7 +574,7 @@ stmt level    source
  549   2                    else                                                    
  550   2                    {
  551   3                        setfault();
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 10  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 10  
 
  552   3                        goto setief;
  553   3                    }
@@ -638,7 +638,7 @@ stmt level    source
  611   2                    if(inbuf[5]==0x0d)
  612   2                    {
  613   3                       tmp_tec=(inbuf[3]-48)*10+(inbuf[4]-48);
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 11  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 11  
 
  614   3      
  615   3      
@@ -702,7 +702,7 @@ stmt level    source
  673   2                    else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
  674   2                    {
  675   3                       pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 12  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 12  
 
  676   3      
  677   3                    }
@@ -766,7 +766,7 @@ stmt level    source
  734   1               {
  735   2                     uint pwm_pulserate;
  736   2                   
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 13  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 13  
 
  737   2                     if(inbuf[6]==0x0d)                                        //格式为DELY=N
  738   2                    {
@@ -830,7 +830,7 @@ stmt level    source
  796   4                         setsucced();
  797   4                        }
  798   3                       else if(!LIM2)
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 14  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 14  
 
  799   3                       {
  800   4                         Set_laser_current(0,50);
@@ -847,7 +847,8 @@ stmt level    source
  811   2      setdf:       _Nop();
  812   2                 }
  813   1      //////////////////////////////////总查询（电流、温度、功率）/////////////////////////////////
- 814   1            else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&((inbuf[2]=='A')&&(inbuf[3]=='T'))&&(inbuf[4]=='?'))
+ 814   1            else if((inbuf[0]=='S')&&(inbuf[1]=='T')&&((inbuf[2]=='A')&&(inbuf[3]=='T'))&&(inbuf[4]=='E')&&(inbu
+             -f[5]=='?'))
  815   1       {
  816   2                    uint ky;
  817   2      //              TEC_Temp();
@@ -893,9 +894,9 @@ stmt level    source
  857   3                      send_string_com(inbuf,7);
  858   3                    }else if (Laser_Fed_curent2<100)
  859   2                    {
- 860   3                      inbuf[4]=(uchar)(Laser_Fed_curent2 /10)+48;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 15  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 15  
 
+ 860   3                      inbuf[4]=(uchar)(Laser_Fed_curent2 /10)+48;
  861   3                      inbuf[5]=(uchar)(Laser_Fed_curent2 %10)+48;
  862   3                      inbuf[6]=0x0d;
  863   3                      inbuf[7]=0x0a;
@@ -957,9 +958,9 @@ stmt level    source
  919   3                      inbuf[5]=0x0d;
  920   3                      inbuf[6]=0x0a;
  921   3                      send_string_com(inbuf,7);
- 922   3                    }else if (Laser_Fed_power2<1000)
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 16  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 16  
 
+ 922   3                    }else if (Laser_Fed_power2<1000)
  923   2                    {
  924   3                      inbuf[3]=(uchar)(Laser_Fed_power2 /100)+48;
  925   3                      inbuf[4]=(uchar)((Laser_Fed_power2 /10)%10)+48;
@@ -1021,9 +1022,9 @@ stmt level    source
  981   3                    }
  982   2      
  983   2                    else
- 984   2                    {
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 17  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 17  
 
+ 984   2                    {
  985   3                      inbuf[0]='T';
  986   3                      inbuf[1]='1';
  987   3                      inbuf[2]='N';
@@ -1085,9 +1086,9 @@ stmt level    source
 1043   4                      inbuf[6]=(uchar)(Laser_Fed_curent1 %10)+48;
 1044   4                      inbuf[7]=0x0d;
 1045   4                      inbuf[8]=0x0a;
-1046   4                      send_string_com(inbuf,9);
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 18  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 18  
 
+1046   4                      send_string_com(inbuf,9);
 1047   4                    }
 1048   3                    else
 1049   3                      setfault();
@@ -1149,9 +1150,9 @@ stmt level    source
 1105   4                      inbuf[5]=0x0d;
 1106   4                      inbuf[6]=0x0a;
 1107   4                      send_string_com(inbuf,7);
-1108   4                    }else if (Laser_Fed_power1<1000)
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 19  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 19  
 
+1108   4                    }else if (Laser_Fed_power1<1000)
 1109   3                    {
 1110   4                      inbuf[3]=(uchar)(Laser_Fed_power1 /100)+48;
 1111   4                      inbuf[4]=(uchar)((Laser_Fed_power1 /10)%10)+48;
@@ -1213,9 +1214,9 @@ stmt level    source
 1167   4                      inbuf[4]  =(ky/10)%10+48;
 1168   4                      inbuf[5]  ='.';
 1169   4                      inbuf[6]  =ky%10+48;
-1170   4                      inbuf[7] =0x0d;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 20  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 20  
 
+1170   4                      inbuf[7] =0x0d;
 1171   4                      inbuf[8] =0x0a;
 1172   4                      send_string_com(inbuf,9);
 1173   4                    }
@@ -1277,9 +1278,9 @@ stmt level    source
 1229   2                    send_string_com(inbuf,12);
 1230   2      
 1231   2      
-1232   2                 }
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 21  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 21  
 
+1232   2                 }
 1233   1      
 1234   1      ///////////////////////////////////查询当前TEC两端的电压//////////////////////////
 1235   1            else if((inbuf[0]=='V')&&(inbuf[1]=='O')&&(inbuf[2]=='T')&&(inbuf[3]=='C')&&(inbuf[4]=='?'))
@@ -1341,9 +1342,9 @@ stmt level    source
 1291   3                      inbuf[6]='N';
 1292   3                      inbuf[7]='O';
 1293   3                      inbuf[8]=0x0d;
-1294   3                      inbuf[9]=0x0a;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 22  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 22  
 
+1294   3                      inbuf[9]=0x0a;
 1295   3                      send_string_com(inbuf,10);
 1296   3                    }
 1297   2      
@@ -1405,9 +1406,9 @@ stmt level    source
 1353   3                    }
 1354   2      
 1355   2                    if (SHDN2)
-1356   2                    {
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 23  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 23  
 
+1356   2                    {
 1357   3                      inbuf[0]='T';
 1358   3                      inbuf[1]='E';
 1359   3                      inbuf[2]='C';
@@ -1469,9 +1470,9 @@ stmt level    source
 1415   3                      inbuf[8]=0x0a;
 1416   3                      send_string_com(inbuf,9);
 1417   3                    }
-1418   2                 }
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 24  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 24  
 
+1418   2                 }
 1419   1      
 1420   1      
 1421   1      /////////////////////////////////////系统工作模式切换////////////////////////////////////////////
@@ -1533,9 +1534,9 @@ stmt level    source
 1475            chn_disp (Diode_parameter1,6,0x84);
 1476          
 1477           }
-1478          //*********************************************************************
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 25  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 25  
 
+1478          //*********************************************************************
 1479          
 1480           delayR(50);
 1481          
@@ -1597,9 +1598,9 @@ stmt level    source
 1537   1            { Diode_parameter1[0]=Laser_Fed_curent1+48;
 1538   2              Diode_parameter1[1]=0x6d;
 1539   2              Diode_parameter1[2]=0x41;
-1540   2              Diode_parameter1[3]=0x20;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 26  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 26  
 
+1540   2              Diode_parameter1[3]=0x20;
 1541   2              Diode_parameter1[4]=0x20;
 1542   2      
 1543   2            } else if(Laser_Fed_curent1<100)
@@ -1661,9 +1662,9 @@ stmt level    source
 1599   2      
 1600   2            AD_code=AD_Convert(4);                  //放大级
 1601   2            AD_inbuf[9]= AD_code+AD_inbuf[9];
-1602   2            k--;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 27  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 27  
 
+1602   2            k--;
 1603   2          }while(k);
 1604   1      
 1605   1      
@@ -1725,9 +1726,9 @@ stmt level    source
 1661   2      
 1662   2            } else if(Laser_Fed_power2<100)
 1663   1      
-1664   1            { Power_parameter2[0]=Laser_Fed_power2/10+48;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 28  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 28  
 
+1664   1            { Power_parameter2[0]=Laser_Fed_power2/10+48;
 1665   2              Power_parameter2[1]=Laser_Fed_power2 %10+48;
 1666   2              Power_parameter2[2]=0x6d;
 1667   2              Power_parameter2[3]=0x77;
@@ -1789,9 +1790,9 @@ stmt level    source
 1723   1      
 1724   1           TEC_parameter2[0]=tx2 /100+48;
 1725   1           TEC_parameter2[1]=(tx2 /10)%10+48;
-1726   1           TEC_parameter2[2]=0x2e;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 29  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 29  
 
+1726   1           TEC_parameter2[2]=0x2e;
 1727   1           TEC_parameter2[3]=tx2 %10+48;
 1728   1      
 1729   1      
@@ -1853,9 +1854,9 @@ stmt level    source
 1785   1           PDiode_V1=(PDiode_V1*5)/2;
 1786   1           PDiode_V2=(PDiode_V2*5)/2;
 1787   1          return;
-1788   1      }
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 30  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 30  
 
+1788   1      }
 1789          /**************************************************************************/
 1790          
 1791          
@@ -1917,9 +1918,9 @@ stmt level    source
 1847   3                _Nop();
 1848   3                DA_Convert(0,temp_p);
 1849   3           }
-1850   2      
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 31  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 31  
 
+1850   2      
 1851   2           Laser_Set_power2=power;
 1852   2         }
 1853   1      
@@ -1981,9 +1982,9 @@ stmt level    source
 1909   3             }
 1910   2      
 1911   2             _Nop();
-1912   2          }
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 32  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 32  
 
+1912   2          }
 1913   1      
 1914   1      
 1915   1      
@@ -2045,9 +2046,9 @@ stmt level    source
 1971   1           chn_disp (tab6,6,0x80);
 1972   1           delayR(500);
 1973   1           chn_disp (Diode_parameter,6,0x83);
-1974   1           delayR(500);
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 33  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 33  
 
+1974   1           delayR(500);
 1975   1           chn_disp (tab7,4,0x90);
 1976   1           delayR(500);
 1977   1           chn_disp (TEC_parameter,4,0x92);
@@ -2109,9 +2110,9 @@ stmt level    source
 2033          {
 2034   1         uchar i,Dath,Datl,temp,Contbit;
 2035   1         uint Dat_ad;
-2036   1         Dath=0;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 34  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 34  
 
+2036   1         Dath=0;
 2037   1         Datl=0;
 2038   1         temp=0;
 2039   1         Dat_ad=0;
@@ -2173,9 +2174,9 @@ stmt level    source
 2095   2            Datl=Datl<<(7-i);
 2096   2            temp=temp|Datl;
 2097   2            _Nop();
-2098   2      
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 35  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 35  
 
+2098   2      
 2099   2          }
 2100   1      
 2101   1           Datl=temp;
@@ -2237,9 +2238,9 @@ stmt level    source
 2154   2      
 2155   2         }
 2156   1      
-2157   1         LDAC=0;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 36  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 36  
 
+2157   1         LDAC=0;
 2158   1         _Nop();
 2159   1         CSDA=1;                             //片选无效
 2160   1         Dcode=0;
@@ -2301,9 +2302,9 @@ stmt level    source
 2216   1       return;
 2217   1      
 2218   1      }
-2219          
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 37  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 37  
 
+2219          
 2220          
 2221          
 2222          /*********以下是长延时程序***********************************************/
@@ -2365,9 +2366,9 @@ stmt level    source
 2278   1      
 2279   1         if(RI)
 2280   1         {
-2281   2              RI=0;
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 38  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 38  
 
+2281   2              RI=0;
 2282   2      
 2283   2              if (SBUF==0x0A)
 2284   2              {
@@ -2429,9 +2430,9 @@ stmt level    source
 2340   1        return;
 2341   1      }
 2342          /*************************************************************/
-2343          
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 39  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 39  
 
+2343          
 2344          
 2345          
 2346          
@@ -2493,9 +2494,9 @@ stmt level    source
 2402   2        DA_Convert(3,25);
 2403   2      
 2404   2        DA_Convert(0,25);                          // 放大级
-2405   2         _Nop();
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 40  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 40  
 
+2405   2         _Nop();
 2406   2        DA_Convert(0,25);
 2407   2       }
 2408   1      //////////////////////////////////////////////////////////////////////////////////////////////
@@ -2557,9 +2558,9 @@ stmt level    source
 2464   3      
 2465   3      
 2466   3      /***************************检查按键**************************************/
-2467   3      
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 41  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 41  
 
+2467   3      
 2468   3       // Key_Button();  tang
 2469   3      
 2470   3      
@@ -2585,7 +2586,7 @@ stmt level    source
 2490   3      
 2491   3      
 2492   3      
-2493   3         if(TEC_meds_tempture1>280)
+2493   3         if(TEC_meds_tempture1>350)
 2494   3      
 2495   3         {
 2496   4      
@@ -2607,7 +2608,7 @@ stmt level    source
 2512   4           chn_disp (inbuf1,7,0x86);
 2513   4         }
 2514   3      
-2515   3         if(TEC_meds_tempture2>280)
+2515   3         if(TEC_meds_tempture2>350)
 2516   3      
 2517   3         {
 2518   4      
@@ -2621,9 +2622,9 @@ stmt level    source
 2526   4           {
 2527   5           Set_laser_current(0,30);
 2528   5           Set_laser_current(3,30);
-2529   5           }
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 42  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 42  
 
+2529   5           }
 2530   4           SHDN1=0;
 2531   4           
 2532   4           SHDN2=0;
@@ -2685,9 +2686,9 @@ stmt level    source
 2588   3           if(CONT_MOD)
 2589   3           {
 2590   3              chn_disp (tab14,6,0x87);
-2591   3              delayR(50);
-C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/09/2013 14:34:11 PAGE 43  
+C51 COMPILER V7.02b   DUALDRIVER_GBK                                                       12/10/2013 13:33:11 PAGE 43  
 
+2591   3              delayR(50);
 2592   3              chn_disp (tab14,6,0x97);
 2593   3            }
 2594   3           else
@@ -2714,7 +2715,7 @@ stmt level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   8640    ----
+   CODE SIZE        =   8649    ----
    CONSTANT SIZE    =     46    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
