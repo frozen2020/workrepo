@@ -1,5 +1,5 @@
 Analysis & Synthesis report for pulse_picker
-Fri Dec 27 16:47:57 2013
+Fri Dec 27 17:32:09 2013
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -36,7 +36,7 @@ applicable agreement for further details.
 +------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                           ;
 +-----------------------------+------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Fri Dec 27 16:47:57 2013        ;
+; Analysis & Synthesis Status ; Failed - Fri Dec 27 17:32:09 2013        ;
 ; Quartus II Version          ; 9.0 Build 132 02/25/2009 SJ Full Version ;
 ; Revision Name               ; pulse_picker                             ;
 ; Top-level Entity Name       ; pulse_picker_div                         ;
@@ -99,11 +99,13 @@ applicable agreement for further details.
 +----------------------------------------------------------------+------------------+---------------+
 
 
-+-----------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                        ;
-+----------------------------------+-----------------+-----------+------------------------------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type ; File Name with Absolute Path ;
-+----------------------------------+-----------------+-----------+------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                      ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                         ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------+
+; pulse_picker_div.vhd             ; yes             ; User VHDL File  ; D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------+
 
 
 +-------------------------------+
@@ -112,17 +114,26 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
-    Info: Processing started: Fri Dec 27 16:47:56 2013
+    Info: Processing started: Fri Dec 27 17:32:08 2013
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off pulse_picker -c pulse_picker
 Info: Found 2 design units, including 1 entities, in source file pulse_picker_div.vhd
     Info: Found design unit 1: pulse_picker_div-a
     Info: Found entity 1: pulse_picker_div
 Info: Found 1 design units, including 1 entities, in source file pulse_picker.bdf
     Info: Found entity 1: pulse_picker
-Error (10482): VHDL error at pulse_picker_div.vhd(110): object "expression" is used but not declared File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 110
-Error: Quartus II Analysis & Synthesis was unsuccessful. 1 error, 0 warnings
+Info: Elaborating entity "pulse_picker_div" for the top level hierarchy
+Error (10821): HDL error at pulse_picker_div.vhd(116): can't infer register for "delayflag[0]" because its behavior does not match any supported register model File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 116
+Error (10820): Netlist error at pulse_picker_div.vhd(115): can't infer register for delayflag[0] because its behavior depends on the edges of multiple distinct clocks File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 115
+Info (10041): Inferred latch for "delayflag[0]" at pulse_picker_div.vhd(101)
+Error (10821): HDL error at pulse_picker_div.vhd(116): can't infer register for "delayflag[1]" because its behavior does not match any supported register model File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 116
+Error (10820): Netlist error at pulse_picker_div.vhd(115): can't infer register for delayflag[1] because its behavior depends on the edges of multiple distinct clocks File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 115
+Info (10041): Inferred latch for "delayflag[1]" at pulse_picker_div.vhd(101)
+Error (10822): HDL error at pulse_picker_div.vhd(106): couldn't implement registers for assignments on this clock edge File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 106
+Error (10822): HDL error at pulse_picker_div.vhd(115): couldn't implement registers for assignments on this clock edge File: D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd Line: 115
+Error: Can't elaborate top-level user hierarchy
+Error: Quartus II Analysis & Synthesis was unsuccessful. 7 errors, 0 warnings
     Error: Peak virtual memory: 183 megabytes
-    Error: Processing ended: Fri Dec 27 16:47:57 2013
+    Error: Processing ended: Fri Dec 27 17:32:09 2013
     Error: Elapsed time: 00:00:01
     Error: Total CPU time (on all processors): 00:00:01
 

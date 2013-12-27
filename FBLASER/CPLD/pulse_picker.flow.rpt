@@ -1,5 +1,5 @@
 Flow report for pulse_picker
-Fri Dec 27 16:47:57 2013
+Fri Dec 27 17:32:09 2013
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------+
 ; Flow Summary                                                       ;
 +-------------------------+------------------------------------------+
-; Flow Status             ; Flow Failed - Fri Dec 27 16:47:57 2013   ;
+; Flow Status             ; Flow Failed - Fri Dec 27 17:32:09 2013   ;
 ; Quartus II Version      ; 9.0 Build 132 02/25/2009 SJ Full Version ;
 ; Revision Name           ; pulse_picker                             ;
 ; Top-level Entity Name   ; pulse_picker_div                         ;
@@ -54,7 +54,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/27/2013 16:47:56 ;
+; Start date & time ; 12/27/2013 17:32:09 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; pulse_picker        ;
 +-------------------+---------------------+
@@ -70,7 +70,7 @@ applicable agreement for further details.
 ; AUTO_GLOBAL_CLOCK               ; Off                                              ; On            ; --          ; --                   ;
 ; AUTO_IMPLEMENT_IN_ROM           ; On                                               ; Off           ; --          ; --                   ;
 ; AUTO_PACKED_REGISTERS           ; Minimize Area                                    ; Off           ; --          ; --                   ;
-; COMPILER_SIGNATURE_ID           ; 255421807100945.138813407600624                  ; --            ; --          ; --                   ;
+; COMPILER_SIGNATURE_ID           ; 255421807100945.138813672904300                  ; --            ; --          ; --                   ;
 ; CUT_OFF_READ_DURING_WRITE_PATHS ; Off                                              ; On            ; --          ; --                   ;
 ; EDA_INPUT_GND_NAME              ; Gnd                                              ; --            ; --          ; eda_design_synthesis ;
 ; EDA_INPUT_VCC_NAME              ; Vcc                                              ; --            ; --          ; eda_design_synthesis ;

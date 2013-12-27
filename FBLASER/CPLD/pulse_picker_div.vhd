@@ -40,12 +40,13 @@ ARCHITECTURE a OF pulse_picker_div IS
 
     SIGNAL  pulsedelay    : STD_LOGIC_VECTOR(3 downto 0):="0001";     -- TTL延时
     SIGNAL  delaytmp  : STD_LOGIC_VECTOR(3 downto 0);      --TTL延迟触发计数
-    SIGNAL  delayflag   : STD_LOGIC;      -- TTL延迟标志，0为未检测到光电脉冲，1为正在输出PWM。
-    SIGNAL  delayflag2 :    STD_LOGIC; --0为等待触发，1为开始计时
+--    SIGNAL  delayflag   : STD_LOGIC;      -- TTL延迟标志，0为未检测到光电脉冲，1为正在输出PWM。
+--    SIGNAL  delayflag2 :    STD_LOGIC; --0为等待触发，1为开始计时
+    SIGNAL  delayflag :    STD_LOGIC_VECTOR(1 downto 0); --00为等待触发，01为开始计时,10为正在输出。
     SIGNAL  mode   : STD_LOGIC;    --0自发生，1跟随
     SIGNAL  switch : STD_LOGIC;    --0关，1开
     SIGNAL  pwmflag :STD_LOGIC;    --1为开始计数占空比。
-
+    -- SIGNAL  CLK_tmp :STD_LOGIC;
 BEGIN
 
 
@@ -96,51 +97,30 @@ END PROCESS;
 -- END PROCESS;
 
 
-PROCESS(PD_CLK_IN,mode,delayflag)
-  BEGIN
-      if (mode='1') then
-        if (delayflag='0') then
-          if(PD_CLK_IN'event and PD_CLK_IN ='1')then
-            delayflag2<='1';
-          end if;
-        end if ;
-       else
-		delayflag2<='0';
-      end if;
-      -- if expression then
-      --      delayflag2<='0';
-      -- end if ;
-END PROCESS;
 
-PROCESS(CLK_tmp,GATE,mode,pulsedelay,delayflag2,delaytmp)
+PROCESS(PD_CLK_IN,CLK,mode,delayflag)
   BEGIN
-   
-      if (mode='1') then
-        if (delayflag2='1' and delayflag='0') then
-          if(CLK'event and CLK ='1') then
-            delaytmp<=delaytmp+1;
-          end if;
+    -- if CLK'event and CLK ='1' then
+    --   CLK_tmp='1';
+    -- end if ;
+    if(PD_CLK_IN'event and PD_CLK_IN ='1')then
+      if (mode='1'and delayflag="00") then
+          delayflag<="01";
+      end if;
+    end if;
+    -- else
+    -- delayflag2<='0';
+    -- delayflag<='0';
+    -- delaytmp<="0000";
+if(CLK'event and CLK ='1') then
+   if (delayflag="01") then
+      delaytmp<=delaytmp+1;
           if (delaytmp>=pulsedelay) then
-              delayflag<='1';
+              delayflag<="10";
               delaytmp<="0000";
           end if ;
-        end if;
-        -- if (delayflag="10") then
-        --   if(CLK'event and CLK ='1') then
-        --     ratetmp<=ratetmp+1;
-        --     widetmp<=widetmp+1;
-        --   end if;
-        -- end if;
-      else
-          delayflag<='0';
-          delaytmp<="0000";
-      END IF;
-END PROCESS;
-
-PROCESS(CLK_tmp,GATE,mode,pulsedelay,delayflag)
-  BEGIN
-    if (delayflag='1' or mode='0') then
-        if(CLK'event and CLK ='1') then
+    end if;
+    if (delayflag="10" or mode='0') then
           if (ratetmp="0000000000000") then
             tmp_c1<='1';
             pwmflag<='1';
@@ -149,7 +129,7 @@ PROCESS(CLK_tmp,GATE,mode,pulsedelay,delayflag)
           if (ratetmp>=pulserate) then
           ratetmp<="0000000000000";
             if (mode='1') then
-            delayflag<='0';
+            delayflag<="00";
             end if;
           end if; 
           if(pwmflag='1') then
