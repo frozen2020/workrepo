@@ -118,9 +118,7 @@ sbit LIM2=P2^5;                      //激光二极管过流中断信号
 //sbit INT1=P3^3;                    //外部中断信号1（备用）
 sbit DCLK=P1^7;                      //AD时钟信号
 sbit ADIN=P1^5;                      //AD串行数据输入
-sbit CSAD=P2^4;                      //AD选通信号，L－选通
-sbit LCD_BUSY=P0^7;
-
+sbit CSAD=P2^4;                      //AD选通信号，L－选通 
 
 uint AD_Convert(uchar Channel);      //AD转换
 void DA_Convert(uchar Channel, uint Dcode);      //DA转换
@@ -332,97 +330,6 @@ void stat_initial()
 /***************************************************************/
 
 
-/**************************LCD初始化***************************/
-void init_lcd (void)
-{
-
-  wr_lcd (comm,0x30);                    //设定工作方式
-  delayR(50000);
-  wr_lcd (comm,0x01);                    //清屏
-  delayR(50000);
-  wr_lcd (comm,0x06);                    //光标的移动方向
-  delayR(50000);
-  wr_lcd (comm,0x0c);                    //开显示
-}
-
-/*************************************************************/
-/**************************显示汉字或字符*********************/
-
-void chn_disp (uchar *chn,uchar num,uchar ADRS)
-{
-    uchar i=0;
-//  wr_lcd (comm,0x30);
-//  delay(5);
-    wr_lcd (comm,ADRS);
-    for (i=0;i<num;i++)
-    wr_lcd (dat,chn[i]);
-    delay(2);
-    return;
-}
-/*************************************************************/
-
-
-/***************************清DDRAM***************************/
-void clrram (void)
-{
-  wr_lcd (comm,0x30);
-  delayR(50000);
-  wr_lcd (comm,0x01);
-}
-/************************************************************/
-
-
-
-/**************************判断忙标志位**********************/
-void chk_busy (void)
-{
-  P0=0xff;
-  _Nop();
-  RS=0;
-  RW=1;
-   _Nop();
-   _Nop();
-   _Nop();
-   _Nop();
-  ENAB=1;
-   _Nop();
-   _Nop();
-   _Nop();
-   _Nop();
-  while(LCD_BUSY==1);
-  _Nop();
-  ENAB=0;
-}
-
-/************************************************************/
-
-/**************************LCD写操作*************************/
-void wr_lcd (uchar dat_comm,uchar content)
-{
-  chk_busy ();
-  if(dat_comm)
-   {
-    RS=1;                 //data
-    RW=0;                 //write
-   }
-  else
-   {
-    RS=0;                //command
-    RW=0;                //write
-   }
-  P0=content;            
-  _Nop();
-  _Nop();
-  _Nop();
-  _Nop();
-  ENAB=1;
-  _Nop();
-  _Nop();
-  _Nop();
-  _Nop();
-  ENAB=0;
-}
-/************************************************************/
 
 /****************************操作指令执行***********************/
 void command()
@@ -685,7 +592,7 @@ settf:       _Nop();
                   setfault();
                   goto setprf;
               }
-                Pwm_Set(1,1,1);
+                Pwm_Set(pwm_pulserate,0,0);
                 setsucced();
 setprf:       _Nop();
 
@@ -694,27 +601,27 @@ setprf:       _Nop();
  //////////////////////////////设定PWM脉宽//////////////////////////////////////////////////
                else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='='))
          {
-               uint pwm_pulserate;
+               uint pwm_pulsewidth;
              
                if(inbuf[6]==0x0d)                                        //格式为PUWI=N
               {
-                 pwm_pulserate=inbuf[5]-48;
+                 pwm_pulsewidth=inbuf[5]-48;
 
 
               }
                else if(inbuf[7]==0x0d)                                   //格式为PUWI=NN
               {
-                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+                 pwm_pulsewidth=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
 
               }
               else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
               {
-                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+                 pwm_pulsewidth=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
               else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
               {
-                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
+                 pwm_pulsewidth=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
               else                                                    //格式为PUWI=NNNN
@@ -722,7 +629,7 @@ setprf:       _Nop();
                   setfault();
                   goto setpwf;
               }
-                  Pwm_Set(1,1,1);
+                  Pwm_Set(0,pwm_pulsewidth,0);
                 setsucced();
 setpwf:       _Nop();
 
@@ -732,17 +639,17 @@ setpwf:       _Nop();
  //////////////////////////////设定PWM延迟时间//////////////////////////////////////////////////
 	else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='='))
          {
-               uint pwm_pulserate;
+               uint pwm_pulsedelay;
              
                if(inbuf[6]==0x0d)                                        //格式为DELY=N
               {
-                 pwm_pulserate=inbuf[5]-48;
+                 pwm_pulsedelay=inbuf[5]-48;
 
 
               }
                else if(inbuf[7]==0x0d)                                   //格式为DELY=NN
               {
-                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+                 pwm_pulsedelay=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
 
               }
               else                                                    //格式为DELY=NNNN
@@ -750,7 +657,7 @@ setpwf:       _Nop();
                   setfault();
                   goto setpdf;
               }
-                Pwm_Set(1,1,1);
+                Pwm_Set(0,0,pwm_pulsedelay);
                 setsucced();
 setpdf:       _Nop();
 
@@ -2116,11 +2023,58 @@ uint AD_Convert(uchar Channel)
 /*****************************外部PWM设置程序*******************************/
 void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
 { 
-  //脉宽1单位为10NS
-  //延迟1单位为10NS
-  //频率1单位为1KHZ
+  uchar pulserate,pulsewidth,pulsedelay
 
-  //
+  if (pwm_pulserate>0)
+  {
+    pulserate=1000000/pwm_pulserate/12.5/32;             //80M晶振
+    if(pulserate>255)
+      pulserate=255;
+    P0=pulserate;
+    RW=1;
+    RS=0;
+    ENAB=1;
+    delayR(20);
+    ENAB=0;
+    RW=0;
+    RS=0;
+  }
+  
+  if (pwm_pulsewidth>0)
+  {
+    pulsewidth=pwm_pulsewidth   ;      //80M晶振
+    if (pulsewidth>15)
+      pulsewidth=15;
+    P0=pulsewidth;
+    RW=0;
+    RS=1;
+    ENAB=1;
+    delayR(20);
+    ENAB=0;
+    RW=0;
+    RS=0;
+  }
+  
+  if (pwm_pulsedelay>0)
+  {
+    pulsedelay= pwm_pulsedelay ;                 //80M晶振
+    if (pulsedelay>15)
+      pulsedelay=15;
+    P0=pulsedelay;
+    RW=1;
+    RS=1;
+    ENAB=1;
+    delayR(20);
+    ENAB=0;
+    RW=0;
+    RS=0;
+    
+
+
+  }
+
+
+
 }
 /**************************************************************************/
 /*****************************外部DA转换程序*******************************/
