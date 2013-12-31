@@ -40,9 +40,11 @@ ARCHITECTURE a OF pulse_picker_div IS
 
     SIGNAL  pulsedelay    : STD_LOGIC_VECTOR(2 downto 0):="001";     -- TTL延时
     SIGNAL  delaytmp  : STD_LOGIC_VECTOR(2 downto 0);      --TTL延迟触发计数
-    SIGNAL  delayflag1   : STD_LOGIC_VECTOR(1 downto 0);      -- TTL延迟标志，0为未检测到光电脉冲，1为正在输出PWM。
+    SIGNAL  delayflag1   : STD_LOGIC;      -- TTL延迟标志，0为未检测到光电脉冲，1为正在输出PWM。
     --SIGNAL  delayflag2 :    STD_LOGIC; --0为等待触发，1为开始计时
-    SIGNAL  delayflag2 :    STD_LOGIC_VECTOR(1 downto 0); --00为等待触发，01为开始计时,10为正在输出。
+    SIGNAL  delayflag2 :    STD_LOGIC; --00为等待触发，01为开始计时,10为正在输出。
+    --SIGNAL  tmpflag1: STD_LOGIC;
+    SIGNAL  tmpflag2: STD_LOGIC;
     SIGNAL  mode   : STD_LOGIC;    --0自发生，1跟随
     --SIGNAL  switch : STD_LOGIC;    --0关，1开
     SIGNAL  pwmflag :STD_LOGIC;    --1为开始计数占空比。
@@ -56,20 +58,20 @@ PROCESS(RS,ENABLE,DATA)
   BEGIN
        if(ENABLE'event and ENABLE ='1')then
             if(RS=0) then
-              if (DATA="11111111") then
-                mode<='1';
+              if (DATA(1 downto 0)="11") then                
+                RF_ON<='1';
            --     ratetmp<=pulserate;
             --    widetmp<=pulsewide;
             --    delaytmp<="0000";
-              elsif (DATA="00000000") then
-                mode<='0';
+              elsif (DATA(1 downto 0)="00") then
+                RF_ON<='0';
             --    ratetmp<=pulserate;
              --   delaytmp<="0000";
             --    widetmp<=pulsewide;
-              elsif (DATA="11110000") then
-              RF_ON<='1';
-              elsif (DATA="00001111") then
-              RF_ON<='0';
+              elsif (DATA(1 downto 0)="10") then
+              mode<='1';
+              elsif (DATA(1 downto 0)="01") then
+              mode<='0';
               end if ; 
              elsif (RS=1) then 
              pulserate(12 downto 5)<=DATA;
@@ -105,15 +107,12 @@ PROCESS(PD_CLK_IN,mode,delayflag2,delayflag1)
     -- end if ;
     if(PD_CLK_IN'event and PD_CLK_IN ='1')then
       --if (mode='1'and delayflag1='0' and delayflag="00") then
-      if (mode='1'and delayflag1="00") then
-          delayflag1<="01";
+      if (mode='1'and delayflag1='0' and tmpflag2='0') then
+          delayflag1<='1';
       --end if;
-      else if (delayflag1="01"and delayflag2="10")  then
-          delayflag1<="10";
+      else if (delayflag1='1'and tmpflag2='1')  then
+          delayflag1<='0';
           end if ;
-      else if(delayflag1="10" and delayflag2="00") then
-          delayflag1<="00";
-        end if;
         end if;
     end if;
     -- else
@@ -125,38 +124,36 @@ PROCESS(CLK,mode,delayflag2,delayflag1)
   BEGIN
   
 if(CLK'event and CLK ='1') then
-   if (delayflag1="01"and delayflag2="00") then
+   if (delayflag1='1'and delayflag2='0' and tmpflag2='0') then
       delaytmp<=delaytmp+1;
           if (delaytmp>=pulsedelay) then
-            delayflag2<="01";
+            delayflag2<='1';
             delaytmp<="000";
           end if ;
     end if;
-    if (delayflag2="01" or mode='0') then
+    if (delayflag2='1' or mode='0') then
           if (ratetmp="0000000000000") then
-            tmp_c1<='1';
+            tmp_c1<='0';
             pwmflag<='1';
           end if ;
           ratetmp<=ratetmp+1; 
           if (ratetmp>=pulserate) then
           ratetmp<="0000000000000";
-            if (mode='1') then
-            delayflag2<="10";
-            end if;
+          delayflag2<='0';
+          tmpflag2<='1';
           end if; 
           if(pwmflag='1') then
           widetmp<=widetmp+1;
             if (widetmp>=pulsewide) then
             widetmp<="000";
-            tmp_c1 <='0';
+            tmp_c1 <='1';
             pwmflag<='0';
             end if;
           end if;
           -- CLK_tmp<='0';
-        
-       else if (delayflag1="10" and delayflag2="10")then
-          delayflag2<="00";
-        end if ;
+         end if ;
+       if (delayflag1='0' and tmpflag2='1')then
+          tmpflag2<='0'; 
        end if;   
 
     end if;
@@ -174,7 +171,7 @@ begin
   if(GATE='1') then
   PWM_OUT <= '1';
   else
-  PWM_OUT <= not tmp_c1;
+  PWM_OUT <= tmp_c1;
   end if;
 end process;
 
