@@ -79,7 +79,9 @@ uint   idata PDiode_V1;                     //监测种子源电流二极管反馈电压
 uint   idata PDiode_V2;                     //监测放大级电流二极管反馈电压
 uint   idata TEC_VO1;                       //种子源TEC两端电压值
 uint   idata TEC_VO2;                       //放大级TEC两端电压值
-
+uint   pwm_pulserate;
+uint   pwm_pulsewidth;
+uint   pwm_pulsedelay;
 
 
 uchar  t=0;                                 // 缓冲区数据段
@@ -564,7 +566,7 @@ settf:       _Nop();
  //////////////////////////////设定PWM频率//////////////////////////////////////////////////
         else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='R')&&(inbuf[3]=='A')&&(inbuf[4]=='='))
          {
-               uint pwm_pulserate;
+               
              
                if(inbuf[6]==0x0d)                                        //格式为PURA=N
               {
@@ -574,7 +576,7 @@ settf:       _Nop();
               }
                else if(inbuf[7]==0x0d)                                   //格式为PURA=NN
               {
-                 pwm_pulserate=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+                 pwm_pulserate=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
 
               }
               else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
@@ -582,11 +584,7 @@ settf:       _Nop();
                  pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
-              else if(inbuf[8]==0x0d)                                    //格式为PURA=NNN
-              {
-                 pwm_pulserate=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-
-              }
+            
               else                                                    //格式为PURA=NNNN
               {
                   setfault();
@@ -601,7 +599,7 @@ setprf:       _Nop();
  //////////////////////////////设定PWM脉宽//////////////////////////////////////////////////
                else if((inbuf[0]=='P')&&(inbuf[1]=='U')&&(inbuf[2]=='W')&&(inbuf[3]=='I')&&(inbuf[4]=='='))
          {
-               uint pwm_pulsewidth;
+              
              
                if(inbuf[6]==0x0d)                                        //格式为PUWI=N
               {
@@ -611,7 +609,7 @@ setprf:       _Nop();
               }
                else if(inbuf[7]==0x0d)                                   //格式为PUWI=NN
               {
-                 pwm_pulsewidth=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+                 pwm_pulsewidth=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
 
               }
               else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
@@ -619,11 +617,7 @@ setprf:       _Nop();
                  pwm_pulsewidth=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
 
               }
-              else if(inbuf[8]==0x0d)                                    //格式为PUWI=NNN
-              {
-                 pwm_pulsewidth=(uint)((inbuf[5]-48)*100+(inbuf[6]-48)*10+(inbuf[7]-48));
-
-              }
+            
               else                                                    //格式为PUWI=NNNN
               {
                   setfault();
@@ -639,7 +633,7 @@ setpwf:       _Nop();
  //////////////////////////////设定PWM延迟时间//////////////////////////////////////////////////
 	else if((inbuf[0]=='D')&&(inbuf[1]=='E')&&(inbuf[2]=='L')&&(inbuf[3]=='Y')&&(inbuf[4]=='='))
          {
-               uint pwm_pulsedelay;
+             
              
                if(inbuf[6]==0x0d)                                        //格式为DELY=N
               {
@@ -649,7 +643,7 @@ setpwf:       _Nop();
               }
                else if(inbuf[7]==0x0d)                                   //格式为DELY=NN
               {
-                 pwm_pulsedelay=(uint)((inbuf[6]-48)*10+(inbuf[5]-48));
+                 pwm_pulsedelay=(uint)((inbuf[5]-48)*10+(inbuf[6]-48));
 
               }
               else                                                    //格式为DELY=NNNN
@@ -919,6 +913,42 @@ setdf:       _Nop();
                 inbuf[5]=0x0a;
                 send_string_com(inbuf,6);
               }
+
+               inbuf[0] ='R';
+                inbuf[1] ='A';
+                inbuf[2] ='T';
+                inbuf[3] ='E';
+                inbuf[4] ='=';
+                inbuf[5]  =pwm_pulserate/10+48;
+                inbuf[6]  =pwm_pulserate%10+48;
+                inbuf[7]  ='K';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
+              
+                inbuf[0] ='W';
+                inbuf[1] ='I';
+                inbuf[2] ='D';
+                inbuf[3] ='T';
+                inbuf[4] ='H';
+                inbuf[5]  ='=';
+                inbuf[6]  =pwm_pulsewidth%10+48;
+                inbuf[7]  ='L';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
+                
+                inbuf[0] ='D';
+                inbuf[1] ='E';
+                inbuf[2] ='L';
+                inbuf[3] ='A';
+                inbuf[4] ='Y';
+                inbuf[5]  ='=';
+                inbuf[6]  =pwm_pulsedelay%10+48;
+                inbuf[7]  ='L';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
 }
 
 
@@ -1056,6 +1086,48 @@ setdf:       _Nop();
                 setfault();
             }
            }
+
+///////////////////////////////////查询PWM情况////////////////////////////////
+      else if((inbuf[0]=='P')&&((inbuf[1]=='W')&&(inbuf[2]=='M'))&&(inbuf[3]=='?'))
+           {
+
+                inbuf[0] ='R';
+                inbuf[1] ='A';
+                inbuf[2] ='T';
+                inbuf[3] ='E';
+                inbuf[4] ='=';
+                inbuf[5]  =pwm_pulserate/10+48;
+                inbuf[6]  =pwm_pulserate%10+48;
+                inbuf[7]  ='K';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
+              
+                inbuf[0] ='W';
+                inbuf[1] ='I';
+                inbuf[2] ='D';
+                inbuf[3] ='T';
+                inbuf[4] ='H';
+                inbuf[5]  ='=';
+                inbuf[6]  =pwm_pulsewidth%10+48;
+                inbuf[7]  ='L';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
+                
+                inbuf[0] ='D';
+                inbuf[1] ='E';
+                inbuf[2] ='L';
+                inbuf[3] ='A';
+                inbuf[4] ='Y';
+                inbuf[5]  ='=';
+                inbuf[6]  =pwm_pulsedelay%10+48;
+                inbuf[7]  ='L';
+                inbuf[8] =0x0d;
+                inbuf[9] =0x0a;
+                send_string_com(inbuf,10);
+           }
+         
 
 ///////////////////////////////////查询当前冷却温度////////////////////////////////
       else if((inbuf[0]=='T')&&((inbuf[1]=='1')||(inbuf[1]=='2'))&&(inbuf[2]=='?'))
@@ -2023,7 +2095,7 @@ uint AD_Convert(uchar Channel)
 /*****************************外部PWM设置程序*******************************/
 void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
 { 
-  uchar pulserate,pulsewidth,pulsedelay
+  uchar pulserate,pulsewidth,pulsedelay;
 
   if (pwm_pulserate>0)
   {
@@ -2032,10 +2104,13 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
       pulserate=255;
     P0=pulserate;
     RW=1;
+
     RS=0;
+    delayR(10);
     ENAB=1;
-    delayR(20);
+    delayR(10);
     ENAB=0;
+    delayR(10);
     RW=0;
     RS=0;
   }
@@ -2048,9 +2123,11 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
     P0=pulsewidth;
     RW=0;
     RS=1;
+    delayR(10);
     ENAB=1;
-    delayR(20);
+    delayR(10);
     ENAB=0;
+    delayR(10);
     RW=0;
     RS=0;
   }
@@ -2063,9 +2140,11 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
     P0=pulsedelay;
     RW=1;
     RS=1;
+    delayR(10);
     ENAB=1;
-    delayR(20);
+    delayR(10);
     ENAB=0;
+    delayR(10);
     RW=0;
     RS=0;
     
@@ -2463,8 +2542,7 @@ void main()
      SHDN2=0;
      send_string_com(inbuf1,9);
      t=0;
-     chn_disp (inbuf1,7,0x86);
-   }
+     }
 
    if(TEC_meds_tempture2>350)
 
@@ -2486,7 +2564,6 @@ void main()
      SHDN2=0;
      send_string_com(inbuf1,9);
      t=0;
-     chn_disp (inbuf1,7,0x96);
    }
 //////////////////////////////////////////////////////////////////////////
 

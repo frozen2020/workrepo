@@ -1,0 +1,36 @@
+<internal_error>
+	<executable>quartus.exe</executable>
+	<sub_system>unknown</sub_system>
+	<file>unknown</file>
+	<line>0</line>
+	<callstack>
+	0x7863b9b4: mfc90 + 0x5b9b4
+	0x100062ac: GCL_AFC + 0x62ac (?OnWndMsg@AFC_NESTED_FRAME@@UAEHIIJPAJ@Z + 0x3c)
+	0x7863b96e: mfc90 + 0x5b96e
+	0x7863a562: mfc90 + 0x5a562
+	0x7863a7ee: mfc90 + 0x5a7ee
+	0x786384e9: mfc90 + 0x584e9
+	0x77d18733: USER32 + 0x8733 (GetDC + 0x6c)
+	0x77d18815: USER32 + 0x8815 (GetDC + 0x14e)
+	0x77d2927a: USER32 + 0x1927a (GetParent + 0x16b)
+	0x77d2f40a: USER32 + 0x1f40a (SendMessageA + 0x48)
+	0x00d0636b: GCL_CUI + 0x636b (?relay_mouse_message_to_view@CUI_TOOLTIP@@IAIXHVCPoint@@@Z + 0x4b)
+	0x7863b96e: mfc90 + 0x5b96e
+	0x7863a562: mfc90 + 0x5a562
+	0x7863a7ee: mfc90 + 0x5a7ee
+	0x786384e9: mfc90 + 0x584e9
+	0x77d18733: USER32 + 0x8733 (GetDC + 0x6c)
+	0x77d18815: USER32 + 0x8815 (GetDC + 0x14e)
+	0x77d2927a: USER32 + 0x1927a (GetParent + 0x16b)
+	0x77d2f40a: USER32 + 0x1f40a (SendMessageA + 0x48)
+	0x0cab65ce: prj_ppl + 0x265ce (prj_ppl_dll_get_template_classes + 0xfdae)
+	0x77d18815: USER32 + 0x8815 (GetDC + 0x14e)
+	</callstack>
+	<error>Current editor: STED, GED, ASE, WED, RPW, STED</error>
+	<date>Thu Jan 02 13:18:47 2014</date>
+	<version>Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version</version>
+	<full_error>Stack Overflow
+Current editor: STED, GED, ASE, WED, RPW, STED
+Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version </full_error>
+</internal_error>
+

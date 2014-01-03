@@ -1,5 +1,35 @@
 <kpt_db name="pulse_picker.map_bb" kpt_version="1.1">
   <key_points_set type="reference" hier_sep="/">
+    <key_point id="1" type="register">
+      <name>pulserate[2]</name>
+      <attributes_list>
+        <attribute name="_KPT_INT_ELIM_STAT_">SA0</attribute>
+      </attributes_list>
+    </key_point>
+    <key_point id="2" type="register">
+      <name>pulserate[0]</name>
+      <attributes_list>
+        <attribute name="_KPT_INT_ELIM_STAT_">SA0</attribute>
+      </attributes_list>
+    </key_point>
+    <key_point id="3" type="register">
+      <name>pulserate[4]</name>
+      <attributes_list>
+        <attribute name="_KPT_INT_ELIM_STAT_">SA0</attribute>
+      </attributes_list>
+    </key_point>
+    <key_point id="4" type="register">
+      <name>pulserate[1]</name>
+      <attributes_list>
+        <attribute name="_KPT_INT_ELIM_STAT_">SA0</attribute>
+      </attributes_list>
+    </key_point>
+    <key_point id="5" type="register">
+      <name>pulserate[3]</name>
+      <attributes_list>
+        <attribute name="_KPT_INT_ELIM_STAT_">SA0</attribute>
+      </attributes_list>
+    </key_point>
   </key_points_set>
   <key_points_set type="transition" hier_sep="|">
   </key_points_set>

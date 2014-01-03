@@ -9,51 +9,33 @@ Project File Date:  12/09/2013
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(415): warning C280: 'CH': unreferenced local variable
-DUALDRIVER_GBK.C(461): warning C280: 'CH': unreferenced local variable
-DUALDRIVER_GBK.C(2043): error C141: syntax error near 'if'
-DUALDRIVER_GBK.C(2045): error C231: 'pulserate': redefinition
-DUALDRIVER_GBK.C(2046): error C141: syntax error near ';'
-DUALDRIVER_GBK.C(2049): error C141: syntax error near 'if'
-DUALDRIVER_GBK.C(2049): error C141: syntax error near '>', expected ')'
-DUALDRIVER_GBK.C(2051): error C202: 'pwm_pulsewidth': undefined identifier
-DUALDRIVER_GBK.C(2052): error C141: syntax error near '}'
-DUALDRIVER_GBK.C(2054): error C141: syntax error near '>', expected ')'
-DUALDRIVER_GBK.C(2056): error C202: 'pwm_pulsedelay': undefined identifier
-DUALDRIVER_GBK.C(2060): error C141: syntax error near '}'
-Target not created
-Build target 'Target 1'
-compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(400): warning C280: 'CH': unreferenced local variable
-DUALDRIVER_GBK.C(446): warning C280: 'CH': unreferenced local variable
-DUALDRIVER_GBK.C(2028): error C141: syntax error near 'if'
-DUALDRIVER_GBK.C(2030): error C231: 'pulserate': redefinition
-DUALDRIVER_GBK.C(2031): error C141: syntax error near ';'
-DUALDRIVER_GBK.C(2034): error C141: syntax error near 'if'
-DUALDRIVER_GBK.C(2034): error C141: syntax error near '>', expected ')'
-DUALDRIVER_GBK.C(2036): error C202: 'pwm_pulsewidth': undefined identifier
-DUALDRIVER_GBK.C(2037): error C141: syntax error near '}'
-DUALDRIVER_GBK.C(2039): error C141: syntax error near '>', expected ')'
-DUALDRIVER_GBK.C(2041): error C202: 'pwm_pulsedelay': undefined identifier
-DUALDRIVER_GBK.C(2045): error C141: syntax error near '}'
-Target not created
-Build target 'Target 1'
-compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(2031): error C141: syntax error near ';'
-Target not created
-Build target 'Target 1'
-compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(2437): warning C206: 'chn_disp': missing function-prototype
-DUALDRIVER_GBK.C(2437): error C267: 'chn_disp': requires ANSI-style prototype
-Target not created
-Build target 'Target 1'
-compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(2460): warning C206: 'chn_disp': missing function-prototype
-DUALDRIVER_GBK.C(2460): error C267: 'chn_disp': requires ANSI-style prototype
-Target not created
-Build target 'Target 1'
-compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
 linking...
-Program Size: data=220.3 xdata=0 code=10432
+Program Size: data=226.3 xdata=0 code=10718
 creating hex file from "fblaser"...
-"fblaser" - 0 Error(s), 0 Warning(s).
+"fblaser" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
+linking...
+Program Size: data=226.3 xdata=0 code=10749
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
+linking...
+Program Size: data=226.3 xdata=0 code=10663
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
+linking...
+Program Size: data=226.3 xdata=0 code=10663
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 2 Warning(s).

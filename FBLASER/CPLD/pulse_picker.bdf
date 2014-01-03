@@ -200,10 +200,6 @@ applicable agreement for further details.
 	(pt 648 224)
 )
 (connector
-	(pt 504 288)
-	(pt 648 288)
-)
-(connector
 	(pt 896 208)
 	(pt 816 208)
 )
@@ -224,4 +220,8 @@ applicable agreement for further details.
 	(pt 464 272)
 	(pt 648 272)
 	(bus)
+)
+(connector
+	(pt 504 288)
+	(pt 648 288)
 )
