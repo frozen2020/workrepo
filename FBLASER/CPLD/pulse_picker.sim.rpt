@@ -1,5 +1,5 @@
 Simulator report for pulse_picker
-Fri Jan 03 09:27:04 2014
+Fri Jan 17 14:06:43 2014
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -44,43 +44,44 @@ applicable agreement for further details.
 ; Type                        ; Value          ;
 +-----------------------------+----------------+
 ; Simulation Start Time       ; 0 ps           ;
-; Simulation End Time         ; 1.0 us         ;
-; Simulation Netlist Size     ; 88 nodes       ;
-; Simulation Coverage         ;      32.53 %   ;
-; Total Number of Transitions ; 1045           ;
+; Simulation End Time         ; 10.0 us        ;
+; Simulation Netlist Size     ; 89 nodes       ;
+; Simulation Coverage         ;      75.36 %   ;
+; Total Number of Transitions ; 12468          ;
 ; Simulation Breakpoints      ; 0              ;
 ; Family                      ; MAX3000A       ;
 ; Device                      ; EPM3064ATC44-4 ;
 +-----------------------------+----------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Simulator Settings                                                                                                      ;
-+--------------------------------------------------------------------------------------------+------------+---------------+
-; Option                                                                                     ; Setting    ; Default Value ;
-+--------------------------------------------------------------------------------------------+------------+---------------+
-; Simulation mode                                                                            ; Timing     ; Timing        ;
-; Start time                                                                                 ; 0 ns       ; 0 ns          ;
-; End time                                                                                   ; 100 us     ;               ;
-; Simulation results format                                                                  ; CVWF       ;               ;
-; Add pins automatically to simulation output waveforms                                      ; On         ; On            ;
-; Check outputs                                                                              ; Off        ; Off           ;
-; Report simulation coverage                                                                 ; On         ; On            ;
-; Display complete 1/0 value coverage report                                                 ; On         ; On            ;
-; Display missing 1-value coverage report                                                    ; On         ; On            ;
-; Display missing 0-value coverage report                                                    ; On         ; On            ;
-; Detect setup and hold time violations                                                      ; Off        ; Off           ;
-; Detect glitches                                                                            ; Off        ; Off           ;
-; Disable timing delays in Timing Simulation                                                 ; Off        ; Off           ;
-; Generate Signal Activity File                                                              ; Off        ; Off           ;
-; Generate VCD File for PowerPlay Power Analyzer                                             ; Off        ; Off           ;
-; Group bus channels in simulation results                                                   ; Off        ; Off           ;
-; Preserve fewer signal transitions to reduce memory requirements                            ; On         ; On            ;
-; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE ; INPUT_EDGE    ;
-; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off        ; Off           ;
-; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off        ;               ;
-; Perform Glitch Filtering in Timing Simulation                                              ; Auto       ; Auto          ;
-+--------------------------------------------------------------------------------------------+------------+---------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                            ;
++--------------------------------------------------------------------------------------------+------------------+---------------+
+; Option                                                                                     ; Setting          ; Default Value ;
++--------------------------------------------------------------------------------------------+------------------+---------------+
+; Simulation mode                                                                            ; Timing           ; Timing        ;
+; Start time                                                                                 ; 0 ns             ; 0 ns          ;
+; End time                                                                                   ; 10 us            ;               ;
+; Simulation results format                                                                  ; CVWF             ;               ;
+; Vector input source                                                                        ; pulse_picker.vwf ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On               ; On            ;
+; Check outputs                                                                              ; Off              ; Off           ;
+; Report simulation coverage                                                                 ; On               ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On               ; On            ;
+; Display missing 1-value coverage report                                                    ; On               ; On            ;
+; Display missing 0-value coverage report                                                    ; On               ; On            ;
+; Detect setup and hold time violations                                                      ; Off              ; Off           ;
+; Detect glitches                                                                            ; Off              ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off              ; Off           ;
+; Generate Signal Activity File                                                              ; Off              ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off              ; Off           ;
+; Group bus channels in simulation results                                                   ; Off              ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On               ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE       ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off              ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off              ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto             ; Auto          ;
++--------------------------------------------------------------------------------------------+------------------+---------------+
 
 
 +----------------------+
@@ -95,174 +96,123 @@ Please use Quartus II to view the waveform report data.
 +-----------------------------------------------------+--------------+
 ; Type                                                ; Value        ;
 +-----------------------------------------------------+--------------+
-; Total coverage as a percentage                      ;      32.53 % ;
-; Total nodes checked                                 ; 88           ;
-; Total output ports checked                          ; 83           ;
-; Total output ports with complete 1/0-value coverage ; 27           ;
-; Total output ports with no 1/0-value coverage       ; 50           ;
-; Total output ports with no 1-value coverage         ; 54           ;
-; Total output ports with no 0-value coverage         ; 52           ;
+; Total coverage as a percentage                      ;      75.36 % ;
+; Total nodes checked                                 ; 89           ;
+; Total output ports checked                          ; 69           ;
+; Total output ports with complete 1/0-value coverage ; 52           ;
+; Total output ports with no 1/0-value coverage       ; 13           ;
+; Total output ports with no 1-value coverage         ; 13           ;
+; Total output ports with no 0-value coverage         ; 17           ;
 +-----------------------------------------------------+--------------+
 
 
 The following table displays output ports that toggle between 1 and 0 during simulation.
-+------------------------------------------------------------------------------------------------------------------------------+
-; Complete 1/0-Value Coverage                                                                                                  ;
-+-----------------------------------------------------+-----------------------------------------------------+------------------+
-; Node Name                                           ; Output Port Name                                    ; Output Port Type ;
-+-----------------------------------------------------+-----------------------------------------------------+------------------+
-; |pulse_picker_div|tmp_c                             ; |pulse_picker_div|tmp_c                             ; dataout          ;
-; |pulse_picker_div|LessThan0~46                      ; |pulse_picker_div|LessThan0~46                      ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~29    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~29    ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[1] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[1] ; dataout          ;
-; |pulse_picker_div|widetmp[1]                        ; |pulse_picker_div|widetmp[1]                        ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~33    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~33    ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[2] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[2] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~37    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~37    ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[3] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[3] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~41    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~41    ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[4] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[4] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~45    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~45    ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[5] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[5] ; dataout          ;
-; |pulse_picker_div|pwmflag                           ; |pulse_picker_div|pwmflag                           ; dataout          ;
-; |pulse_picker_div|tmp_c1~7                          ; |pulse_picker_div|tmp_c1~7                          ; dataout          ;
-; |pulse_picker_div|PWM_OUT~2                         ; |pulse_picker_div|PWM_OUT~2                         ; dataout          ;
-; |pulse_picker_div|widetmp[0]~39                     ; |pulse_picker_div|widetmp[0]~39                     ; pexpout          ;
-; |pulse_picker_div|widetmp[1]~44                     ; |pulse_picker_div|widetmp[1]~44                     ; pexpout          ;
-; |pulse_picker_div|pwmflag~13                        ; |pulse_picker_div|pwmflag~13                        ; pexpout          ;
-; |pulse_picker_div|ENABLE                            ; |pulse_picker_div|ENABLE~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[0]                           ; |pulse_picker_div|DATA[0]~corein                    ; dataout          ;
-; |pulse_picker_div|DATA[1]                           ; |pulse_picker_div|DATA[1]~corein                    ; dataout          ;
-; |pulse_picker_div|RS[0]                             ; |pulse_picker_div|RS[0]~corein                      ; dataout          ;
-; |pulse_picker_div|RS[1]                             ; |pulse_picker_div|RS[1]~corein                      ; dataout          ;
-; |pulse_picker_div|CLK                               ; |pulse_picker_div|CLK~corein                        ; dataout          ;
-; |pulse_picker_div|CLK_OUT                           ; |pulse_picker_div|CLK_OUT                           ; padio            ;
-; |pulse_picker_div|PWM_OUT                           ; |pulse_picker_div|PWM_OUT                           ; padio            ;
-+-----------------------------------------------------+-----------------------------------------------------+------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                                                                                                    ;
++--------------------------------------------------------------+--------------------------------------------------------------+------------------+
+; Node Name                                                    ; Output Port Name                                             ; Output Port Type ;
++--------------------------------------------------------------+--------------------------------------------------------------+------------------+
+; |pulse_picker_div|CLK~4                                      ; |pulse_picker_div|CLK~4                                      ; dataout          ;
+; |pulse_picker_div|ratetmp[0]~268                             ; |pulse_picker_div|ratetmp[0]~268                             ; dataout          ;
+; |pulse_picker_div|ratetmp[1]                                 ; |pulse_picker_div|ratetmp[1]                                 ; dataout          ;
+; |pulse_picker_div|ratetmp[1]                                 ; |pulse_picker_div|Equal9~61                                  ; pexpout          ;
+; |pulse_picker_div|ratetmp[2]                                 ; |pulse_picker_div|ratetmp[2]                                 ; dataout          ;
+; |pulse_picker_div|ratetmp[2]                                 ; |pulse_picker_div|Equal6~13                                  ; pexpout          ;
+; |pulse_picker_div|ratetmp[3]                                 ; |pulse_picker_div|ratetmp[3]                                 ; dataout          ;
+; |pulse_picker_div|ratetmp[3]                                 ; |pulse_picker_div|Equal8~13                                  ; pexpout          ;
+; |pulse_picker_div|ratetmp[4]                                 ; |pulse_picker_div|ratetmp[4]                                 ; dataout          ;
+; |pulse_picker_div|ratetmp[5]~291                             ; |pulse_picker_div|ratetmp[5]~291                             ; dataout          ;
+; |pulse_picker_div|ratetmp[5]                                 ; |pulse_picker_div|ratetmp[5]                                 ; dataout          ;
+; |pulse_picker_div|ratetmp[6]~298                             ; |pulse_picker_div|ratetmp[6]~298                             ; dataout          ;
+; |pulse_picker_div|ratetmp[6]~299                             ; |pulse_picker_div|ratetmp[6]~299                             ; dataout          ;
+; |pulse_picker_div|ratetmp[6]~300                             ; |pulse_picker_div|ratetmp[6]~300                             ; dataout          ;
+; |pulse_picker_div|Equal9~53                                  ; |pulse_picker_div|Equal9~53                                  ; dataout          ;
+; |pulse_picker_div|Equal9~58                                  ; |pulse_picker_div|Equal9~58                                  ; dataout          ;
+; |pulse_picker_div|tmpflag2~34                                ; |pulse_picker_div|tmpflag2~34                                ; dataout          ;
+; |pulse_picker_div|Equal6~12                                  ; |pulse_picker_div|Equal6~12                                  ; dataout          ;
+; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[0]         ; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[0]         ; dataout          ;
+; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[1]         ; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[1]         ; dataout          ;
+; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[2]         ; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[2]         ; dataout          ;
+; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[3]         ; |pulse_picker_div|lpm_counter:delaytmp_rtl_1|dffs[3]         ; dataout          ;
+; |pulse_picker_div|delayflag2                                 ; |pulse_picker_div|delayflag2                                 ; dataout          ;
+; |pulse_picker_div|Equal8~12                                  ; |pulse_picker_div|Equal8~12                                  ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[0]          ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[0]          ; dataout          ;
+; |pulse_picker_div|pwmflag                                    ; |pulse_picker_div|pwmflag                                    ; dataout          ;
+; |pulse_picker_div|ratetmp[0]~342                             ; |pulse_picker_div|ratetmp[0]~342                             ; pexpout          ;
+; |pulse_picker_div|ratetmp[0]~347                             ; |pulse_picker_div|ratetmp[0]~347                             ; pexpout          ;
+; |pulse_picker_div|ratetmp[0]~353                             ; |pulse_picker_div|ratetmp[0]~353                             ; pexpout          ;
+; |pulse_picker_div|ratetmp[5]~370                             ; |pulse_picker_div|ratetmp[5]~370                             ; pexpout          ;
+; |pulse_picker_div|ratetmp[6]~387                             ; |pulse_picker_div|ratetmp[6]~387                             ; pexpout          ;
+; |pulse_picker_div|Equal9~65                                  ; |pulse_picker_div|Equal9~65                                  ; pexpout          ;
+; |pulse_picker_div|tmpflag2~42                                ; |pulse_picker_div|tmpflag2~42                                ; pexpout          ;
+; |pulse_picker_div|tmpflag2~47                                ; |pulse_picker_div|tmpflag2~47                                ; pexpout          ;
+; |pulse_picker_div|tmpflag2~53                                ; |pulse_picker_div|tmpflag2~53                                ; pexpout          ;
+; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|g4~4sexp ; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|g4~4sexp ; dataout          ;
+; |pulse_picker_div|process_2~9sexp                            ; |pulse_picker_div|process_2~9sexp                            ; dataout          ;
+; |pulse_picker_div|widetmp~23sexp                             ; |pulse_picker_div|widetmp~23sexp                             ; dataout          ;
+; |pulse_picker_div|CLK                                        ; |pulse_picker_div|CLK~corein                                 ; dataout          ;
+; |pulse_picker_div|DATA[4]                                    ; |pulse_picker_div|DATA[4]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[5]                                    ; |pulse_picker_div|DATA[5]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[6]                                    ; |pulse_picker_div|DATA[6]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[7]                                    ; |pulse_picker_div|DATA[7]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[0]                                    ; |pulse_picker_div|DATA[0]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[1]                                    ; |pulse_picker_div|DATA[1]~corein                             ; dataout          ;
+; |pulse_picker_div|DATA[3]                                    ; |pulse_picker_div|DATA[3]~corein                             ; dataout          ;
+; |pulse_picker_div|ENABLE                                     ; |pulse_picker_div|ENABLE~corein                              ; dataout          ;
+; |pulse_picker_div|RS[1]                                      ; |pulse_picker_div|RS[1]~corein                               ; dataout          ;
+; |pulse_picker_div|RS[0]                                      ; |pulse_picker_div|RS[0]~corein                               ; dataout          ;
+; |pulse_picker_div|PD_CLK_IN                                  ; |pulse_picker_div|PD_CLK_IN~corein                           ; dataout          ;
+; |pulse_picker_div|PWM_TEST                                   ; |pulse_picker_div|PWM_TEST                                   ; padio            ;
+; |pulse_picker_div|PWM_OUT                                    ; |pulse_picker_div|PWM_OUT                                    ; padio            ;
++--------------------------------------------------------------+--------------------------------------------------------------+------------------+
 
 
 The following table displays output ports that do not toggle to 1 during simulation.
-+--------------------------------------------------------------------------------------------------------------------------------+
-; Missing 1-Value Coverage                                                                                                       ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
-; Node Name                                            ; Output Port Name                                     ; Output Port Type ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
-; |pulse_picker_div|LessThan0~36                       ; |pulse_picker_div|LessThan0~36                       ; dataout          ;
-; |pulse_picker_div|LessThan0~37                       ; |pulse_picker_div|LessThan0~37                       ; dataout          ;
-; |pulse_picker_div|LessThan0~38                       ; |pulse_picker_div|LessThan0~38                       ; dataout          ;
-; |pulse_picker_div|LessThan0~39                       ; |pulse_picker_div|LessThan0~39                       ; dataout          ;
-; |pulse_picker_div|LessThan0~40                       ; |pulse_picker_div|LessThan0~40                       ; dataout          ;
-; |pulse_picker_div|pulsewide[0]                       ; |pulse_picker_div|pulsewide[0]                       ; dataout          ;
-; |pulse_picker_div|pulsewide[2]                       ; |pulse_picker_div|pulsewide[2]                       ; dataout          ;
-; |pulse_picker_div|pulserate[6]                       ; |pulse_picker_div|pulserate[6]                       ; dataout          ;
-; |pulse_picker_div|pulserate[7]                       ; |pulse_picker_div|pulserate[7]                       ; dataout          ;
-; |pulse_picker_div|pulserate[8]                       ; |pulse_picker_div|pulserate[8]                       ; dataout          ;
-; |pulse_picker_div|pulserate[9]                       ; |pulse_picker_div|pulserate[9]                       ; dataout          ;
-; |pulse_picker_div|pulserate[10]                      ; |pulse_picker_div|pulserate[10]                      ; dataout          ;
-; |pulse_picker_div|pulserate[11]                      ; |pulse_picker_div|pulserate[11]                      ; dataout          ;
-; |pulse_picker_div|pulserate[12]                      ; |pulse_picker_div|pulserate[12]                      ; dataout          ;
-; |pulse_picker_div|widetmp[2]                         ; |pulse_picker_div|widetmp[2]                         ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~49     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~49     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[6]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[6]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~53     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~53     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[7]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[7]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~57     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~57     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[8]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[8]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~61     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~61     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[9]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[9]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~65     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~65     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[10] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[10] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~69     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~69     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[11] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[11] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~73     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~73     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[12] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[12] ; dataout          ;
-; |pulse_picker_div|tmp_c1~8                           ; |pulse_picker_div|tmp_c1~8                           ; dataout          ;
-; |pulse_picker_div|tmp_c1~9                           ; |pulse_picker_div|tmp_c1~9                           ; dataout          ;
-; |pulse_picker_div|tmp_c1~10                          ; |pulse_picker_div|tmp_c1~10                          ; dataout          ;
-; |pulse_picker_div|LessThan0~51                       ; |pulse_picker_div|LessThan0~51                       ; pexpout          ;
-; |pulse_picker_div|widetmp[2]~48                      ; |pulse_picker_div|widetmp[2]~48                      ; pexpout          ;
-; |pulse_picker_div|LessThan0~32sexp1                  ; |pulse_picker_div|LessThan0~32sexp1                  ; dataout          ;
-; |pulse_picker_div|LessThan0~32sexp2                  ; |pulse_picker_div|LessThan0~32sexp2                  ; dataout          ;
-; |pulse_picker_div|LessThan0~47sexp1                  ; |pulse_picker_div|LessThan0~47sexp1                  ; dataout          ;
-; |pulse_picker_div|LessThan0~47sexp2                  ; |pulse_picker_div|LessThan0~47sexp2                  ; dataout          ;
-; |pulse_picker_div|GATE                               ; |pulse_picker_div|GATE~corein                        ; dataout          ;
-; |pulse_picker_div|DATA[2]                            ; |pulse_picker_div|DATA[2]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[3]                            ; |pulse_picker_div|DATA[3]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[4]                            ; |pulse_picker_div|DATA[4]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[5]                            ; |pulse_picker_div|DATA[5]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[6]                            ; |pulse_picker_div|DATA[6]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[7]                            ; |pulse_picker_div|DATA[7]~corein                     ; dataout          ;
-; |pulse_picker_div|RF_ON                              ; |pulse_picker_div|RF_ON                              ; padio            ;
-; |pulse_picker_div|LessThan0~53                       ; |pulse_picker_div|LessThan0~53                       ; dataout          ;
-; |pulse_picker_div|LessThan0~54                       ; |pulse_picker_div|LessThan0~54                       ; dataout          ;
-; |pulse_picker_div|LessThan0~55                       ; |pulse_picker_div|LessThan0~55                       ; dataout          ;
-; |pulse_picker_div|LessThan0~56                       ; |pulse_picker_div|LessThan0~56                       ; dataout          ;
-; |pulse_picker_div|LessThan0~57                       ; |pulse_picker_div|LessThan0~57                       ; dataout          ;
-; |pulse_picker_div|LessThan0~58                       ; |pulse_picker_div|LessThan0~58                       ; dataout          ;
-; |pulse_picker_div|LessThan0~59                       ; |pulse_picker_div|LessThan0~59                       ; dataout          ;
-; |pulse_picker_div|LessThan0~60                       ; |pulse_picker_div|LessThan0~60                       ; dataout          ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Missing 1-Value Coverage                                                                                                                                             ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
+; Node Name                                                               ; Output Port Name                                                        ; Output Port Type ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
+; |pulse_picker_div|RF_ON~24                                              ; |pulse_picker_div|RF_ON~24                                              ; dataout          ;
+; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|unreg_res_node[7]~6 ; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|unreg_res_node[7]~6 ; dataout          ;
+; |pulse_picker_div|ratetmp[7]                                            ; |pulse_picker_div|ratetmp[7]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[8]                                            ; |pulse_picker_div|ratetmp[8]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[9]                                            ; |pulse_picker_div|ratetmp[9]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[11]                                           ; |pulse_picker_div|ratetmp[11]                                           ; dataout          ;
+; |pulse_picker_div|ratetmp[12]                                           ; |pulse_picker_div|ratetmp[12]                                           ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[1]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[1]                     ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[2]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[2]                     ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[3]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[3]                     ; dataout          ;
+; |pulse_picker_div|ratetmp[5]~359                                        ; |pulse_picker_div|ratetmp[5]~359                                        ; pexpout          ;
+; |pulse_picker_div|ratetmp[5]~364                                        ; |pulse_picker_div|ratetmp[5]~364                                        ; pexpout          ;
+; |pulse_picker_div|DATA[2]                                               ; |pulse_picker_div|DATA[2]~corein                                        ; dataout          ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
 
 
 The following table displays output ports that do not toggle to 0 during simulation.
-+--------------------------------------------------------------------------------------------------------------------------------+
-; Missing 0-Value Coverage                                                                                                       ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
-; Node Name                                            ; Output Port Name                                     ; Output Port Type ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
-; |pulse_picker_div|LessThan0~36                       ; |pulse_picker_div|LessThan0~36                       ; dataout          ;
-; |pulse_picker_div|LessThan0~37                       ; |pulse_picker_div|LessThan0~37                       ; dataout          ;
-; |pulse_picker_div|LessThan0~38                       ; |pulse_picker_div|LessThan0~38                       ; dataout          ;
-; |pulse_picker_div|LessThan0~39                       ; |pulse_picker_div|LessThan0~39                       ; dataout          ;
-; |pulse_picker_div|LessThan0~40                       ; |pulse_picker_div|LessThan0~40                       ; dataout          ;
-; |pulse_picker_div|pulsewide[0]                       ; |pulse_picker_div|pulsewide[0]                       ; dataout          ;
-; |pulse_picker_div|pulsewide[1]                       ; |pulse_picker_div|pulsewide[1]                       ; dataout          ;
-; |pulse_picker_div|pulsewide[2]                       ; |pulse_picker_div|pulsewide[2]                       ; dataout          ;
-; |pulse_picker_div|pulserate[5]                       ; |pulse_picker_div|pulserate[5]                       ; dataout          ;
-; |pulse_picker_div|pulserate[6]                       ; |pulse_picker_div|pulserate[6]                       ; dataout          ;
-; |pulse_picker_div|pulserate[7]                       ; |pulse_picker_div|pulserate[7]                       ; dataout          ;
-; |pulse_picker_div|pulserate[8]                       ; |pulse_picker_div|pulserate[8]                       ; dataout          ;
-; |pulse_picker_div|pulserate[9]                       ; |pulse_picker_div|pulserate[9]                       ; dataout          ;
-; |pulse_picker_div|pulserate[10]                      ; |pulse_picker_div|pulserate[10]                      ; dataout          ;
-; |pulse_picker_div|pulserate[11]                      ; |pulse_picker_div|pulserate[11]                      ; dataout          ;
-; |pulse_picker_div|pulserate[12]                      ; |pulse_picker_div|pulserate[12]                      ; dataout          ;
-; |pulse_picker_div|widetmp[2]                         ; |pulse_picker_div|widetmp[2]                         ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~49     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~49     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[6]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[6]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~53     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~53     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[7]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[7]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~57     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~57     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[8]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[8]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~61     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~61     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[9]  ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[9]  ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~65     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~65     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[10] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[10] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~69     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~69     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[11] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[11] ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~73     ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|_~73     ; dataout          ;
-; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[12] ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0|dffs[12] ; dataout          ;
-; |pulse_picker_div|tmp_c1~8                           ; |pulse_picker_div|tmp_c1~8                           ; dataout          ;
-; |pulse_picker_div|tmp_c1~9                           ; |pulse_picker_div|tmp_c1~9                           ; dataout          ;
-; |pulse_picker_div|tmp_c1~10                          ; |pulse_picker_div|tmp_c1~10                          ; dataout          ;
-; |pulse_picker_div|LessThan0~51                       ; |pulse_picker_div|LessThan0~51                       ; pexpout          ;
-; |pulse_picker_div|widetmp[2]~48                      ; |pulse_picker_div|widetmp[2]~48                      ; pexpout          ;
-; |pulse_picker_div|LessThan0~32sexp1                  ; |pulse_picker_div|LessThan0~32sexp1                  ; dataout          ;
-; |pulse_picker_div|LessThan0~32sexp2                  ; |pulse_picker_div|LessThan0~32sexp2                  ; dataout          ;
-; |pulse_picker_div|LessThan0~47sexp1                  ; |pulse_picker_div|LessThan0~47sexp1                  ; dataout          ;
-; |pulse_picker_div|LessThan0~47sexp2                  ; |pulse_picker_div|LessThan0~47sexp2                  ; dataout          ;
-; |pulse_picker_div|GATE                               ; |pulse_picker_div|GATE~corein                        ; dataout          ;
-; |pulse_picker_div|DATA[2]                            ; |pulse_picker_div|DATA[2]~corein                     ; dataout          ;
-; |pulse_picker_div|DATA[3]                            ; |pulse_picker_div|DATA[3]~corein                     ; dataout          ;
-; |pulse_picker_div|RF_ON                              ; |pulse_picker_div|RF_ON                              ; padio            ;
-; |pulse_picker_div|LessThan0~53                       ; |pulse_picker_div|LessThan0~53                       ; dataout          ;
-; |pulse_picker_div|LessThan0~54                       ; |pulse_picker_div|LessThan0~54                       ; dataout          ;
-; |pulse_picker_div|LessThan0~55                       ; |pulse_picker_div|LessThan0~55                       ; dataout          ;
-; |pulse_picker_div|LessThan0~56                       ; |pulse_picker_div|LessThan0~56                       ; dataout          ;
-; |pulse_picker_div|LessThan0~57                       ; |pulse_picker_div|LessThan0~57                       ; dataout          ;
-; |pulse_picker_div|LessThan0~58                       ; |pulse_picker_div|LessThan0~58                       ; dataout          ;
-; |pulse_picker_div|LessThan0~59                       ; |pulse_picker_div|LessThan0~59                       ; dataout          ;
-; |pulse_picker_div|LessThan0~60                       ; |pulse_picker_div|LessThan0~60                       ; dataout          ;
-+------------------------------------------------------+------------------------------------------------------+------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Missing 0-Value Coverage                                                                                                                                             ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
+; Node Name                                                               ; Output Port Name                                                        ; Output Port Type ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
+; |pulse_picker_div|pulserate[8]                                          ; |pulse_picker_div|pulserate[8]                                          ; dataout          ;
+; |pulse_picker_div|RF_ON~24                                              ; |pulse_picker_div|RF_ON~24                                              ; dataout          ;
+; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|unreg_res_node[7]~6 ; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0]|unreg_res_node[7]~6 ; dataout          ;
+; |pulse_picker_div|ratetmp[7]                                            ; |pulse_picker_div|ratetmp[7]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[8]                                            ; |pulse_picker_div|ratetmp[8]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[9]                                            ; |pulse_picker_div|ratetmp[9]                                            ; dataout          ;
+; |pulse_picker_div|ratetmp[11]                                           ; |pulse_picker_div|ratetmp[11]                                           ; dataout          ;
+; |pulse_picker_div|ratetmp[12]                                           ; |pulse_picker_div|ratetmp[12]                                           ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[1]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[1]                     ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[2]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[2]                     ; dataout          ;
+; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[3]                     ; |pulse_picker_div|lpm_counter:widetmp_rtl_0|dffs[3]                     ; dataout          ;
+; |pulse_picker_div|ratetmp[5]~359                                        ; |pulse_picker_div|ratetmp[5]~359                                        ; pexpout          ;
+; |pulse_picker_div|ratetmp[5]~364                                        ; |pulse_picker_div|ratetmp[5]~364                                        ; pexpout          ;
+; |pulse_picker_div|ratetmp[6]~376                                        ; |pulse_picker_div|ratetmp[6]~376                                        ; pexpout          ;
+; |pulse_picker_div|ratetmp[6]~381                                        ; |pulse_picker_div|ratetmp[6]~381                                        ; pexpout          ;
+; |pulse_picker_div|DATA[2]                                               ; |pulse_picker_div|DATA[2]~corein                                        ; dataout          ;
+; |pulse_picker_div|RF_ON                                                 ; |pulse_picker_div|RF_ON                                                 ; padio            ;
++-------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+
 
 
 +---------------------+
@@ -278,7 +228,7 @@ The following table displays output ports that do not toggle to 0 during simulat
 Info: *******************************************************************
 Info: Running Quartus II Simulator
     Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
-    Info: Processing started: Fri Jan 03 09:27:04 2014
+    Info: Processing started: Fri Jan 17 14:06:42 2014
 Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off pulse_picker -c pulse_picker
 Info: Using vector source file "D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf"
 Warning: Compiler packed, optimized or synthesized away node "pulserate[4]". Ignored vector source file node.
@@ -286,29 +236,16 @@ Warning: Compiler packed, optimized or synthesized away node "pulserate[3]". Ign
 Warning: Compiler packed, optimized or synthesized away node "pulserate[2]". Ignored vector source file node.
 Warning: Compiler packed, optimized or synthesized away node "pulserate[1]". Ignored vector source file node.
 Warning: Compiler packed, optimized or synthesized away node "pulserate[0]". Ignored vector source file node.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[12]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[11]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[10]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[9]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[8]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[7]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[6]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[5]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[4]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[3]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[2]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[1]" in design.
-Warning: Ignored node in vector source file. Can't find corresponding node name "ratetmp[0]" in design.
-Warning: Can't find signal in vector source file for input pin "|pulse_picker_div|PD_CLK_IN"
+Warning: Ignored node in vector source file. Can't find corresponding node name "pulsedelay[4]" in design.
 Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
     Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
 Info: Simulation partitioned into 1 sub-simulations
-Info: Simulation coverage is      32.53 %
-Info: Number of transitions in simulation is 1045
-Info: Quartus II Simulator was successful. 0 errors, 19 warnings
-    Info: Peak virtual memory: 117 megabytes
-    Info: Processing ended: Fri Jan 03 09:27:04 2014
-    Info: Elapsed time: 00:00:00
+Info: Simulation coverage is      75.36 %
+Info: Number of transitions in simulation is 12468
+Info: Quartus II Simulator was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 118 megabytes
+    Info: Processing ended: Fri Jan 17 14:06:43 2014
+    Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
 

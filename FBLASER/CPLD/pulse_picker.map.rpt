@@ -1,5 +1,5 @@
 Analysis & Synthesis report for pulse_picker
-Fri Jan 03 11:37:38 2014
+Mon Jan 20 15:11:15 2014
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -13,9 +13,14 @@ Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
   5. Analysis & Synthesis Resource Usage Summary
   6. Analysis & Synthesis Resource Utilization by Entity
   7. Registers Removed During Synthesis
-  8. Source assignments for lpm_counter:ratetmp_rtl_0
-  9. Parameter Settings for Inferred Entity Instance: lpm_counter:ratetmp_rtl_0
- 10. Analysis & Synthesis Messages
+  8. Source assignments for lpm_counter:widetmp_rtl_0
+  9. Source assignments for lpm_counter:delaytmp_rtl_1
+ 10. Source assignments for lpm_add_sub:Add2|addcore:adder[1]
+ 11. Source assignments for lpm_add_sub:Add2|addcore:adder[0]
+ 12. Parameter Settings for Inferred Entity Instance: lpm_counter:widetmp_rtl_0
+ 13. Parameter Settings for Inferred Entity Instance: lpm_counter:delaytmp_rtl_1
+ 14. Parameter Settings for Inferred Entity Instance: lpm_add_sub:Add2
+ 15. Analysis & Synthesis Messages
 
 
 
@@ -41,13 +46,13 @@ applicable agreement for further details.
 +------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                           ;
 +-----------------------------+------------------------------------------+
-; Analysis & Synthesis Status ; Successful - Fri Jan 03 11:37:38 2014    ;
+; Analysis & Synthesis Status ; Successful - Mon Jan 20 15:11:15 2014    ;
 ; Quartus II Version          ; 9.0 Build 132 02/25/2009 SJ Full Version ;
 ; Revision Name               ; pulse_picker                             ;
 ; Top-level Entity Name       ; pulse_picker_div                         ;
 ; Family                      ; MAX3000A                                 ;
-; Total macrocells            ; 62                                       ;
-; Total pins                  ; 16                                       ;
+; Total macrocells            ; 65                                       ;
+; Total pins                  ; 17                                       ;
 +-----------------------------+------------------------------------------+
 
 
@@ -111,7 +116,7 @@ applicable agreement for further details.
 +----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                         ;
 +----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+
-; pulse_picker_div.vhd             ; yes             ; User VHDL File  ; D:/github/workrepo/FBLASER/CPLD/pulse_picker_div.vhd                 ;
+; pulse_picker_mode1.vhd           ; yes             ; User VHDL File  ; D:/github/workrepo/FBLASER/CPLD/pulse_picker_mode1.vhd               ;
 ; lpm_counter.tdf                  ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/lpm_counter.tdf         ;
 ; lpm_constant.inc                 ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/lpm_constant.inc        ;
 ; lpm_decode.inc                   ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/lpm_decode.inc          ;
@@ -125,6 +130,18 @@ applicable agreement for further details.
 ; alt_counter_f10ke.inc            ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/alt_counter_f10ke.inc   ;
 ; alt_counter_stratix.inc          ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/alt_counter_stratix.inc ;
 ; aglobal90.inc                    ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/aglobal90.inc           ;
+; lpm_add_sub.tdf                  ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/lpm_add_sub.tdf         ;
+; addcore.inc                      ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/addcore.inc             ;
+; look_add.inc                     ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/look_add.inc            ;
+; bypassff.inc                     ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/bypassff.inc            ;
+; altshift.inc                     ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/altshift.inc            ;
+; alt_stratix_add_sub.inc          ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/alt_stratix_add_sub.inc ;
+; alt_mercury_add_sub.inc          ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/alt_mercury_add_sub.inc ;
+; addcore.tdf                      ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/addcore.tdf             ;
+; a_csnbuffer.inc                  ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/a_csnbuffer.inc         ;
+; a_csnbuffer.tdf                  ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/a_csnbuffer.tdf         ;
+; look_add.tdf                     ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/look_add.tdf            ;
+; altshift.tdf                     ; yes             ; Megafunction    ; c:/altera/90/quartus/libraries/megafunctions/altshift.tdf            ;
 +----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+
 
 
@@ -133,26 +150,29 @@ applicable agreement for further details.
 +----------------------+----------------------+
 ; Resource             ; Usage                ;
 +----------------------+----------------------+
-; Logic cells          ; 62                   ;
-; Total registers      ; 39                   ;
-; I/O pins             ; 16                   ;
+; Logic cells          ; 65                   ;
+; Total registers      ; 43                   ;
+; I/O pins             ; 17                   ;
 ; Shareable expanders  ; 10                   ;
-; Parallel expanders   ; 6                    ;
+; Parallel expanders   ; 16                   ;
 ; Maximum fan-out node ; delayflag2           ;
-; Maximum fan-out      ; 28                   ;
-; Total fan-out        ; 515                  ;
-; Average fan-out      ; 5.85                 ;
+; Maximum fan-out      ; 32                   ;
+; Total fan-out        ; 532                  ;
+; Average fan-out      ; 5.78                 ;
 +----------------------+----------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                             ;
-+--------------------------------+------------+------+---------------------------------------------+--------------+
-; Compilation Hierarchy Node     ; Macrocells ; Pins ; Full Hierarchy Name                         ; Library Name ;
-+--------------------------------+------------+------+---------------------------------------------+--------------+
-; |pulse_picker_div              ; 62         ; 16   ; |pulse_picker_div                           ; work         ;
-;    |lpm_counter:ratetmp_rtl_0| ; 25         ; 0    ; |pulse_picker_div|lpm_counter:ratetmp_rtl_0 ; work         ;
-+--------------------------------+------------+------+---------------------------------------------+--------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                      ;
++---------------------------------+------------+------+-----------------------------------------------------+--------------+
+; Compilation Hierarchy Node      ; Macrocells ; Pins ; Full Hierarchy Name                                 ; Library Name ;
++---------------------------------+------------+------+-----------------------------------------------------+--------------+
+; |pulse_picker_div               ; 65         ; 17   ; |pulse_picker_div                                   ; work         ;
+;    |lpm_add_sub:Add2|           ; 1          ; 0    ; |pulse_picker_div|lpm_add_sub:Add2                  ; work         ;
+;       |addcore:adder[0]|        ; 1          ; 0    ; |pulse_picker_div|lpm_add_sub:Add2|addcore:adder[0] ; work         ;
+;    |lpm_counter:delaytmp_rtl_1| ; 4          ; 0    ; |pulse_picker_div|lpm_counter:delaytmp_rtl_1        ; work         ;
+;    |lpm_counter:widetmp_rtl_0|  ; 4          ; 0    ; |pulse_picker_div|lpm_counter:widetmp_rtl_0         ; work         ;
++---------------------------------+------------+------+-----------------------------------------------------+--------------+
 
 
 +--------------------------------------------------------------------------------+
@@ -166,7 +186,7 @@ applicable agreement for further details.
 
 
 +--------------------------------------------------+
-; Source assignments for lpm_counter:ratetmp_rtl_0 ;
+; Source assignments for lpm_counter:widetmp_rtl_0 ;
 +---------------------------+-------+------+-------+
 ; Assignment                ; Value ; From ; To    ;
 +---------------------------+-------+------+-------+
@@ -176,8 +196,37 @@ applicable agreement for further details.
 +---------------------------+-------+------+-------+
 
 
++---------------------------------------------------+
+; Source assignments for lpm_counter:delaytmp_rtl_1 ;
++---------------------------+-------+------+--------+
+; Assignment                ; Value ; From ; To     ;
++---------------------------+-------+------+--------+
+; SUPPRESS_DA_RULE_INTERNAL ; a101  ; -    ; -      ;
+; SUPPRESS_DA_RULE_INTERNAL ; s102  ; -    ; -      ;
+; SUPPRESS_DA_RULE_INTERNAL ; s103  ; -    ; -      ;
++---------------------------+-------+------+--------+
+
+
++----------------------------------------------------------+
+; Source assignments for lpm_add_sub:Add2|addcore:adder[1] ;
++---------------------------+-------+------+---------------+
+; Assignment                ; Value ; From ; To            ;
++---------------------------+-------+------+---------------+
+; SUPPRESS_DA_RULE_INTERNAL ; A103  ; -    ; -             ;
++---------------------------+-------+------+---------------+
+
+
++----------------------------------------------------------+
+; Source assignments for lpm_add_sub:Add2|addcore:adder[0] ;
++---------------------------+-------+------+---------------+
+; Assignment                ; Value ; From ; To            ;
++---------------------------+-------+------+---------------+
+; SUPPRESS_DA_RULE_INTERNAL ; A103  ; -    ; -             ;
++---------------------------+-------+------+---------------+
+
+
 +----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: lpm_counter:ratetmp_rtl_0 ;
+; Parameter Settings for Inferred Entity Instance: lpm_counter:widetmp_rtl_0 ;
 +------------------------+-------------------+-------------------------------+
 ; Parameter Name         ; Value             ; Type                          ;
 +------------------------+-------------------+-------------------------------+
@@ -185,7 +234,7 @@ applicable agreement for further details.
 ; IGNORE_CARRY_BUFFERS   ; OFF               ; IGNORE_CARRY                  ;
 ; AUTO_CASCADE_CHAINS    ; ON                ; AUTO_CASCADE                  ;
 ; IGNORE_CASCADE_BUFFERS ; OFF               ; IGNORE_CASCADE                ;
-; LPM_WIDTH              ; 13                ; Untyped                       ;
+; LPM_WIDTH              ; 4                 ; Untyped                       ;
 ; LPM_DIRECTION          ; UP                ; Untyped                       ;
 ; LPM_MODULUS            ; 0                 ; Untyped                       ;
 ; LPM_AVALUE             ; UNUSED            ; Untyped                       ;
@@ -203,40 +252,113 @@ applicable agreement for further details.
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++-----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: lpm_counter:delaytmp_rtl_1 ;
++------------------------+-------------------+--------------------------------+
+; Parameter Name         ; Value             ; Type                           ;
++------------------------+-------------------+--------------------------------+
+; AUTO_CARRY_CHAINS      ; ON                ; AUTO_CARRY                     ;
+; IGNORE_CARRY_BUFFERS   ; OFF               ; IGNORE_CARRY                   ;
+; AUTO_CASCADE_CHAINS    ; ON                ; AUTO_CASCADE                   ;
+; IGNORE_CASCADE_BUFFERS ; OFF               ; IGNORE_CASCADE                 ;
+; LPM_WIDTH              ; 4                 ; Untyped                        ;
+; LPM_DIRECTION          ; UP                ; Untyped                        ;
+; LPM_MODULUS            ; 0                 ; Untyped                        ;
+; LPM_AVALUE             ; UNUSED            ; Untyped                        ;
+; LPM_SVALUE             ; UNUSED            ; Untyped                        ;
+; LPM_PORT_UPDOWN        ; PORT_CONNECTIVITY ; Untyped                        ;
+; DEVICE_FAMILY          ; MAX3000A          ; Untyped                        ;
+; CARRY_CHAIN            ; MANUAL            ; Untyped                        ;
+; CARRY_CHAIN_LENGTH     ; 48                ; CARRY_CHAIN_LENGTH             ;
+; NOT_GATE_PUSH_BACK     ; ON                ; NOT_GATE_PUSH_BACK             ;
+; CARRY_CNT_EN           ; SMART             ; Untyped                        ;
+; LABWIDE_SCLR           ; ON                ; Untyped                        ;
+; USE_NEW_VERSION        ; TRUE              ; Untyped                        ;
+; CBXI_PARAMETER         ; NOTHING           ; Untyped                        ;
++------------------------+-------------------+--------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: lpm_add_sub:Add2 ;
++------------------------+-------------+----------------------------+
+; Parameter Name         ; Value       ; Type                       ;
++------------------------+-------------+----------------------------+
+; LPM_WIDTH              ; 13          ; Untyped                    ;
+; LPM_REPRESENTATION     ; UNSIGNED    ; Untyped                    ;
+; LPM_DIRECTION          ; ADD         ; Untyped                    ;
+; ONE_INPUT_IS_CONSTANT  ; YES         ; Untyped                    ;
+; LPM_PIPELINE           ; 0           ; Untyped                    ;
+; MAXIMIZE_SPEED         ; 5           ; Untyped                    ;
+; REGISTERED_AT_END      ; 0           ; Untyped                    ;
+; OPTIMIZE_FOR_SPEED     ; 9           ; Untyped                    ;
+; USE_CS_BUFFERS         ; 1           ; Untyped                    ;
+; CARRY_CHAIN            ; MANUAL      ; Untyped                    ;
+; CARRY_CHAIN_LENGTH     ; 48          ; CARRY_CHAIN_LENGTH         ;
+; DEVICE_FAMILY          ; MAX3000A    ; Untyped                    ;
+; USE_WYS                ; OFF         ; Untyped                    ;
+; STYLE                  ; FAST        ; Untyped                    ;
+; CBXI_PARAMETER         ; add_sub_hoh ; Untyped                    ;
+; AUTO_CARRY_CHAINS      ; ON          ; AUTO_CARRY                 ;
+; IGNORE_CARRY_BUFFERS   ; OFF         ; IGNORE_CARRY               ;
+; AUTO_CASCADE_CHAINS    ; ON          ; AUTO_CASCADE               ;
+; IGNORE_CASCADE_BUFFERS ; OFF         ; IGNORE_CASCADE             ;
++------------------------+-------------+----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
-    Info: Processing started: Fri Jan 03 11:37:37 2014
+    Info: Processing started: Mon Jan 20 15:11:11 2014
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off pulse_picker -c pulse_picker
-Info: Found 2 design units, including 1 entities, in source file pulse_picker_div.vhd
-    Info: Found design unit 1: pulse_picker_div-a
-    Info: Found entity 1: pulse_picker_div
 Info: Found 1 design units, including 1 entities, in source file pulse_picker.bdf
     Info: Found entity 1: pulse_picker
+Info: Found 2 design units, including 1 entities, in source file pulse_picker_mode1.vhd
+    Info: Found design unit 1: pulse_picker_div-a
+    Info: Found entity 1: pulse_picker_div
 Info: Elaborating entity "pulse_picker_div" for the top level hierarchy
+Info: Inferred 2 megafunctions from design logic
+    Info: Inferred lpm_counter megafunction (LPM_WIDTH=4) from the following logic: "widetmp[0]~20"
+    Info: Inferred lpm_counter megafunction (LPM_WIDTH=4) from the following logic: "delaytmp[0]~12"
 Info: Inferred 1 megafunctions from design logic
-    Info: Inferred lpm_counter megafunction (LPM_WIDTH=13) from the following logic: "ratetmp[0]~39"
-Info: Elaborated megafunction instantiation "lpm_counter:ratetmp_rtl_0"
-Info: Instantiated megafunction "lpm_counter:ratetmp_rtl_0" with the following parameter:
-    Info: Parameter "LPM_WIDTH" = "13"
+    Info: Inferred adder/subtractor megafunction ("lpm_add_sub") from the following logic: "Add2"
+Info: Elaborated megafunction instantiation "lpm_counter:widetmp_rtl_0"
+Info: Instantiated megafunction "lpm_counter:widetmp_rtl_0" with the following parameter:
+    Info: Parameter "LPM_WIDTH" = "4"
     Info: Parameter "LPM_DIRECTION" = "UP"
     Info: Parameter "LPM_TYPE" = "LPM_COUNTER"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2"
+Info: Instantiated megafunction "lpm_add_sub:Add2" with the following parameter:
+    Info: Parameter "LPM_WIDTH" = "13"
+    Info: Parameter "LPM_DIRECTION" = "ADD"
+    Info: Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info: Parameter "ONE_INPUT_IS_CONSTANT" = "YES"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|addcore:adder[1]", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|addcore:adder[1]|a_csnbuffer:oflow_node", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|addcore:adder[1]|a_csnbuffer:result_node", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|addcore:adder[0]", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|look_add:look_ahead_unit", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|altshift:result_ext_latency_ffs", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Elaborated megafunction instantiation "lpm_add_sub:Add2|altshift:carry_ext_latency_ffs", which is child of megafunction instantiation "lpm_add_sub:Add2"
+Info: Ignored 13 buffer(s)
+    Info: Ignored 13 SOFT buffer(s)
 Warning: Selected device does not support Power-Up Level option
     Info: Atom pulsewide[0]'s Power-Up HIGH assignment is not honored
 Warning: Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "GATE"
-Info: Implemented 88 device resources after synthesis - the final resource count might be different
+Info: Implemented 92 device resources after synthesis - the final resource count might be different
     Info: Implemented 14 input pins
-    Info: Implemented 2 output pins
-    Info: Implemented 62 macrocells
+    Info: Implemented 3 output pins
+    Info: Implemented 65 macrocells
     Info: Implemented 10 shareable expanders
 Info: Quartus II Analysis & Synthesis was successful. 0 errors, 3 warnings
     Info: Peak virtual memory: 191 megabytes
-    Info: Processing ended: Fri Jan 03 11:37:38 2014
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Processing ended: Mon Jan 20 15:11:15 2014
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:02
 
 

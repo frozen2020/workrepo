@@ -82,11 +82,11 @@ VECTOR("F:/dual FBlaser driver µ¥Æ¬»ú³ÌÐò/CPLD/pulse_picker.vwf")
 VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 {
 	ZOOM{
-		ZBEGIN = 893986;
-		ZEND = 943500;
+		ZBEGIN = 0;
+		ZEND = 2417681;
 		NUMERATOR = 1024;
-		DENOMINATOR = 50350;
-		TOP_INDEX = 9;
+		DENOMINATOR = 2458496;
+		TOP_INDEX = 2;
 	}
 	CLOCK{
 		PERIOD = 10000;
@@ -94,10 +94,10 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		DUTY_CYCLE = 50;
 	}
 	RANDOM_VALUE{
-		INTERVAL_TYPE = HALF_GRID;
+		INTERVAL_TYPE = RANDOM;
 	}
 	LINE{
-		SIGNAL = "CLK";
+		SIGNAL = "PD_CLK_IN";
 		INDEX = 0;
 		FORMAT = E;
 		SCALE = 1;
@@ -105,8 +105,16 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA";
+		SIGNAL = "CLK";
 		INDEX = 1;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "DATA";
+		INDEX = 2;
 		FORMAT = T;
 		SCALE = 1;
 		VISIBLE = Y;
@@ -114,14 +122,6 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 	}
 	LINE{
 		SIGNAL = "DATA[7]";
-		INDEX = 2;
-		FORMAT = E;
-		SCALE = 1;
-		VISIBLE = Y;
-		FLAG = N;
-	}
-	LINE{
-		SIGNAL = "DATA[6]";
 		INDEX = 3;
 		FORMAT = E;
 		SCALE = 1;
@@ -129,7 +129,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[5]";
+		SIGNAL = "DATA[6]";
 		INDEX = 4;
 		FORMAT = E;
 		SCALE = 1;
@@ -137,7 +137,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[4]";
+		SIGNAL = "DATA[5]";
 		INDEX = 5;
 		FORMAT = E;
 		SCALE = 1;
@@ -145,7 +145,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[3]";
+		SIGNAL = "DATA[4]";
 		INDEX = 6;
 		FORMAT = E;
 		SCALE = 1;
@@ -153,7 +153,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[2]";
+		SIGNAL = "DATA[3]";
 		INDEX = 7;
 		FORMAT = E;
 		SCALE = 1;
@@ -161,7 +161,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[1]";
+		SIGNAL = "DATA[2]";
 		INDEX = 8;
 		FORMAT = E;
 		SCALE = 1;
@@ -169,7 +169,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[0]";
+		SIGNAL = "DATA[1]";
 		INDEX = 9;
 		FORMAT = E;
 		SCALE = 1;
@@ -177,7 +177,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ENABLE";
+		SIGNAL = "DATA[0]";
 		INDEX = 10;
 		FORMAT = E;
 		SCALE = 1;
@@ -185,7 +185,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "GATE";
+		SIGNAL = "ENABLE";
 		INDEX = 11;
 		FORMAT = E;
 		SCALE = 1;
@@ -193,7 +193,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "PWM_OUT";
+		SIGNAL = "GATE";
 		INDEX = 12;
 		FORMAT = E;
 		SCALE = 1;
@@ -377,7 +377,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp";
+		SIGNAL = "pulsedelay";
 		INDEX = 35;
 		FORMAT = T;
 		SCALE = 1;
@@ -385,7 +385,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[2]";
+		SIGNAL = "pulsedelay[4]";
 		INDEX = 36;
 		FORMAT = E;
 		SCALE = 1;
@@ -393,7 +393,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[1]";
+		SIGNAL = "pulsedelay[3]";
 		INDEX = 37;
 		FORMAT = E;
 		SCALE = 1;
@@ -401,7 +401,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[0]";
+		SIGNAL = "pulsedelay[2]";
 		INDEX = 38;
 		FORMAT = E;
 		SCALE = 1;
@@ -409,15 +409,15 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp";
+		SIGNAL = "pulsedelay[1]";
 		INDEX = 39;
-		FORMAT = T;
+		FORMAT = E;
 		SCALE = 1;
 		VISIBLE = Y;
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[12]";
+		SIGNAL = "pulsedelay[0]";
 		INDEX = 40;
 		FORMAT = E;
 		SCALE = 1;
@@ -425,7 +425,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[11]";
+		SIGNAL = "delayflag1";
 		INDEX = 41;
 		FORMAT = E;
 		SCALE = 1;
@@ -433,7 +433,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[10]";
+		SIGNAL = "delayflag2";
 		INDEX = 42;
 		FORMAT = E;
 		SCALE = 1;
@@ -441,7 +441,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[9]";
+		SIGNAL = "tmpflag2";
 		INDEX = 43;
 		FORMAT = E;
 		SCALE = 1;
@@ -449,7 +449,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[8]";
+		SIGNAL = "PWM_OUT";
 		INDEX = 44;
 		FORMAT = E;
 		SCALE = 1;
@@ -457,15 +457,15 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[7]";
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs";
 		INDEX = 45;
-		FORMAT = E;
+		FORMAT = T;
 		SCALE = 1;
 		VISIBLE = Y;
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[6]";
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[3]";
 		INDEX = 46;
 		FORMAT = E;
 		SCALE = 1;
@@ -473,7 +473,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[5]";
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[2]";
 		INDEX = 47;
 		FORMAT = E;
 		SCALE = 1;
@@ -481,7 +481,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[4]";
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[1]";
 		INDEX = 48;
 		FORMAT = E;
 		SCALE = 1;
@@ -489,7 +489,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[3]";
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[0]";
 		INDEX = 49;
 		FORMAT = E;
 		SCALE = 1;
@@ -497,15 +497,15 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[2]";
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs";
 		INDEX = 50;
-		FORMAT = E;
+		FORMAT = T;
 		SCALE = 1;
 		VISIBLE = Y;
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[1]";
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[3]";
 		INDEX = 51;
 		FORMAT = E;
 		SCALE = 1;
@@ -513,8 +513,24 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/pulse_picker.vwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ratetmp[0]";
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[2]";
 		INDEX = 52;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[1]";
+		INDEX = 53;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[0]";
+		INDEX = 54;
 		FORMAT = E;
 		SCALE = 1;
 		VISIBLE = Y;
@@ -526,10 +542,10 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 {
 	ZOOM{
 		ZBEGIN = 0;
-		ZEND = 41250;
-		NUMERATOR = 20;
-		DENOMINATOR = 1000;
-		TOP_INDEX = 4;
+		ZEND = 456412;
+		NUMERATOR = 1193;
+		DENOMINATOR = 456412;
+		TOP_INDEX = 8;
 	}
 	CLOCK{
 		PERIOD = 10000;
@@ -540,7 +556,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		INTERVAL_TYPE = HALF_GRID;
 	}
 	LINE{
-		SIGNAL = "CLK";
+		SIGNAL = "PD_CLK_IN";
 		INDEX = 0;
 		FORMAT = E;
 		SCALE = 1;
@@ -548,8 +564,16 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA";
+		SIGNAL = "CLK";
 		INDEX = 1;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "DATA";
+		INDEX = 2;
 		FORMAT = T;
 		SCALE = 1;
 		VISIBLE = Y;
@@ -557,14 +581,6 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 	}
 	LINE{
 		SIGNAL = "DATA[7]";
-		INDEX = 2;
-		FORMAT = E;
-		SCALE = 1;
-		VISIBLE = Y;
-		FLAG = N;
-	}
-	LINE{
-		SIGNAL = "DATA[6]";
 		INDEX = 3;
 		FORMAT = E;
 		SCALE = 1;
@@ -572,7 +588,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[5]";
+		SIGNAL = "DATA[6]";
 		INDEX = 4;
 		FORMAT = E;
 		SCALE = 1;
@@ -580,7 +596,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[4]";
+		SIGNAL = "DATA[5]";
 		INDEX = 5;
 		FORMAT = E;
 		SCALE = 1;
@@ -588,7 +604,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[3]";
+		SIGNAL = "DATA[4]";
 		INDEX = 6;
 		FORMAT = E;
 		SCALE = 1;
@@ -596,7 +612,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[2]";
+		SIGNAL = "DATA[3]";
 		INDEX = 7;
 		FORMAT = E;
 		SCALE = 1;
@@ -604,7 +620,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[1]";
+		SIGNAL = "DATA[2]";
 		INDEX = 8;
 		FORMAT = E;
 		SCALE = 1;
@@ -612,7 +628,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "DATA[0]";
+		SIGNAL = "DATA[1]";
 		INDEX = 9;
 		FORMAT = E;
 		SCALE = 1;
@@ -620,7 +636,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "ENABLE";
+		SIGNAL = "DATA[0]";
 		INDEX = 10;
 		FORMAT = E;
 		SCALE = 1;
@@ -628,7 +644,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "GATE";
+		SIGNAL = "ENABLE";
 		INDEX = 11;
 		FORMAT = E;
 		SCALE = 1;
@@ -636,7 +652,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "PWM_OUT";
+		SIGNAL = "GATE";
 		INDEX = 12;
 		FORMAT = E;
 		SCALE = 1;
@@ -820,7 +836,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp";
+		SIGNAL = "pulsedelay";
 		INDEX = 35;
 		FORMAT = T;
 		SCALE = 1;
@@ -828,7 +844,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[2]";
+		SIGNAL = "pulsedelay[3]";
 		INDEX = 36;
 		FORMAT = E;
 		SCALE = 1;
@@ -836,7 +852,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[1]";
+		SIGNAL = "pulsedelay[2]";
 		INDEX = 37;
 		FORMAT = E;
 		SCALE = 1;
@@ -844,7 +860,7 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "widetmp[0]";
+		SIGNAL = "pulsedelay[1]";
 		INDEX = 38;
 		FORMAT = E;
 		SCALE = 1;
@@ -852,8 +868,128 @@ VECTOR("D:/github/workrepo/FBLASER/CPLD/db/pulse_picker.sim.cvwf")
 		FLAG = N;
 	}
 	LINE{
-		SIGNAL = "CLK_OUT";
+		SIGNAL = "pulsedelay[0]";
 		INDEX = 39;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "delayflag1";
+		INDEX = 40;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "delayflag2";
+		INDEX = 41;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "tmpflag2";
+		INDEX = 42;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "PWM_OUT";
+		INDEX = 43;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs";
+		INDEX = 44;
+		FORMAT = T;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[3]";
+		INDEX = 45;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[2]";
+		INDEX = 46;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[1]";
+		INDEX = 47;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:delaytmp_rtl_1|dffs[0]";
+		INDEX = 48;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs";
+		INDEX = 49;
+		FORMAT = T;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[3]";
+		INDEX = 50;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[2]";
+		INDEX = 51;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[1]";
+		INDEX = 52;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "lpm_counter:widetmp_rtl_0|dffs[0]";
+		INDEX = 53;
+		FORMAT = E;
+		SCALE = 1;
+		VISIBLE = Y;
+		FLAG = N;
+	}
+	LINE{
+		SIGNAL = "PWM_TEST";
+		INDEX = 54;
 		FORMAT = E;
 		SCALE = 1;
 		VISIBLE = Y;

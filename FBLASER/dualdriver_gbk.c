@@ -44,7 +44,7 @@ uchar idata  Diode_parameter2[6];
 uchar idata  Power_parameter1[6];
 uchar idata  Power_parameter2[6];
 uchar  set_flag;
-
+uchar RFON;
 bit     Sys_mod;                            //系统工作模式  1:主动模式，0：系统采集模式
 
 uint   idata MCU_AD_code;
@@ -399,8 +399,7 @@ setcf:       _Nop();
 
            {
                uint init_current;
-               uchar CH;
-
+      
                if(inbuf[7]==0x0d)                                        //格式为INIC=N
               {
                  init_current=inbuf[6]-48;
@@ -445,8 +444,7 @@ seticf:       _Nop();
 
            {   
                uint init_flag_temp;
-               uchar CH;
-
+           
                if(inbuf[6]==0x0d)                                        
               {
                  init_flag_temp=inbuf[5]-48;
@@ -656,7 +654,41 @@ setpwf:       _Nop();
 setpdf:       _Nop();
 
            }
+////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////选脉冲 开启或关闭  //////////////////////////////////////////////////
+          else if((inbuf[0]=='R')&&(inbuf[1]=='F')&&(inbuf[2]=='='))
 
+           {
+              if((inbuf[4]==0x0d)&&(inbuf[3]=='1'))             //RF ON
+              {
+                 RFON=1;
+                 P0=0xf0;
+                 RW=0;
+                 RS=0;
+                 delayR(10);
+                 ENAB=1;
+                 delayR(10);
+                 ENAB=0;
+                 delayR(10);
+                 setsucced();
+              }
+              else if((inbuf[4]==0x0d)&&(inbuf[3]=='0'))        //RF OFF
+              {
+                 RFON=0;
+                 P0=0x0f;
+                 RW=0;
+                 RS=0;
+                 delayR(10);
+                 ENAB=1;
+                 delayR(10);
+                 ENAB=0;
+                 delayR(10);
+                 setsucced();
+              }
+              else
+                 setfault();
+
+           }
 /////////////////////////////////关闭或开启TEC控制器////////////////////////////////
        else if((inbuf[0]=='S')&&(inbuf[1]=='H')&&(inbuf[2]=='D')&&(inbuf[3]=='N')&&(inbuf[4]=='='))
 
@@ -671,7 +703,8 @@ setpdf:       _Nop();
                  SHDN2=(bit)((inbuf[6]-48)&0x01);
                  setsucced();
               }
-              setfault();
+              else
+                 setfault();
 
            }
 
@@ -932,11 +965,13 @@ setdf:       _Nop();
                 inbuf[3] ='T';
                 inbuf[4] ='H';
                 inbuf[5]  ='=';
-                inbuf[6]  =pwm_pulsewidth%10+48;
-                inbuf[7]  ='L';
-                inbuf[8] =0x0d;
-                inbuf[9] =0x0a;
-                send_string_com(inbuf,10);
+                inbuf[6]  =pwm_pulsewidth/10+48;
+                inbuf[7]  =pwm_pulsewidth%10+48;
+                
+                inbuf[8]  ='L';
+                inbuf[9] =0x0d;
+                inbuf[10] =0x0a;
+                send_string_com(inbuf,11);
                 
                 inbuf[0] ='D';
                 inbuf[1] ='E';
@@ -944,11 +979,36 @@ setdf:       _Nop();
                 inbuf[3] ='A';
                 inbuf[4] ='Y';
                 inbuf[5]  ='=';
-                inbuf[6]  =pwm_pulsedelay%10+48;
-                inbuf[7]  ='L';
-                inbuf[8] =0x0d;
-                inbuf[9] =0x0a;
-                send_string_com(inbuf,10);
+                inbuf[6]  =pwm_pulsedelay/10+48;
+                inbuf[7]  =pwm_pulsedelay%10+48;
+                
+                inbuf[8]  ='L';
+                inbuf[9] =0x0d;
+                inbuf[10] =0x0a;
+                send_string_com(inbuf,11);
+                  inbuf[0] ='R';
+                  inbuf[1] ='F';
+                  inbuf[2] ='P';
+                  inbuf[3] ='O';
+                  inbuf[4] ='W';
+                  inbuf[5] ='E';
+                  inbuf[6] ='R';
+                  inbuf[7] =' ';
+                  if (RFON==1)
+                  {
+                  inbuf[8]  ='O';
+                  inbuf[9] = 'N';
+                  inbuf[10] = ' ';
+                  }
+                  else
+                  {inbuf[8]  ='O';
+                  inbuf[9]  = 'F';
+                  inbuf[10] = 'F';
+                  } 
+                  inbuf[11] =0x0d;
+                  inbuf[12] =0x0a;
+                  send_string_com(inbuf,13);
+
 }
 
 
@@ -1103,17 +1163,19 @@ setdf:       _Nop();
                 inbuf[9] =0x0a;
                 send_string_com(inbuf,10);
               
-                inbuf[0] ='W';
+               inbuf[0] ='W';
                 inbuf[1] ='I';
                 inbuf[2] ='D';
                 inbuf[3] ='T';
                 inbuf[4] ='H';
                 inbuf[5]  ='=';
-                inbuf[6]  =pwm_pulsewidth%10+48;
-                inbuf[7]  ='L';
-                inbuf[8] =0x0d;
-                inbuf[9] =0x0a;
-                send_string_com(inbuf,10);
+                inbuf[6]  =pwm_pulsewidth/10+48;
+                inbuf[7]  =pwm_pulsewidth%10+48;
+                
+                inbuf[8]  ='L';
+                inbuf[9] =0x0d;
+                inbuf[10] =0x0a;
+                send_string_com(inbuf,11);
                 
                 inbuf[0] ='D';
                 inbuf[1] ='E';
@@ -1121,11 +1183,37 @@ setdf:       _Nop();
                 inbuf[3] ='A';
                 inbuf[4] ='Y';
                 inbuf[5]  ='=';
-                inbuf[6]  =pwm_pulsedelay%10+48;
-                inbuf[7]  ='L';
-                inbuf[8] =0x0d;
-                inbuf[9] =0x0a;
-                send_string_com(inbuf,10);
+                inbuf[6]  =pwm_pulsedelay/10+48;
+                inbuf[7]  =pwm_pulsedelay%10+48;
+                
+                inbuf[8]  ='L';
+                inbuf[9] =0x0d;
+                inbuf[10] =0x0a;
+                send_string_com(inbuf,11);
+                inbuf[0] ='R';
+                inbuf[1] ='F';
+                inbuf[2] ='P';
+                inbuf[3] ='O';
+                inbuf[4] ='W';
+                inbuf[5] ='E';
+                inbuf[6] ='R';
+                inbuf[7] =' ';
+                if (RFON==1)
+                {
+                 inbuf[8]  ='O';
+                 inbuf[9] = 'N';
+                 inbuf[10] = ' ';
+                }
+                else
+                  {inbuf[8]  ='O';
+                  inbuf[9]  = 'F';
+                  inbuf[10] = 'F';
+                } 
+                inbuf[11] =0x0d;
+                inbuf[12] =0x0a;
+                send_string_com(inbuf,13);
+
+
            }
          
 
@@ -2099,7 +2187,9 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
 
   if (pwm_pulserate>0)
   {
-    pulserate=1000000/pwm_pulserate/12.5/32;             //80M晶振
+    //pulserate=1000000/pwm_pulserate/12.5/32;             //80M晶振
+    //pulserate=1000000/pwm_pulserate/8/32;             //125M晶振
+    pulserate=1000000/pwm_pulserate/5/32;             //200M晶振
     if(pulserate>255)
       pulserate=255;
     P0=pulserate;
@@ -2118,8 +2208,8 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
   if (pwm_pulsewidth>0)
   {
     pulsewidth=pwm_pulsewidth   ;      //80M晶振
-    if (pulsewidth>7)
-      pulsewidth=7;
+    if (pulsewidth>15)
+      pulsewidth=15;
     P0=pulsewidth;
     RW=0;
     RS=1;
@@ -2135,8 +2225,8 @@ void Pwm_Set(uint pwm_pulserate, uint pwm_pulsewidth,uint pwm_pulsedelay)
   if (pwm_pulsedelay>0)
   {
     pulsedelay= pwm_pulsedelay ;                 //80M晶振
-    if (pulsedelay>7)
-      pulsedelay=7;
+    if (pulsedelay>31)
+      pulsedelay=31;
     P0=pulsedelay;
     RW=1;
     RS=1;

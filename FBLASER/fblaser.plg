@@ -9,10 +9,42 @@ Project File Date:  12/09/2013
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(688): error C141: syntax error near 'setsucced'
+DUALDRIVER_GBK.C(1543): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1544): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1546): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1571): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1619): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1620): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1718): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1719): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1763): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1765): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1795): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1796): error C193: '/': bad operand type
+Target not created
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(688): error C141: syntax error near 'setsucced'
+DUALDRIVER_GBK.C(1543): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1544): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1546): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1571): error C193: '*': bad operand type
+DUALDRIVER_GBK.C(1619): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1620): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1718): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1719): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1763): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1765): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1795): error C193: '/': bad operand type
+DUALDRIVER_GBK.C(1796): error C193: '/': bad operand type
+Target not created
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
 DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
 DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
 linking...
-Program Size: data=226.3 xdata=0 code=10718
+Program Size: data=226.3 xdata=0 code=10727
 creating hex file from "fblaser"...
 "fblaser" - 0 Error(s), 2 Warning(s).
 Build target 'Target 1'
@@ -20,22 +52,36 @@ compiling dualdriver_gbk.c...
 DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
 DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
 linking...
-Program Size: data=226.3 xdata=0 code=10749
+Program Size: data=226.3 xdata=0 code=10727
 creating hex file from "fblaser"...
 "fblaser" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(85): error C100: unprintable character 0xA3 skipped
+DUALDRIVER_GBK.C(85): error C100: unprintable character 0xBB skipped
+DUALDRIVER_GBK.C(87): error C129: missing ';' before 'unsigned'
+Target not created
+Build target 'Target 1'
+compiling dualdriver_gbk.c...
+DUALDRIVER_GBK.C(999): warning C276: constant in condition expression
+DUALDRIVER_GBK.C(1203): warning C276: constant in condition expression
+DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
+DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
+linking...
+Program Size: data=227.3 xdata=0 code=11006
+creating hex file from "fblaser"...
+"fblaser" - 0 Error(s), 4 Warning(s).
 Build target 'Target 1'
 compiling dualdriver_gbk.c...
 DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
 DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
 linking...
-Program Size: data=226.3 xdata=0 code=10663
+Program Size: data=227.3 xdata=0 code=11033
 creating hex file from "fblaser"...
 "fblaser" - 0 Error(s), 2 Warning(s).
 Build target 'Target 1'
 compiling dualdriver_gbk.c...
-DUALDRIVER_GBK.C(402): warning C280: 'CH': unreferenced local variable
-DUALDRIVER_GBK.C(448): warning C280: 'CH': unreferenced local variable
 linking...
-Program Size: data=226.3 xdata=0 code=10663
+Program Size: data=227.3 xdata=0 code=11033
 creating hex file from "fblaser"...
-"fblaser" - 0 Error(s), 2 Warning(s).
+"fblaser" - 0 Error(s), 0 Warning(s).

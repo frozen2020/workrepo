@@ -114,17 +114,17 @@ if(CLK'event and CLK ='1') then
    --  end if;
    --  if (delayflag2='1' or mode='0') then
          if (ratetmp="0000000000000") then
-            tmp_c1<='0';
+            tmp_c1<='1';
             pwmflag<='1';
           end if ;
           if(pwmflag='1') then
-          
+			widetmp<=widetmp+1;
             if (widetmp>=pulsewide) then
             widetmp<="000";
-            tmp_c1 <='1';
+            tmp_c1 <='0';
             pwmflag<='0';
             end if;
-            widetmp<=widetmp+1;
+            
           end if;
           ratetmp<=ratetmp+1; 
           if (ratetmp>=pulserate) then

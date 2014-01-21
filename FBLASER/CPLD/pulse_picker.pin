@@ -98,7 +98,7 @@ GND                          : 30        : gnd    :                   :         
 RF_ON                        : 31        : output : 3.3-V LVTTL       :         :           : Y              
 TDO                          : 32        : output : 3.3-V LVTTL       :         :           : N              
 PD_CLK_IN                    : 33        : input  : 3.3-V LVTTL       :         :           : Y              
-RESERVED_INPUT               : 34        :        :                   :         :           :                
+PWM_TEST                     : 34        : output : 3.3-V LVTTL       :         :           : Y              
 RESERVED_INPUT               : 35        :        :                   :         :           :                
 GND                          : 36        : gnd    :                   :         :           :                
 GND+                         : 37        :        :                   :         :           :                
